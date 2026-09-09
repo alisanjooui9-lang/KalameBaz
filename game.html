@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>کلمه‌باز | قلمرو جادو</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  font-family:Tahoma,Arial,sans-serif;
+  background:#080619;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 0%,#35206c 0%,#17102f 35%,#080619 75%);
+}
+
+/* ستاره‌ها */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.8;
+  background-image:
+    radial-gradient(circle,#fff 1px,transparent 1.5px),
+    radial-gradient(circle,#bca8ff 1px,transparent 1.5px),
+    radial-gradient(circle,#fff 1px,transparent 1.5px);
+  background-size:73px 73px,121px 121px,181px 181px;
+  background-position:10px 20px,40px 70px,80px 120px;
+  z-index:0;
+}
+
+/* ماه */
+.moon{
+  position:fixed;
+  top:35px;
+  left:25px;
+  width:85px;
+  height:85px;
+  border-radius:50%;
+  background:#fff7cf;
+  box-shadow:
+    0 0 25px #fff2a6,
+    0 0 70px rgba(255,235,120,.35);
+  z-index:0;
+}
+
+.moon::after{
+  content:"";
+  position:absolute;
+  width:85px;
+  height:85px;
+  border-radius:50%;
+  background:#17102f;
+  left:27px;
+  top:-8px;
+}
+
+/* محتوای اصلی */
+.app{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:600px;
+  margin:auto;
+  padding:14px 12px 35px;
+}
+
+/* هدر */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.back{
+  width:46px;
+  height:46px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:15px;
+  background:rgba(20,14,48,.8);
+  color:#fff;
+  font-size:22px;
+}
+
+.titleBox{
+  flex:1;
+  text-align:center;
+}
+
+.gameTitle{
+  font-size:21px;
+  font-weight:900;
+  color:#f8d56b;
+  text-shadow:0 0 15px rgba(248,213,107,.4);
+}
+
+.realm{
+  font-size:11px;
+  color:#bdb1e9;
+  margin-top:3px;
+}
+
+.stats{
+  display:flex;
+  gap:6px;
+}
+
+.stat{
+  min-width:62px;
+  padding:8px 7px;
+  border-radius:14px;
+  background:rgba(20,14,48,.8);
+  border:1px solid rgba(255,255,255,.12);
+  text-align:center;
+}
+
+.statIcon{
+  font-size:16px;
+}
+
+.statValue{
+  font-size:12px;
+  font-weight:bold;
+  margin-top:2px;
+}
+
+/* کارت مرحله */
+.levelCard{
+  position:relative;
+  overflow:hidden;
+  padding:17px;
+  border-radius:25px;
+  border:1px solid rgba(255,215,110,.25);
+  background:
+    linear-gradient(145deg,
+      rgba(46,27,82,.95),
+      rgba(16,12,38,.96));
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.35),
+    inset 0 0 35px rgba(125,81,220,.08);
+}
+
+.levelCard::before{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:rgba(138,84,255,.12);
+  right:-80px;
+  top:-80px;
+}
+
+.levelNumber{
+  text-align:center;
+  font-size:13px;
+  color:#c5b8e9;
+}
+
+.levelNumber strong{
+  color:#ffd96a;
+  font-size:24px;
+}
+
+.levelDescription{
+  text-align:center;
+  font-size:12px;
+  color:#a99fc9;
+  margin-top:4px;
+}
+
+/* نوار XP */
+.xpBox{
+  margin-top:13px;
+}
+
+.xpTop{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:#c7bee5;
+  margin-bottom:6px;
+}
+
+.xpBar{
+  height:9px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#090718;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.xpFill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#7e4cff,#e4b95e);
+  box-shadow:0 0 14px rgba(153,100,255,.7);
+  transition:.35s;
+}
+
+/* کلمات */
+.words{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin:20px 0 16px;
+}
+
+.word{
+  min-width:105px;
+  padding:12px 10px;
+  text-align:center;
+  border-radius:16px;
+  background:rgba(8,6,24,.78);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  font-size:17px;
+  font-weight:bold;
+  transition:.25s;
+}
+
+.word.solved{
+  color:#77ffb0;
+  border-color:rgba(72,255,160,.5);
+  background:rgba(24,101,65,.2);
+  box-shadow:0 0 18px rgba(55,255,153,.12);
+}
+
+.word.solved::before{
+  content:"✓ ";
+}
+
+/* حدس */
+.guessBox{
+  min-height:52px;
+  padding:13px;
+  border-radius:17px;
+  border:1px dashed rgba(255,214,107,.4);
+  background:rgba(5,4,17,.65);
+  text-align:center;
+  font-size:20px;
+  letter-spacing:3px;
+  color:#ffd96a;
+  margin-bottom:12px;
+}
+
+.guessEmpty{
+  color:#625a79;
+  font-size:13px;
+  letter-spacing:0;
+}
+
+/* پیام */
+.message{
+  min-height:22px;
+  text-align:center;
+  font-size:12px;
+  color:#c9c0df;
+  margin-bottom:8px;
+}
+
+/* کیبورد */
+.keyboard{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  direction:rtl;
+}
+
+.key{
+  min-height:43px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  background:
+    linear-gradient(145deg,#30225a,#17102e);
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+  box-shadow:0 4px 8px rgba(0,0,0,.2);
+}
+
+.key:active{
+  transform:scale(.93);
+}
+
+.key.used{
+  opacity:.35;
+}
+
+.key.delete{
+  background:linear-gradient(145deg,#652d5b,#32152f);
+}
+
+.key.clear{
+  background:linear-gradient(145deg,#754229,#3d2116);
+}
+
+/* دکمه‌ها */
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+
+.action{
+  min-height:47px;
+  border:0;
+  border-radius:15px;
+  color:#fff;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.submit{
+  background:linear-gradient(135deg,#7950dc,#4c2a99);
+}
+
+.hint{
+  background:linear-gradient(135deg,#b07a20,#69430d);
+}
+
+.action:active{
+  transform:scale(.97);
+}
+
+/* راهنما */
+.hintInfo{
+  text-align:center;
+  margin-top:9px;
+  color:#9e95bd;
+  font-size:10px;
+}
+
+/* دکمه مرحله بعد */
+.nextBtn{
+  display:none;
+  width:100%;
+  margin-top:12px;
+  min-height:50px;
+  border:0;
+  border-radius:16px;
+  background:linear-gradient(135deg,#d4a93e,#805719);
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+}
+
+/* مودال */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(3,2,13,.82);
+  backdrop-filter:blur(8px);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modalBox{
+  width:100%;
+  max-width:380px;
+  padding:25px 20px;
+  border-radius:26px;
+  border:1px solid rgba(255,214,107,.3);
+  background:linear-gradient(145deg,#24154b,#0e0a24);
+  text-align:center;
+  box-shadow:0 20px 80px rgba(0,0,0,.6);
+}
+
+.modalIcon{
+  font-size:48px;
+}
+
+.modalTitle{
+  font-size:23px;
+  color:#ffd86b;
+  font-weight:900;
+  margin:10px 0;
+}
+
+.modalText{
+  color:#bdb4d5;
+  font-size:13px;
+  line-height:2;
+}
+
+.modalBtn{
+  width:100%;
+  height:48px;
+  border:0;
+  border-radius:15px;
+  margin-top:15px;
+  color:#fff;
+  background:linear-gradient(135deg,#8050dd,#48278d);
+  font-weight:bold;
+}
+
+/* موبایل */
+@media(max-width:380px){
+  .gameTitle{
+    font-size:18px;
+  }
+
+  .stat{
+    min-width:55px;
+  }
+
+  .keyboard{
+    gap:4px;
+  }
+
+  .key{
+    min-height:40px;
+    font-size:14px;
+  }
+
+  .word{
+    min-width:90px;
+    font-size:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon"></div>
+
+<div class="app">
+
+  <div class="topbar">
+
+    <button class="back" onclick="goBack()">‹</button>
+
+    <div class="titleBox">
+      <div class="gameTitle">✨ کلمه‌باز</div>
+      <div class="realm">قلمرو جادویی کلمات</div>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="statIcon">🪙</div>
+        <div class="statValue" id="coins">100</div>
+      </div>
+
+      <div class="stat">
+        <div class="statIcon">⭐</div>
+        <div class="statValue" id="xp">0 XP</div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <section class="levelCard">
+
+    <div class="levelNumber">
+      مرحله
+      <strong id="levelNumber">1</strong>
+    </div>
+
+    <div class="levelDescription">
+      کلمات پنهان‌شده در قلمرو جادو را پیدا کن
+    </div>
+
+    <div class="xpBox">
+
+      <div class="xpTop">
+        <span>تجربه جادوگر</span>
+        <span id="xpText">0 / 100</span>
+      </div>
+
+      <div class="xpBar">
+        <div class="xpFill" id="xpFill"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <div class="words" id="words"></div>
+
+
+  <div class="guessBox" id="guessBox">
+    <span class="guessEmpty">حروف را انتخاب کن...</span>
+  </div>
+
+
+  <div class="message" id="message"></div>
+
+
+  <div class="keyboard" id="keyboard"></div>
+
+
+  <div class="actions">
+
+    <button class="action submit" onclick="submitGuess()">
+      ✨ بررسی کلمه
+    </button>
+
+    <button class="action hint" onclick="useHint()">
+      🔮 راهنمایی — ۲۰ 🪙
+    </button>
+
+  </div>
+
+
+  <div class="hintInfo">
+    هر کلمه درست = سکه و XP بیشتر
+  </div>
+
+
+  <button class="nextBtn" id="nextBtn" onclick="nextLevel()">
+    مرحله بعدی ✨
+  </button>
+
+</div>
+
+
+<!-- مودال -->
+<div class="modal" id="modal">
+
+  <div class="modalBox">
+
+    <div class="modalIcon">🏆</div>
+
+    <div class="modalTitle">
+      مرحله کامل شد!
+    </div>
+
+    <div class="modalText" id="modalText">
+      قلمرو جدیدی برایت باز شد.
+    </div>
+
+    <button class="modalBtn" onclick="nextLevel()">
+      ادامه ماجراجویی
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- بانک مراحل -->
+<script src="levels.js"></script>
+
+
+<script>
+
+/* =========================================================
+   تنظیمات بازی
+   ========================================================= */
+
+const TOTAL_LEVELS = 500;
+
+const COINS_KEY = "kalemebaz_coins";
+const XP_KEY = "kalemebaz_xp";
+const CURRENT_KEY = "kalemebaz_currentLevel";
+const COMPLETED_KEY = "kalemebaz_completedLevels";
+
+
+/* =========================================================
+   وضعیت بازی
+   ========================================================= */
+
+let currentLevel =
+  parseInt(localStorage.getItem(CURRENT_KEY) || "1");
+
+let coins =
+  parseInt(localStorage.getItem(COINS_KEY) || "100");
+
+let xp =
+  parseInt(localStorage.getItem(XP_KEY) || "0");
+
+let completed =
+  JSON.parse(
+    localStorage.getItem(COMPLETED_KEY) || "[]"
+  );
+
+
+let currentGuess = "";
+let solvedWords = [];
+let levelWords = [];
+
+
+/* =========================================================
+   حروف فارسی
+   ========================================================= */
+
+const letters = [
+  "ا","ب","پ","ت","ث","ج","چ",
+  "ح","خ","د","ذ","ر","ز","ژ",
+  "س","ش","ص","ض","ط","ظ","ع",
+  "غ","ف","ق","ک","گ","ل","م",
+  "ن","و","ه","ی"
+];
+
+
+/* =========================================================
+   شروع
+   ========================================================= */
+
+function init(){
+
+  currentLevel =
+    Math.max(
+      1,
+      Math.min(TOTAL_LEVELS,currentLevel)
+    );
+
+  renderStats();
+  loadLevel();
+  renderKeyboard();
+
+}
+
+
+/* =========================================================
+   گرفتن کلمات مرحله
+   ========================================================= */
+
+function getLevelWords(level){
+
+  if(
+    window.KalameBazLevels &&
+    window.KalameBazLevels[level]
+  ){
+    return window.KalameBazLevels[level];
+  }
+
+  return [
+    "جادو",
+    "قلعه",
+    "ستاره",
+    "گنج"
+  ];
+}
+
+
+/* =========================================================
+   بارگذاری مرحله
+   ========================================================= */
+
+function loadLevel(){
+
+  levelWords =
+    getLevelWords(currentLevel)
+      .map(w =>
+        normalizeWord(w)
+      );
+
+  solvedWords = [];
+
+  currentGuess = "";
+
+  document.getElementById("levelNumber")
+    .textContent = currentLevel;
+
+  document.getElementById("nextBtn")
+    .style.display = "none";
+
+  document.getElementById("message")
+    .textContent = "";
+
+  document.getElementById("modal")
+    .classList.remove("show");
+
+  renderWords();
+  renderGuess();
+  renderKeyboard();
+
+  localStorage.setItem(
+    CURRENT_KEY,
+    currentLevel
+  );
+
+}
+
+
+/* =========================================================
+   نرمال‌سازی فارسی
+   ========================================================= */
+
+function normalizeWord(word){
+
+  return String(word)
+    .replace(/[_-]/g," ")
+    .replace(/ي/g,"ی")
+    .replace(/ى/g,"ی")
+    .replace(/ك/g,"ک")
+    .trim();
+
+}
+
+
+/* =========================================================
+   نمایش کلمات
+   ========================================================= */
+
+function renderWords(){
+
+  const container =
+    document.getElementById("words");
+
+  container.innerHTML = "";
+
+  levelWords.forEach((word,index)=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className = "word";
+
+    if(solvedWords.includes(index)){
+      div.classList.add("solved");
+      div.textContent = word;
+    }
+    else{
+
+      div.textContent =
+        "• ".repeat(
+          Math.min(word.replace(/\s/g,"").length,8)
+        );
+
+    }
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================================================
+   کیبورد
+   ========================================================= */
+
+function renderKeyboard(){
+
+  const keyboard =
+    document.getElementById("keyboard");
+
+  keyboard.innerHTML = "";
+
+  letters.forEach(letter=>{
+
+    const btn =
+      document.createElement("button");
+
+    btn.className = "key";
+
+    btn.textContent = letter;
+
+    btn.onclick = ()=>{
+      addLetter(letter);
+    };
+
+    keyboard.appendChild(btn);
+
+  });
+
+
+  const clear =
+    document.createElement("button");
+
+  clear.className = "key clear";
+  clear.textContent = "پاک";
+
+  clear.onclick = clearGuess;
+
+  keyboard.appendChild(clear);
+
+
+  const deleteBtn =
+    document.createElement("button");
+
+  deleteBtn.className = "key delete";
+  deleteBtn.textContent = "⌫";
+
+  deleteBtn.onclick = deleteLetter;
+
+  keyboard.appendChild(deleteBtn);
+
+}
+
+
+/* =========================================================
+   افزودن حرف
+   ========================================================= */
+
+function addLetter(letter){
+
+  if(currentGuess.length >= 18){
+    return;
+  }
+
+  currentGuess += letter;
+
+  renderGuess();
+
+}
+
+
+/* =========================================================
+   حذف
+   ========================================================= */
+
+function deleteLetter(){
+
+  currentGuess =
+    currentGuess.slice(0,-1);
+
+  renderGuess();
+
+}
+
+
+/* =========================================================
+   پاک کردن
+   ========================================================= */
+
+function clearGuess(){
+
+  currentGuess = "";
+
+  renderGuess();
+
+}
+
+
+/* =========================================================
+   نمایش حدس
+   ========================================================= */
+
+function renderGuess(){
+
+  const box =
+    document.getElementById("guessBox");
+
+  if(!currentGuess){
+
+    box.innerHTML =
+      '<span class="guessEmpty">حروف را انتخاب کن...</span>';
+
+  }
+  else{
+
+    box.textContent =
+      currentGuess;
+
+  }
+
+}
+
+
+/* =========================================================
+   بررسی کلمه
+   ========================================================= */
+
+function submitGuess(){
+
+  const guess =
+    normalizeWord(currentGuess);
+
+  if(!guess){
+
+    showMessage(
+      "اول یک کلمه بساز 🔤"
+    );
+
+    return;
+  }
+
+
+  let foundIndex = -1;
+
+
+  levelWords.forEach((word,index)=>{
+
+    if(
+      !solvedWords.includes(index) &&
+      normalizeWord(word) === guess
+    ){
+
+      foundIndex = index;
+
+    }
+
+  });
+
+
+  if(foundIndex === -1){
+
+    showMessage(
+      "این کلمه در این مرحله نیست! 🔮"
+    );
+
+    currentGuess = "";
+
+    renderGuess();
+
+    return;
+  }
+
+
+  solvedWords.push(foundIndex);
+
+
+  coins += 5;
+
+  xp += 10;
+
+
+  save();
+
+
+  showMessage(
+    "آفرین! کلمه پیدا شد ✨ +۵ سکه"
+  );
+
+
+  currentGuess = "";
+
+  renderGuess();
+
+  renderWords();
+
+  renderStats();
+
+
+  checkLevelComplete();
+
+}
+
+
+/* =========================================================
+   بررسی پایان مرحله
+   ========================================================= */
+
+function checkLevelComplete(){
+
+  if(
+    solvedWords.length !== levelWords.length
+  ){
+    return;
+  }
+
+
+  if(
+    !completed.includes(currentLevel)
+  ){
+
+    completed.push(currentLevel);
+
+    coins += 20;
+
+    xp += 25;
+
+    save();
+
+  }
+
+
+  document.getElementById("nextBtn")
+    .style.display = "block";
+
+
+  document.getElementById("modalText")
+    .textContent =
+      `مرحله ${currentLevel} را کامل کردی! ` +
+      `پاداش: 🪙 +۲۰ و ⭐ +۲۵ XP`;
+
+
+  document.getElementById("modal")
+    .classList.add("show");
+
+}
+
+
+/* =========================================================
+   راهنمایی
+   ========================================================= */
+
+function useHint(){
+
+  if(coins < 20){
+
+    showMessage(
+      "سکه کافی نداری 🪙"
+    );
+
+    return;
+  }
+
+
+  const remaining =
+    levelWords
+      .map((word,index)=>({word,index}))
+      .filter(item =>
+        !solvedWords.includes(item.index)
+      );
+
+
+  if(!remaining.length){
+    return;
+  }
+
+
+  coins -= 20;
+
+
+  const target =
+    remaining[0];
+
+
+  solvedWords.push(
+    target.index
+  );
+
+
+  xp += 5;
+
+
+  save();
+
+
+  renderWords();
+  renderStats();
+
+
+  showMessage(
+    `راهنما کلمه «${target.word}» را پیدا کرد 🔮`
+  );
+
+
+  checkLevelComplete();
+
+}
+
+
+/* =========================================================
+   مرحله بعد
+   ========================================================= */
+
+function nextLevel(){
+
+  if(currentLevel >= TOTAL_LEVELS){
+
+    showMessage(
+      "🎉 تمام ۵۰۰ مرحله را کامل کردی!"
+    );
+
+    document.getElementById("modal")
+      .classList.remove("show");
+
+    return;
+  }
+
+
+  currentLevel++;
+
+  save();
+
+  loadLevel();
+
+}
+
+
+/* =========================================================
+   ذخیره
+   ========================================================= */
+
+function save(){
+
+  localStorage.setItem(
+    COINS_KEY,
+    coins
+  );
+
+  localStorage.setItem(
+    XP_KEY,
+    xp
+  );
+
+  localStorage.setItem(
+    CURRENT_KEY,
+    currentLevel
+  );
+
+  localStorage.setItem(
+    COMPLETED_KEY,
+    JSON.stringify(completed)
+  );
+
+}
+
+
+/* =========================================================
+   آمار
+   ========================================================= */
+
+function renderStats(){
+
+  document.getElementById("coins")
+    .textContent = coins;
+
+  document.getElementById("xp")
+    .textContent = xp + " XP";
+
+
+  const currentXP =
+    xp % 100;
+
+  document.getElementById("xpText")
+    .textContent =
+      `${currentXP} / 100`;
+
+
+  document.getElementById("xpFill")
+    .style.width =
+      currentXP + "%";
+
+}
+
+
+/* =========================================================
+   پیام
+   ========================================================= */
+
+function showMessage(text){
+
+  const message =
+    document.getElementById("message");
+
+  message.textContent = text;
+
+}
+
+
+/* =========================================================
+   بازگشت
+   ========================================================= */
+
+function goBack(){
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================================================
+   اجرای بازی
+   ========================================================= */
+
+init();
+
+</script>
+
+</body>
+  </html>
