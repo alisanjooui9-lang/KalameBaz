@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>کلمه‌باز | پروفایل</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:Tahoma,Arial,sans-serif;
+  background:#080518;
+  color:#fff;
+}
+
+body{
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 50% 12%,rgba(142,77,255,.25),transparent 28%),
+    radial-gradient(circle at 20% 80%,rgba(0,190,255,.12),transparent 25%),
+    linear-gradient(180deg,#10062b 0%,#080518 55%,#05030e 100%);
+  transition:.3s;
+}
+
+#stars{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 7px #fff;
+  animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+  from{opacity:.2;transform:scale(.7)}
+  to{opacity:1;transform:scale(1.5)}
+}
+
+.moon{
+  position:fixed;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  top:35px;
+  left:25px;
+  background:#fff;
+  box-shadow:0 0 35px rgba(255,255,255,.65);
+  opacity:.9;
+  z-index:0;
+}
+
+.moon:after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  left:30px;
+  top:-8px;
+  background:#10062b;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  width:min(94%,560px);
+  margin:auto;
+  padding:18px 0 40px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.topbar h1{
+  margin:0;
+  font-size:22px;
+}
+
+.back{
+  border:0;
+  background:rgba(255,255,255,.09);
+  color:#fff;
+  padding:10px 15px;
+  border-radius:14px;
+  font-size:15px;
+}
+
+.profile-card{
+  position:relative;
+  overflow:hidden;
+  padding:28px 18px 22px;
+  text-align:center;
+  border-radius:28px;
+  background:linear-gradient(
+    145deg,
+    rgba(110,55,190,.45),
+    rgba(24,13,62,.9)
+  );
+  border:1px solid rgba(191,146,255,.3);
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.45),
+    inset 0 0 30px rgba(160,100,255,.08);
+}
+
+.profile-card:before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  background:rgba(163,91,255,.18);
+  filter:blur(40px);
+  border-radius:50%;
+  top:-80px;
+  right:-60px;
+}
+
+.avatar{
+  position:relative;
+  z-index:2;
+  width:105px;
+  height:105px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  font-size:55px;
+  background:linear-gradient(145deg,#32166e,#13072f);
+  border:3px solid rgba(220,190,255,.6);
+  box-shadow:
+    0 0 25px rgba(161,91,255,.6),
+    inset 0 0 20px rgba(255,255,255,.08);
+}
+
+.name{
+  position:relative;
+  z-index:2;
+  margin:14px 0 4px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.rank{
+  position:relative;
+  z-index:2;
+  color:#d7bdff;
+  font-size:14px;
+}
+
+.edit-box{
+  margin-top:20px;
+  display:flex;
+  gap:8px;
+}
+
+.edit-box input{
+  flex:1;
+  min-width:0;
+  border:1px solid rgba(255,255,255,.15);
+  outline:none;
+  border-radius:14px;
+  padding:12px;
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  font-size:14px;
+  text-align:right;
+}
+
+.edit-box button{
+  border:0;
+  border-radius:14px;
+  padding:0 15px;
+  background:#7b43d5;
+  color:#fff;
+  font-weight:bold;
+}
+
+.section-title{
+  margin:25px 5px 12px;
+  font-size:18px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.stat{
+  padding:17px 10px;
+  text-align:center;
+  border-radius:19px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.09);
+}
+
+.stat-icon{
+  font-size:25px;
+}
+
+.stat-value{
+  margin-top:7px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.stat-label{
+  margin-top:4px;
+  color:#bcb2d0;
+  font-size:12px;
+}
+
+.progress-card{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.09);
+}
+
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.progress{
+  height:11px;
+  border-radius:20px;
+  overflow:hidden;
+  background:rgba(0,0,0,.4);
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#8245df,#c08cff);
+  box-shadow:0 0 12px rgba(174,112,255,.7);
+  transition:1s;
+}
+
+.avatars{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+}
+
+.avatar-choice{
+  aspect-ratio:1;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.07);
+  font-size:27px;
+  color:#fff;
+}
+
+.avatar-choice.selected{
+  border:2px solid #c18aff;
+  box-shadow:0 0 15px rgba(174,112,255,.6);
+  background:rgba(124,67,213,.3);
+}
+
+.achievements{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
+
+.badge{
+  flex:0 0 75px;
+  height:75px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.badge.locked{
+  filter:grayscale(1);
+  opacity:.35;
+}
+
+.buttons{
+  display:grid;
+  gap:10px;
+  margin-top:25px;
+}
+
+.action{
+  border:0;
+  padding:15px;
+  border-radius:17px;
+  color:#fff;
+  font-size:15px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#6130a9,#3c2070);
+}
+
+.danger{
+  background:rgba(190,40,70,.18);
+  border:1px solid rgba(255,80,110,.25);
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(100px);
+  background:#19102d;
+  border:1px solid rgba(193,138,255,.35);
+  padding:13px 20px;
+  border-radius:15px;
+  z-index:20;
+  opacity:0;
+  transition:.3s;
+  white-space:nowrap;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+}
+
+@media(max-width:360px){
+  .avatars{
+    grid-template-columns:repeat(5,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div class="moon"></div>
+
+<div class="container">
+
+  <div class="topbar">
+    <button class="back" onclick="location.href='index.html'">← خانه</button>
+    <h1>👤 پروفایل</h1>
+  </div>
+
+  <section class="profile-card">
+
+    <div class="avatar" id="mainAvatar">🧙</div>
+
+    <div class="name" id="profileName">بازیکن نمونه</div>
+    <div class="rank" id="rank">بازیکن تازه‌کار</div>
+
+    <div class="edit-box">
+      <input
+        id="nameInput"
+        maxlength="18"
+        placeholder="نام بازیکن"
+      >
+      <button onclick="saveName()">ذخیره</button>
+    </div>
+
+  </section>
+
+  <h2 class="section-title">📊 آمار بازی</h2>
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-value" id="levelValue">1</div>
+      <div class="stat-label">مرحله فعلی</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-value" id="completedValue">0</div>
+      <div class="stat-label">مراحل کامل‌شده</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">✨</div>
+      <div class="stat-value" id="xpValue">0</div>
+      <div class="stat-label">XP</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🪙</div>
+      <div class="stat-value" id="coinValue">100</div>
+      <div class="stat-label">سکه</div>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">📈 پیشرفت مرحله</h2>
+
+  <div class="progress-card">
+
+    <div class="progress-head">
+      <span>پیشرفت تا مرحله ۱۲۰۰</span>
+      <span id="levelPercent">0%</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-fill" id="levelProgress"></div>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">🧙 انتخاب آواتار</h2>
+
+  <div class="avatars">
+
+    <button class="avatar-choice" data-avatar="🧙">🧙</button>
+    <button class="avatar-choice" data-avatar="🧝">🧝</button>
+    <button class="avatar-choice" data-avatar="🧚">🧚</button>
+    <button class="avatar-choice" data-avatar="🧛">🧛</button>
+    <button class="avatar-choice" data-avatar="🧞">🧞</button>
+    <button class="avatar-choice" data-avatar="🧑‍🚀">🧑‍🚀</button>
+    <button class="avatar-choice" data-avatar="🦸">🦸</button>
+    <button class="avatar-choice" data-avatar="🥷">🥷</button>
+    <button class="avatar-choice" data-avatar="👑">👑</button>
+    <button class="avatar-choice" data-avatar="🐉">🐉</button>
+    <button class="avatar-choice" data-avatar="🦊">🦊</button>
+    <button class="avatar-choice" data-avatar="🐺">🐺</button>
+
+  </div>
+
+  <h2 class="section-title">🏅 دستاوردها</h2>
+
+  <div class="achievements" id="achievements"></div>
+
+  <div class="buttons">
+    <button class="action" onclick="location.href='achievements.html'">
+      🏆 مشاهده همه دستاوردها
+    </button>
+
+    <button class="action" onclick="location.href='shop.html'">
+      🛒 رفتن به فروشگاه
+    </button>
+
+    <button class="action danger" onclick="resetProfile()">
+      ⚠️ بازنشانی اطلاعات پروفایل
+    </button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+const DEFAULT_NAME = "بازیکن نمونه";
+
+function getNumber(key, fallback=0){
+  const value = parseInt(localStorage.getItem(key),10);
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function loadProfile(){
+
+  const name =
+    localStorage.getItem("kalemebaz_profileName") ||
+    DEFAULT_NAME;
+
+  const avatar =
+    localStorage.getItem("kalemebaz_avatar") ||
+    "🧙";
+
+  const currentLevel =
+    Math.max(
+      1,
+      Math.min(
+        1200,
+        getNumber("kalemebaz_currentLevel",1)
+      )
+    );
+
+  const completed =
+    getNumber("kalemebaz_completedLevels",0);
+
+  const xp =
+    getNumber("kalemebaz_xp",0);
+
+  const coins =
+    getNumber("kalemebaz_coins",100);
+
+  document.getElementById("profileName").textContent = name;
+  document.getElementById("nameInput").value = name;
+
+  document.getElementById("mainAvatar").textContent = avatar;
+
+  document.getElementById("levelValue").textContent = currentLevel;
+  document.getElementById("completedValue").textContent = completed;
+  document.getElementById("xpValue").textContent = xp;
+  document.getElementById("coinValue").textContent = coins;
+
+  const percent =
+    Math.min(
+      100,
+      Math.round((completed / 1200) * 100)
+    );
+
+  document.getElementById("levelProgress").style.width =
+    percent + "%";
+
+  document.getElementById("levelPercent").textContent =
+    percent + "%";
+
+  updateRank(currentLevel, xp);
+  loadAvatarSelection(avatar);
+  loadAchievements();
+}
+
+function updateRank(level,xp){
+
+  let rank = "بازیکن تازه‌کار";
+
+  if(level >= 10) rank = "ماجراجوی کلمات";
+  if(level >= 50) rank = "کاوشگر جادویی";
+  if(level >= 100) rank = "جادوگر کلمات";
+  if(level >= 250) rank = "استاد کلمات";
+  if(level >= 500) rank = "قهرمان قلعه";
+  if(level >= 1000) rank = "افسانه کلمه‌باز";
+  if(level >= 1200) rank = "👑 افسانه بزرگ کلمه‌باز";
+
+  document.getElementById("rank").textContent =
+    rank;
+}
+
+function saveName(){
+
+  const input =
+    document.getElementById("nameInput");
+
+  let name =
+    input.value.trim();
+
+  if(!name){
+    name = DEFAULT_NAME;
+  }
+
+  if(name.length > 18){
+    name = name.substring(0,18);
+  }
+
+  localStorage.setItem(
+    "kalemebaz_profileName",
+    name
+  );
+
+  document.getElementById("profileName").textContent =
+    name;
+
+  showToast("✅ نام پروفایل ذخیره شد");
+}
+
+function loadAvatarSelection(current){
+
+  document.querySelectorAll(".avatar-choice")
+    .forEach(button => {
+
+      if(button.dataset.avatar === current){
+        button.classList.add("selected");
+      }else{
+        button.classList.remove("selected");
+      }
+
+    });
+}
+
+document.querySelectorAll(".avatar-choice")
+.forEach(button => {
+
+  button.addEventListener("click",()=>{
+
+    const avatar =
+      button.dataset.avatar;
+
+    localStorage.setItem(
+      "kalemebaz_avatar",
+      avatar
+    );
+
+    document.getElementById("mainAvatar")
+      .textContent = avatar;
+
+    loadAvatarSelection(avatar);
+
+    showToast("✨ آواتار ذخیره شد");
+
+  });
+
+});
+
+function loadAchievements(){
+
+  const box =
+    document.getElementById("achievements");
+
+  box.innerHTML = "";
+
+  const completed =
+    getNumber("kalemebaz_completedLevels",0);
+
+  const xp =
+    getNumber("kalemebaz_xp",0);
+
+  const coins =
+    getNumber("kalemebaz_coins",100);
+
+  const list = [
+
+    {
+      icon:"🌱",
+      unlocked:completed >= 1
+    },
+
+    {
+      icon:"🔥",
+      unlocked:completed >= 10
+    },
+
+    {
+      icon:"⚔️",
+      unlocked:completed >= 50
+    },
+
+    {
+      icon:"🏰",
+      unlocked:completed >= 100
+    },
+
+    {
+      icon:"👑",
+      unlocked:completed >= 500
+    },
+
+    {
+      icon:"💎",
+      unlocked:completed >= 1000
+    },
+
+    {
+      icon:"🌌",
+      unlocked:completed >= 1200
+    },
+
+    {
+      icon:"⭐",
+      unlocked:xp >= 100
+    },
+
+    {
+      icon:"✨",
+      unlocked:xp >= 1000
+    },
+
+    {
+      icon:"🪙",
+      unlocked:coins >= 1000
+    }
+
+  ];
+
+  list.forEach(item => {
+
+    const badge =
+      document.createElement("div");
+
+    badge.className =
+      "badge" +
+      (item.unlocked ? "" : " locked");
+
+    badge.textContent =
+      item.icon;
+
+    box.appendChild(badge);
+
+  });
+}
+
+function resetProfile(){
+
+  const answer =
+    confirm(
+      "آیا مطمئنی می‌خواهی اطلاعات پروفایل را بازنشانی کنی؟"
+    );
+
+  if(!answer) return;
+
+  localStorage.removeItem(
+    "kalemebaz_profileName"
+  );
+
+  localStorage.removeItem(
+    "kalemebaz_avatar"
+  );
+
+  loadProfile();
+
+  showToast("♻️ پروفایل به حالت اولیه برگشت");
+
+}
+
+function showToast(text){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = text;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },2200);
+}
+
+/* ستاره‌ها */
+
+function createStars(){
+
+  const box =
+    document.getElementById("stars");
+
+  for(let i=0;i<90;i++){
+
+    const star =
+      document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left =
+      Math.random()*100 + "%";
+
+    star.style.top =
+      Math.random()*100 + "%";
+
+    star.style.animationDelay =
+      Math.random()*3 + "s";
+
+    const size =
+      Math.random()*2 + 1;
+
+    star.style.width =
+      size + "px";
+
+    star.style.height =
+      size + "px";
+
+    box.appendChild(star);
+
+  }
+
+}
+
+/* تنظیمات مشترک */
+
+function applySettings(){
+
+  try{
+
+    const settings =
+      JSON.parse(
+        localStorage.getItem(
+          "kalemebaz_settings"
+        ) || "{}"
+      );
+
+    const brightness =
+      Number(settings.brightness || 100);
+
+    document.body.style.filter =
+      `brightness(${brightness}%)`;
+
+    if(settings.stars === false){
+      document.getElementById("stars").style.display =
+        "none";
+    }
+
+    if(settings.theme === "blue"){
+      document.documentElement.style.setProperty(
+        "--theme","#3f7cff"
+      );
+    }
+
+  }catch(e){}
+
+}
+
+createStars();
+applySettings();
+loadProfile();
+
+</script>
+
+</body>
+</html>
