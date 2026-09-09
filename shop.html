@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فروشگاه | کلمه‌باز</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Tahoma,Arial,sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at 20% 15%,rgba(132,70,255,.28),transparent 25%),
+        radial-gradient(circle at 80% 30%,rgba(255,180,50,.12),transparent 25%),
+        linear-gradient(160deg,#09051b,#150b32 50%,#070310);
+    overflow-x:hidden;
+}
+
+/* ستاره‌ها */
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+}
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 2.5s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2;transform:scale(.7)}
+    to{opacity:1;transform:scale(1.4)}
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px 40px;
+}
+
+/* هدر */
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.back{
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:16px;
+    color:#fff;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.12);
+    font-size:23px;
+    cursor:pointer;
+}
+
+.titleBox{
+    flex:1;
+    text-align:center;
+}
+
+.title{
+    margin:0;
+    font-size:25px;
+    color:#f4d77b;
+    text-shadow:0 0 18px rgba(255,210,80,.35);
+}
+
+.subtitle{
+    margin:6px 0 0;
+    font-size:12px;
+    color:#aaa0c8;
+}
+
+.coins{
+    min-width:100px;
+    height:48px;
+    padding:0 12px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    background:rgba(255,196,55,.1);
+    border:1px solid rgba(255,205,70,.25);
+    color:#ffd968;
+    font-weight:bold;
+}
+
+.coinIcon{
+    font-size:21px;
+}
+
+/* کارت موجودی */
+.balance{
+    padding:20px;
+    margin-bottom:18px;
+    border-radius:24px;
+    background:
+        linear-gradient(135deg,rgba(102,60,190,.25),rgba(35,19,77,.55));
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+    text-align:center;
+}
+
+.balanceText{
+    color:#aaa0c8;
+    font-size:13px;
+}
+
+.balanceNumber{
+    margin-top:8px;
+    font-size:34px;
+    font-weight:bold;
+    color:#ffd85c;
+    text-shadow:0 0 20px rgba(255,210,70,.3);
+}
+
+/* فروشگاه */
+.shopGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.item{
+    position:relative;
+    padding:18px 13px;
+    border-radius:22px;
+    background:
+        linear-gradient(150deg,rgba(45,28,88,.85),rgba(18,10,42,.9));
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    overflow:hidden;
+}
+
+.item::before{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:rgba(142,82,255,.12);
+    top:-40px;
+    left:-35px;
+}
+
+.itemIcon{
+    position:relative;
+    font-size:42px;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.itemName{
+    text-align:center;
+    font-size:15px;
+    font-weight:bold;
+    color:#fff;
+}
+
+.itemDesc{
+    text-align:center;
+    font-size:11px;
+    line-height:1.8;
+    color:#aaa0c8;
+    min-height:42px;
+    margin-top:7px;
+}
+
+.price{
+    margin:13px auto 10px;
+    width:max-content;
+    padding:6px 11px;
+    border-radius:12px;
+    background:rgba(255,204,66,.1);
+    color:#ffd65b;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.buy{
+    width:100%;
+    border:0;
+    border-radius:14px;
+    padding:12px 8px;
+    background:linear-gradient(135deg,#744cff,#4c27b8);
+    color:#fff;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(89,50,200,.25);
+}
+
+.buy:active{
+    transform:scale(.97);
+}
+
+.buy.disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+/* موجودی آیتم */
+.inventory{
+    margin-top:10px;
+    text-align:center;
+    font-size:11px;
+    color:#bdb2d5;
+}
+
+/* پیام */
+.message{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translate(-50%,120px);
+    width:calc(100% - 30px);
+    max-width:500px;
+    padding:15px 18px;
+    border-radius:17px;
+    text-align:center;
+    background:rgba(25,16,50,.96);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 15px 40px rgba(0,0,0,.45);
+    color:#fff;
+    font-size:13px;
+    transition:.35s;
+    z-index:20;
+}
+
+.message.show{
+    transform:translate(-50%,0);
+}
+
+.message.success{
+    border-color:rgba(91,255,160,.35);
+}
+
+.message.error{
+    border-color:rgba(255,90,120,.35);
+}
+
+/* توضیح پایین */
+.note{
+    margin-top:18px;
+    padding:15px;
+    border-radius:18px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.07);
+    color:#9187aa;
+    font-size:11px;
+    line-height:2;
+    text-align:center;
+}
+
+@media(max-width:430px){
+    .shopGrid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .item{
+        padding:15px 10px;
+    }
+
+    .itemIcon{
+        font-size:36px;
+    }
+
+    .itemName{
+        font-size:13px;
+    }
+
+    .itemDesc{
+        font-size:10px;
+    }
+
+    .title{
+        font-size:21px;
+    }
+
+    .coins{
+        min-width:80px;
+        font-size:12px;
+    }
+}
+
+@media(max-width:340px){
+    .shopGrid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+    <div class="header">
+
+        <button class="back" onclick="goBack()">‹</button>
+
+        <div class="titleBox">
+            <h1 class="title">🛒 فروشگاه جادویی</h1>
+            <p class="subtitle">قدرتت را برای ماجراجویی بیشتر کن</p>
+        </div>
+
+        <div class="coins">
+            <span class="coinIcon">🪙</span>
+            <span id="topCoins">0</span>
+        </div>
+
+    </div>
+
+    <div class="balance">
+        <div class="balanceText">موجودی سکه‌های تو</div>
+        <div class="balanceNumber">
+            🪙 <span id="balanceCoins">0</span>
+        </div>
+    </div>
+
+    <div class="shopGrid">
+
+        <!-- نمایش حرف -->
+        <div class="item">
+
+            <div class="itemIcon">🔤</div>
+
+            <div class="itemName">
+                طلسم یک حرف
+            </div>
+
+            <div class="itemDesc">
+                یک حرف از کلمه‌ای که هنوز حل نکرده‌ای را نمایش می‌دهد.
+            </div>
+
+            <div class="price">
+                🪙 25 سکه
+            </div>
+
+            <button class="buy" onclick="buyItem('letter',25)">
+                خرید
+            </button>
+
+            <div class="inventory">
+                موجودی: <span id="letterCount">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- حذف حرف -->
+        <div class="item">
+
+            <div class="itemIcon">🧹</div>
+
+            <div class="itemName">
+                پاک‌کن جادویی
+            </div>
+
+            <div class="itemDesc">
+                تعدادی از حروف اشتباه را برای حدس بهتر حذف می‌کند.
+            </div>
+
+            <div class="price">
+                🪙 30 سکه
+            </div>
+
+            <button class="buy" onclick="buyItem('remove',30)">
+                خرید
+            </button>
+
+            <div class="inventory">
+                موجودی: <span id="removeCount">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- حل کلمه -->
+        <div class="item">
+
+            <div class="itemIcon">💡</div>
+
+            <div class="itemName">
+                جواب جادویی
+            </div>
+
+            <div class="itemDesc">
+                یک کلمه از مرحله را به صورت خودکار حل می‌کند.
+            </div>
+
+            <div class="price">
+                🪙 50 سکه
+            </div>
+
+            <button class="buy" onclick="buyItem('solve',50)">
+                خرید
+            </button>
+
+            <div class="inventory">
+                موجودی: <span id="solveCount">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- معجون -->
+        <div class="item">
+
+            <div class="itemIcon">🧪</div>
+
+            <div class="itemName">
+                معجون جادویی
+            </div>
+
+            <div class="itemDesc">
+                یک راهنمایی رایگان برای استفاده در مراحل سخت.
+            </div>
+
+            <div class="price">
+                🪙 70 سکه
+            </div>
+
+            <button class="buy" onclick="buyItem('potion',70)">
+                خرید
+            </button>
+
+            <div class="inventory">
+                موجودی: <span id="potionCount">0</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="note">
+        ✨ آیتم‌های خریداری‌شده در حساب بازی ذخیره می‌شوند.
+        <br>
+        🏰 از آیتم‌ها برای عبور از مراحل سخت استفاده کن!
+    </div>
+
+</div>
+
+<div class="message" id="message"></div>
+
+<script>
+
+/* =========================
+   ستاره‌ها
+========================= */
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<75;i++){
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+
+    const size = Math.random()*3 + 1;
+
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+
+    star.style.animationDelay = (Math.random()*3) + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   سکه
+========================= */
+
+function getCoins(){
+
+    return parseInt(
+        localStorage.getItem("kalemebaz_coins") || "0"
+    );
+
+}
+
+function setCoins(value){
+
+    localStorage.setItem(
+        "kalemebaz_coins",
+        String(Math.max(0,value))
+    );
+
+}
+
+
+/* =========================
+   آیتم‌ها
+========================= */
+
+const itemKeys = {
+
+    letter:"kalemebaz_hintLetters",
+
+    remove:"kalemebaz_removeLetters",
+
+    solve:"kalemebaz_solveWords",
+
+    potion:"kalemebaz_magicPotions"
+
+};
+
+
+function getItem(type){
+
+    return parseInt(
+        localStorage.getItem(itemKeys[type]) || "0"
+    );
+
+}
+
+
+function setItem(type,value){
+
+    localStorage.setItem(
+        itemKeys[type],
+        String(Math.max(0,value))
+    );
+
+}
+
+
+/* =========================
+   نمایش اطلاعات
+========================= */
+
+function updateShop(){
+
+    const coins = getCoins();
+
+    document.getElementById("topCoins").textContent = coins;
+    document.getElementById("balanceCoins").textContent = coins;
+
+    document.getElementById("letterCount").textContent =
+        getItem("letter");
+
+    document.getElementById("removeCount").textContent =
+        getItem("remove");
+
+    document.getElementById("solveCount").textContent =
+        getItem("solve");
+
+    document.getElementById("potionCount").textContent =
+        getItem("potion");
+
+}
+
+
+/* =========================
+   خرید
+========================= */
+
+function buyItem(type,price){
+
+    const coins = getCoins();
+
+    if(coins < price){
+
+        showMessage(
+            "❌ سکه کافی نداری!",
+            "error"
+        );
+
+        return;
+    }
+
+    setCoins(coins - price);
+
+    setItem(
+        type,
+        getItem(type) + 1
+    );
+
+    updateShop();
+
+    showMessage(
+        "✨ آیتم با موفقیت خریداری شد!",
+        "success"
+    );
+
+}
+
+
+/* =========================
+   پیام
+========================= */
+
+let messageTimer;
+
+function showMessage(text,type){
+
+    const box = document.getElementById("message");
+
+    box.textContent = text;
+
+    box.className = "message show " + type;
+
+    clearTimeout(messageTimer);
+
+    messageTimer = setTimeout(()=>{
+
+        box.className = "message";
+
+    },2200);
+
+}
+
+
+/* =========================
+   برگشت
+========================= */
+
+function goBack(){
+
+    window.location.href = "index.html";
+
+}
+
+
+/* =========================
+   شروع
+========================= */
+
+updateShop();
+
+</script>
+
+</body>
+  </html>
