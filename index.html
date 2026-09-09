@@ -1,484 +1,777 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="UTF-8">
 
-  <title>کلمه‌باز | بازی حدس کلمه</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+<title>کلمه‌باز | قلمرو جادو</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Tahoma, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, #273469 0%, #11152d 42%, #080a18 100%);
-      color: #fff;
-      overflow-x: hidden;
-    }
+<style>
 
-    button {
-      font-family: inherit;
-      border: 0;
-      cursor: pointer;
-    }
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
-    .app {
-      width: 100%;
-      max-width: 650px;
-      margin: auto;
-      min-height: 100vh;
-      padding: 18px 14px 35px;
-    }
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  font-family:Tahoma,Arial,sans-serif;
+  background:#080619;
+  color:#fff;
+}
 
-    /* HEADER */
+body{
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 50% 0%,#38206f 0%,#17102f 35%,#080619 78%);
+}
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+/* =========================
+   ستاره‌ها
+========================= */
 
-    .logo-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 27px;
-      background: linear-gradient(145deg, #ffcc4d, #ff8c00);
-      box-shadow: 0 8px 25px rgba(255, 166, 0, .25);
-    }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
 
-    .logo-text h1 {
-      margin: 0;
-      font-size: 21px;
-    }
+  background-image:
+    radial-gradient(circle,#fff 1px,transparent 1.5px),
+    radial-gradient(circle,#bca8ff 1px,transparent 1.5px),
+    radial-gradient(circle,#fff 1px,transparent 1.5px);
 
-    .logo-text p {
-      margin: 4px 0 0;
-      color: #aeb7d9;
-      font-size: 12px;
-    }
+  background-size:
+    73px 73px,
+    121px 121px,
+    181px 181px;
 
-    .coin-box {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 15px;
-      padding: 9px 13px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-weight: bold;
-    }
+  background-position:
+    10px 20px,
+    40px 70px,
+    80px 120px;
 
-    .coin {
-      font-size: 20px;
-    }
+  opacity:.75;
+}
 
-    /* HERO */
 
-    .hero {
-      position: relative;
-      overflow: hidden;
-      border-radius: 25px;
-      padding: 25px 20px;
-      background:
-        linear-gradient(135deg, rgba(99,102,241,.28), rgba(20,24,52,.85));
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 20px 50px rgba(0,0,0,.25);
-      margin-bottom: 18px;
-    }
+/* =========================
+   ماه
+========================= */
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      background: rgba(100, 120, 255, .13);
-      left: -60px;
-      top: -70px;
-    }
+.moon{
+  position:fixed;
+  top:25px;
+  left:22px;
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: rgba(255, 194, 61, .09);
-      right: -40px;
-      bottom: -50px;
-    }
+  width:82px;
+  height:82px;
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
+  border-radius:50%;
 
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255,204,77,.12);
-      color: #ffd76a;
-      border: 1px solid rgba(255,204,77,.18);
-      padding: 7px 12px;
-      border-radius: 50px;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
+  background:#fff6c7;
 
-    .hero h2 {
-      margin: 0;
-      font-size: 27px;
-      line-height: 1.5;
-    }
+  box-shadow:
+    0 0 25px #fff1a2,
+    0 0 70px rgba(255,230,120,.35);
 
-    .hero p {
-      margin: 9px 0 18px;
-      color: #bdc6e5;
-      line-height: 1.8;
-      font-size: 14px;
-    }
+  z-index:0;
+}
 
-    .continue-btn {
-      width: 100%;
-      padding: 15px;
-      border-radius: 15px;
-      color: #101327;
-      font-size: 16px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ffd866, #ffad24);
-      box-shadow: 0 8px 25px rgba(255,174,36,.2);
-    }
+.moon::after{
+  content:"";
 
-    .continue-btn:active {
-      transform: scale(.98);
-    }
+  position:absolute;
 
-    /* STATS */
+  width:82px;
+  height:82px;
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-      margin-bottom: 18px;
-    }
+  border-radius:50%;
 
-    .stat {
-      background: rgba(255,255,255,.065);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 17px;
-      padding: 13px 7px;
-      text-align: center;
-    }
+  background:#17102f;
 
-    .stat-icon {
-      font-size: 20px;
-    }
+  left:26px;
+  top:-8px;
+}
 
-    .stat-number {
-      display: block;
-      margin-top: 6px;
-      font-size: 16px;
-      font-weight: bold;
-    }
 
-    .stat-label {
-      display: block;
-      margin-top: 3px;
-      color: #929bbd;
-      font-size: 10px;
-    }
+/* =========================
+   اپ
+========================= */
 
-    /* SECTION */
+.app{
+  position:relative;
+  z-index:2;
 
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px 2px 12px;
-    }
+  width:100%;
+  max-width:600px;
 
-    .section-title h3 {
-      margin: 0;
-      font-size: 17px;
-    }
+  margin:auto;
 
-    .section-title span {
-      color: #8e98bd;
-      font-size: 11px;
-    }
+  padding:
+    18px
+    13px
+    40px;
+}
 
-    /* LEVELS */
 
-    .levels-box {
-      background: rgba(255,255,255,.045);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 22px;
-      padding: 13px;
-    }
+/* =========================
+   عنوان
+========================= */
 
-    .levels {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 9px;
-      max-height: 500px;
-      overflow-y: auto;
-      padding: 2px;
-    }
+.logo{
+  text-align:center;
 
-    .levels::-webkit-scrollbar {
-      width: 4px;
-    }
+  padding-top:8px;
+  margin-bottom:18px;
+}
 
-    .levels::-webkit-scrollbar-thumb {
-      background: #3b4165;
-      border-radius: 10px;
-    }
+.logoIcon{
+  font-size:42px;
 
-    .level {
-      aspect-ratio: 1;
-      min-width: 0;
-      border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      background: linear-gradient(145deg, #202647, #151a35);
-      border: 1px solid rgba(255,255,255,.07);
-      color: #fff;
-      transition: .15s;
-    }
+  filter:
+    drop-shadow(0 0 15px rgba(255,214,100,.45));
+}
 
-    .level:active {
-      transform: scale(.93);
-    }
+.logoTitle{
+  margin-top:3px;
 
-    .level-number {
-      font-size: 14px;
-      font-weight: bold;
-    }
+  font-size:29px;
+  font-weight:900;
 
-    .level-icon {
-      font-size: 13px;
-    }
+  color:#f7d66c;
 
-    .level.completed {
-      background: linear-gradient(145deg, #263f50, #182a39);
-      border-color: rgba(73, 218, 151, .2);
-    }
+  text-shadow:
+    0 0 12px rgba(255,215,100,.4);
+}
 
-    .level.completed .level-icon {
-      color: #53dfa0;
-    }
+.logoSub{
+  margin-top:5px;
 
-    .level.current {
-      background: linear-gradient(145deg, #69552a, #3e3019);
-      border-color: rgba(255,204,77,.5);
-      box-shadow: 0 0 0 2px rgba(255,204,77,.08);
-    }
+  color:#a99fc7;
 
-    .level.current .level-icon {
-      color: #ffd45c;
-    }
+  font-size:12px;
+}
 
-    .level.locked {
-      opacity: .48;
-    }
 
-    /* BOTTOM INFO */
+/* =========================
+   کارت آمار
+========================= */
 
-    .info-card {
-      margin-top: 18px;
-      padding: 17px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.08);
-    }
+.stats{
+  display:grid;
 
-    .info-title {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+  grid-template-columns:
+    1fr 1fr 1fr;
 
-    .info-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #aeb7d7;
-      font-size: 12px;
-      line-height: 1.8;
-      margin: 7px 0;
-    }
+  gap:8px;
 
-    /* RESET */
+  margin-bottom:13px;
+}
 
-    .reset-btn {
-      width: 100%;
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 13px;
-      background: rgba(255,255,255,.05);
-      color: #929abd;
-      font-size: 12px;
-    }
+.stat{
+  padding:11px 6px;
 
-    .reset-btn:active {
-      background: rgba(255,255,255,.09);
-    }
+  text-align:center;
 
-    .footer {
-      text-align: center;
-      margin-top: 22px;
-      color: #646d91;
-      font-size: 10px;
-    }
+  border-radius:17px;
 
-    @media (min-width: 500px) {
-      .levels {
-        grid-template-columns: repeat(8, 1fr);
-      }
-    }
-  </style>
+  background:
+    linear-gradient(
+      145deg,
+      rgba(43,27,77,.94),
+      rgba(15,11,35,.94)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.25);
+}
+
+.statIcon{
+  font-size:19px;
+}
+
+.statTitle{
+  margin-top:4px;
+
+  color:#9187aa;
+
+  font-size:9px;
+}
+
+.statValue{
+  margin-top:3px;
+
+  font-size:13px;
+  font-weight:bold;
+
+  color:#fff;
+}
+
+
+/* =========================
+   کارت قهرمان
+========================= */
+
+.hero{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:20px 16px;
+
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(57,32,100,.96),
+      rgba(18,12,40,.96)
+    );
+
+  border:
+    1px solid rgba(255,214,105,.25);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.35),
+    inset 0 0 35px rgba(126,77,222,.08);
+
+  margin-bottom:14px;
+}
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  border-radius:50%;
+
+  background:
+    rgba(157,102,255,.12);
+
+  right:-100px;
+  top:-100px;
+}
+
+.heroTitle{
+  text-align:center;
+
+  font-size:12px;
+
+  color:#aaa0c8;
+}
+
+.currentLevel{
+  text-align:center;
+
+  margin-top:5px;
+
+  font-size:39px;
+
+  font-weight:900;
+
+  color:#ffd96a;
+
+  text-shadow:
+    0 0 18px rgba(255,214,100,.3);
+}
+
+.levelText{
+  text-align:center;
+
+  color:#b9afd2;
+
+  font-size:11px;
+
+  margin-top:2px;
+}
+
+
+/* =========================
+   XP
+========================= */
+
+.xpBox{
+  margin-top:16px;
+}
+
+.xpTop{
+  display:flex;
+
+  justify-content:space-between;
+
+  color:#aaa0c5;
+
+  font-size:10px;
+
+  margin-bottom:6px;
+}
+
+.xpBar{
+  height:9px;
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  background:#090717;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.xpFill{
+  height:100%;
+
+  width:0%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7848df,
+      #e3ba5c
+    );
+
+  box-shadow:
+    0 0 14px rgba(141,88,255,.65);
+
+  transition:.4s;
+}
+
+
+/* =========================
+   دکمه ادامه
+========================= */
+
+.playButton{
+  width:100%;
+
+  min-height:57px;
+
+  border:0;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8b56e8,
+      #4b2992
+    );
+
+  color:#fff;
+
+  font-size:16px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 8px 25px rgba(91,49,171,.3);
+
+  margin-top:15px;
+}
+
+.playButton:active{
+  transform:scale(.97);
+}
+
+
+/* =========================
+   منوی اصلی
+========================= */
+
+.menu{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:9px;
+
+  margin-top:13px;
+}
+
+.menuButton{
+  min-height:65px;
+
+  border-radius:18px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(39,26,70,.95),
+      rgba(14,10,31,.95)
+    );
+
+  color:#fff;
+
+  font-weight:bold;
+
+  font-size:12px;
+}
+
+.menuIcon{
+  display:block;
+
+  font-size:23px;
+
+  margin-bottom:5px;
+}
+
+.menuButton:active{
+  transform:scale(.96);
+}
+
+
+/* =========================
+   عنوان مراحل
+========================= */
+
+.sectionTitle{
+  margin-top:20px;
+  margin-bottom:9px;
+
+  display:flex;
+
+  justify-content:space-between;
+  align-items:center;
+}
+
+.sectionTitle strong{
+  font-size:14px;
+  color:#f3d36c;
+}
+
+.sectionTitle span{
+  font-size:10px;
+  color:#817895;
+}
+
+
+/* =========================
+   مراحل
+========================= */
+
+.levels{
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:7px;
+}
+
+.level{
+  aspect-ratio:1;
+
+  border-radius:14px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  background:
+    linear-gradient(
+      145deg,
+      #2b1d50,
+      #130d2b
+    );
+
+  color:#fff;
+
+  font-size:12px;
+
+  font-weight:bold;
+}
+
+.level.current{
+  border-color:#f1cb60;
+
+  color:#ffd96a;
+
+  box-shadow:
+    0 0 15px rgba(255,210,90,.2);
+}
+
+.level.completed{
+  background:
+    linear-gradient(
+      145deg,
+      #214e42,
+      #10251f
+    );
+
+  color:#74ffb3;
+
+  border-color:
+    rgba(88,255,174,.25);
+}
+
+.level.locked{
+  opacity:.42;
+
+  color:#756d87;
+}
+
+.level:active{
+  transform:scale(.93);
+}
+
+
+/* =========================
+   فوتر
+========================= */
+
+.footer{
+  text-align:center;
+
+  margin-top:25px;
+
+  color:#5e5674;
+
+  font-size:9px;
+}
+
+</style>
 </head>
+
 
 <body>
 
+<div class="moon"></div>
+
+
 <div class="app">
 
-  <!-- HEADER -->
-  <header class="topbar">
 
-    <div class="logo">
-      <div class="logo-icon">🔤</div>
+  <!-- لوگو -->
 
-      <div class="logo-text">
-        <h1>کلمه‌باز</h1>
-        <p>بازی حدس کلمه فارسی</p>
-      </div>
+  <div class="logo">
+
+    <div class="logoIcon">
+      🔮
     </div>
 
-    <div class="coin-box">
-      <span class="coin">🪙</span>
-      <span id="coins">100</span>
+    <div class="logoTitle">
+      کلمه‌باز
     </div>
 
-  </header>
-
-
-  <!-- HERO -->
-  <section class="hero">
-
-    <div class="hero-content">
-
-      <div class="hero-badge">
-        🎯 نسخه ۱.۰
-      </div>
-
-      <h2 id="welcomeTitle">
-        آماده‌ای کلمه‌ها رو پیدا کنی؟
-      </h2>
-
-      <p>
-        حروف را کنار هم بچین، کلمه‌ها را پیدا کن
-        و مرحله‌های بیشتری را باز کن!
-      </p>
-
-      <button class="continue-btn" onclick="continueGame()">
-        ▶ ادامه بازی
-      </button>
-
+    <div class="logoSub">
+      قلمرو جادویی کلمات
     </div>
 
-  </section>
-
-
-  <!-- STATS -->
-  <section class="stats">
-
-    <div class="stat">
-      <div class="stat-icon">🏆</div>
-      <span class="stat-number" id="completedCount">0</span>
-      <span class="stat-label">مرحله حل‌شده</span>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">⭐</div>
-      <span class="stat-number" id="xp">0</span>
-      <span class="stat-label">XP</span>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">📊</div>
-      <span class="stat-number">1200</span>
-      <span class="stat-label">کل مراحل</span>
-    </div>
-
-  </section>
-
-
-  <!-- LEVEL SELECT -->
-  <div class="section-title">
-    <h3>🧩 انتخاب مرحله</h3>
-    <span id="progressText">مرحله 1 از 1200</span>
   </div>
 
-  <section class="levels-box">
 
-    <div class="levels" id="levels"></div>
+  <!-- آمار -->
+
+  <div class="stats">
+
+    <div class="stat">
+
+      <div class="statIcon">
+        🪙
+      </div>
+
+      <div class="statTitle">
+        سکه
+      </div>
+
+      <div class="statValue" id="coins">
+        100
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="statIcon">
+        ⭐
+      </div>
+
+      <div class="statTitle">
+        تجربه
+      </div>
+
+      <div class="statValue" id="xp">
+        0 XP
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="statIcon">
+        🏆
+      </div>
+
+      <div class="statTitle">
+        کامل‌شده
+      </div>
+
+      <div class="statValue" id="completed">
+        0
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- کارت مرحله -->
+
+  <section class="hero">
+
+    <div class="heroTitle">
+      مرحله فعلی
+    </div>
+
+    <div class="currentLevel"
+         id="currentLevel">
+      1
+    </div>
+
+    <div class="levelText">
+      قلمرو جادویی در انتظار توست ✨
+    </div>
+
+
+    <div class="xpBox">
+
+      <div class="xpTop">
+
+        <span>
+          تجربه جادوگر
+        </span>
+
+        <span id="xpText">
+          0 / 100
+        </span>
+
+      </div>
+
+      <div class="xpBar">
+
+        <div
+          class="xpFill"
+          id="xpFill">
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="playButton"
+      onclick="continueGame()">
+
+      ✨ ادامه ماجراجویی
+
+    </button>
 
   </section>
 
 
-  <!-- INFO -->
-  <section class="info-card">
+  <!-- منو -->
 
-    <div class="info-title">
-      💡 راهنمای بازی
-    </div>
+  <div class="menu">
 
-    <div class="info-row">
-      🔤 حروف را انتخاب کن و کلمه‌های مخفی را پیدا کن.
-    </div>
+    <button
+      class="menuButton"
+      onclick="openShop()">
 
-    <div class="info-row">
-      🪙 با سکه می‌توانی از راهنمایی‌ها استفاده کنی.
-    </div>
+      <span class="menuIcon">
+        🛒
+      </span>
 
-    <div class="info-row">
-      🔓 با حل هر مرحله، مرحله بعدی باز می‌شود.
-    </div>
+      فروشگاه
 
-    <div class="info-row">
-      💾 پیشرفت بازی به‌صورت خودکار روی دستگاه ذخیره می‌شود.
-    </div>
-
-  </section>
+    </button>
 
 
-  <button class="reset-btn" onclick="resetGame()">
-    ♻️ شروع دوباره بازی
-  </button>
+    <button
+      class="menuButton"
+      onclick="showComingSoon('گردونه شانس')">
+
+      <span class="menuIcon">
+        🎡
+      </span>
+
+      گردونه شانس
+
+    </button>
+
+
+    <button
+      class="menuButton"
+      onclick="showComingSoon('راهنماها')">
+
+      <span class="menuIcon">
+        🔮
+      </span>
+
+      راهنماها
+
+    </button>
+
+
+    <button
+      class="menuButton"
+      onclick="showComingSoon('دستاوردها')">
+
+      <span class="menuIcon">
+        🏆
+      </span>
+
+      دستاوردها
+
+    </button>
+
+  </div>
+
+
+  <!-- عنوان مراحل -->
+
+  <div class="sectionTitle">
+
+    <strong>
+      🗺️ نقشه قلمرو
+    </strong>
+
+    <span id="progressText">
+      0 / 500
+    </span>
+
+  </div>
+
+
+  <!-- مراحل -->
+
+  <div
+    class="levels"
+    id="levels">
+  </div>
 
 
   <div class="footer">
-    کلمه‌باز • نسخه 1.0
+    KALAMEBAZ • Ghost Studio
   </div>
 
 </div>
@@ -486,300 +779,296 @@
 
 <script>
 
-  /* ==========================================
-     GAME SETTINGS
-  ========================================== */
+/* =========================
+   تنظیمات
+========================= */
 
-  const TOTAL_LEVELS = 1200;
+const TOTAL_LEVELS = 500;
+
+const CURRENT_KEY =
+  "kalemebaz_currentLevel";
+
+const COMPLETED_KEY =
+  "kalemebaz_completedLevels";
+
+const COINS_KEY =
+  "kalemebaz_coins";
+
+const XP_KEY =
+  "kalemebaz_xp";
+
+
+/* =========================
+   اطلاعات بازیکن
+========================= */
+
+let currentLevel =
+  parseInt(
+    localStorage.getItem(CURRENT_KEY) || "1"
+  );
+
+let coins =
+  parseInt(
+    localStorage.getItem(COINS_KEY) || "100"
+  );
+
+let xp =
+  parseInt(
+    localStorage.getItem(XP_KEY) || "0"
+  );
+
+let completed =
+  JSON.parse(
+    localStorage.getItem(COMPLETED_KEY) || "[]"
+  );
+
+
+/* =========================
+   ذخیره
+========================= */
+
+function save(){
+
+  localStorage.setItem(
+    CURRENT_KEY,
+    currentLevel
+  );
+
+  localStorage.setItem(
+    COINS_KEY,
+    coins
+  );
+
+  localStorage.setItem(
+    XP_KEY,
+    xp
+  );
+
+  localStorage.setItem(
+    COMPLETED_KEY,
+    JSON.stringify(completed)
+  );
+
+}
+
+
+/* =========================
+   ادامه بازی
+========================= */
+
+function continueGame(){
+
+  window.location.href =
+    "game.html?level=" + currentLevel;
+
+}
+
+
+/* =========================
+   باز کردن مرحله
+========================= */
+
+function openLevel(level){
+
+  if(level > currentLevel){
+
+    alert(
+      "🔒 این مرحله هنوز قفل است!\n\n" +
+      "ابتدا مرحله‌های قبلی را کامل کن."
+    );
+
+    return;
+  }
+
+
+  window.location.href =
+    "game.html?level=" + level;
+
+}
+
+
+/* =========================
+   نمایش مراحل
+========================= */
+
+function renderLevels(){
+
+  const container =
+    document.getElementById("levels");
+
+  container.innerHTML = "";
+
 
   /*
-     بعداً game.html از این اطلاعات استفاده می‌کند.
-     فعلاً سیستم مرحله‌ها آماده شده است.
+    فعلاً ۱۰۰ مرحله اول را
+    در نقشه نمایش می‌دهیم.
+    با اسکرول می‌توانیم بعداً
+    همه ۵۰۰ مرحله را نمایش دهیم.
   */
 
+  for(
+    let level = 1;
+    level <= TOTAL_LEVELS;
+    level++
+  ){
 
-  /* ==========================================
-     SAVE DATA
-  ========================================== */
+    const button =
+      document.createElement("button");
 
-  function getNumber(key, defaultValue) {
-    const value = localStorage.getItem(key);
+    button.className = "level";
 
-    if (value === null) {
-      return defaultValue;
-    }
 
-    const number = Number(value);
+    if(
+      completed.includes(level)
+    ){
 
-    return Number.isFinite(number)
-      ? number
-      : defaultValue;
-  }
-
-
-  let currentLevel =
-    getNumber("kalemebaz_currentLevel", 1);
-
-  let completedLevels =
-    getNumber("kalemebaz_completedLevels", 0);
-
-  let coins =
-    getNumber("kalemebaz_coins", 100);
-
-  let xp =
-    getNumber("kalemebaz_xp", 0);
-
-
-  /* ==========================================
-     LIMIT DATA
-  ========================================== */
-
-  currentLevel =
-    Math.max(1, Math.min(TOTAL_LEVELS, currentLevel));
-
-  completedLevels =
-    Math.max(0, Math.min(TOTAL_LEVELS, completedLevels));
-
-  coins = Math.max(0, coins);
-
-  xp = Math.max(0, xp);
-
-
-  /* ==========================================
-     SAVE
-  ========================================== */
-
-  function saveData() {
-
-    localStorage.setItem(
-      "kalemebaz_currentLevel",
-      currentLevel
-    );
-
-    localStorage.setItem(
-      "kalemebaz_completedLevels",
-      completedLevels
-    );
-
-    localStorage.setItem(
-      "kalemebaz_coins",
-      coins
-    );
-
-    localStorage.setItem(
-      "kalemebaz_xp",
-      xp
-    );
-  }
-
-
-  /* ==========================================
-     UPDATE UI
-  ========================================== */
-
-  function updateUI() {
-
-    document.getElementById("coins").textContent =
-      coins.toLocaleString("fa-IR");
-
-    document.getElementById("completedCount").textContent =
-      completedLevels.toLocaleString("fa-IR");
-
-    document.getElementById("xp").textContent =
-      xp.toLocaleString("fa-IR");
-
-    document.getElementById("progressText").textContent =
-      "مرحله " +
-      currentLevel.toLocaleString("fa-IR") +
-      " از " +
-      TOTAL_LEVELS.toLocaleString("fa-IR");
-
-    document.getElementById("welcomeTitle").textContent =
-      "مرحله " +
-      currentLevel.toLocaleString("fa-IR") +
-      " آماده است!";
-
-  }
-
-
-  /* ==========================================
-     CREATE 1200 LEVELS
-  ========================================== */
-
-  function createLevels() {
-
-    const container =
-      document.getElementById("levels");
-
-    container.innerHTML = "";
-
-    for (let i = 1; i <= TOTAL_LEVELS; i++) {
-
-      const button =
-        document.createElement("button");
-
-      button.className = "level";
-
-      /*
-        completedLevels:
-        همه مراحل تا این شماره حل شده‌اند.
-      */
-
-      if (i <= completedLevels) {
-
-        button.classList.add("completed");
-
-        button.innerHTML = `
-          <span class="level-icon">✓</span>
-          <span class="level-number">
-            ${i.toLocaleString("fa-IR")}
-          </span>
-        `;
-
-      }
-
-      /*
-        مرحله فعلی
-      */
-
-      else if (i === currentLevel) {
-
-        button.classList.add("current");
-
-        button.innerHTML = `
-          <span class="level-icon">▶</span>
-          <span class="level-number">
-            ${i.toLocaleString("fa-IR")}
-          </span>
-        `;
-
-      }
-
-      /*
-        مراحل قفل
-      */
-
-      else {
-
-        button.classList.add("locked");
-
-        button.innerHTML = `
-          <span class="level-icon">🔒</span>
-          <span class="level-number">
-            ${i.toLocaleString("fa-IR")}
-          </span>
-        `;
-
-      }
-
-
-      /*
-        کلیک روی مرحله
-      */
-
-      button.addEventListener("click", function() {
-
-        if (i > completedLevels + 1) {
-
-          alert(
-            "🔒 این مرحله هنوز قفل است!\n\n" +
-            "ابتدا مرحله " +
-            (completedLevels + 1).toLocaleString("fa-IR") +
-            " را حل کن."
-          );
-
-          return;
-        }
-
-
-        openLevel(i);
-
-      });
-
-
-      container.appendChild(button);
-
-    }
-
-  }
-
-
-  /* ==========================================
-     OPEN LEVEL
-  ========================================== */
-
-  function openLevel(level) {
-
-    currentLevel = level;
-
-    saveData();
-
-    /*
-      وقتی game.html ساخته شد:
-      کاربر مستقیماً وارد همان مرحله می‌شود.
-    */
-
-    window.location.href =
-      "game.html?level=" + level;
-
-  }
-
-
-  /* ==========================================
-     CONTINUE
-  ========================================== */
-
-  function continueGame() {
-
-    openLevel(currentLevel);
-
-  }
-
-
-  /* ==========================================
-     RESET GAME
-  ========================================== */
-
-  function resetGame() {
-
-    const answer =
-      confirm(
-        "⚠️ مطمئنی می‌خواهی تمام پیشرفت بازی پاک شود؟\n\n" +
-        "مرحله، XP و سکه‌ها از ابتدا شروع می‌شوند."
+      button.classList.add(
+        "completed"
       );
 
-    if (!answer) {
-      return;
+      button.textContent =
+        "✓ " + level;
+
+    }
+    else if(
+      level === currentLevel
+    ){
+
+      button.classList.add(
+        "current"
+      );
+
+      button.textContent =
+        level;
+
+    }
+    else if(
+      level > currentLevel
+    ){
+
+      button.classList.add(
+        "locked"
+      );
+
+      button.textContent =
+        "🔒";
+
+    }
+    else{
+
+      button.textContent =
+        level;
+
     }
 
 
-    currentLevel = 1;
-    completedLevels = 0;
-    coins = 100;
-    xp = 0;
+    button.onclick =
+      () => openLevel(level);
 
-    saveData();
 
-    updateUI();
-    createLevels();
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    container.appendChild(button);
 
   }
 
 
-  /* ==========================================
-     START
-  ========================================== */
+  document.getElementById(
+    "progressText"
+  ).textContent =
+    completed.length +
+    " / " +
+    TOTAL_LEVELS;
 
-  updateUI();
+}
 
-  createLevels();
+
+/* =========================
+   آمار
+========================= */
+
+function renderStats(){
+
+  document.getElementById(
+    "coins"
+  ).textContent = coins;
+
+
+  document.getElementById(
+    "xp"
+  ).textContent =
+    xp + " XP";
+
+
+  document.getElementById(
+    "completed"
+  ).textContent =
+    completed.length;
+
+
+  document.getElementById(
+    "currentLevel"
+  ).textContent =
+    currentLevel;
+
+
+  const currentXP =
+    xp % 100;
+
+
+  document.getElementById(
+    "xpText"
+  ).textContent =
+    currentXP + " / 100";
+
+
+  document.getElementById(
+    "xpFill"
+  ).style.width =
+    currentXP + "%";
+
+}
+
+
+/* =========================
+   فروشگاه
+========================= */
+
+function openShop(){
+
+  alert(
+    "🛒 فروشگاه کلمه‌باز\n\n" +
+    "به‌زودی سیستم خرید سکه و آیتم‌های جادویی فعال می‌شود! 🔮"
+  );
+
+}
+
+
+/* =========================
+   بخش‌های آینده
+========================= */
+
+function showComingSoon(name){
+
+  alert(
+    "✨ " +
+    name +
+    "\n\n" +
+    "این بخش در نسخه بعدی فعال می‌شود."
+  );
+
+}
+
+
+/* =========================
+   شروع
+========================= */
+
+save();
+
+renderStats();
+
+renderLevels();
 
 </script>
 
 </body>
-        </html>
+</html>
