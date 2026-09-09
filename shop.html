@@ -2,499 +2,635 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فروشگاه | کلمه‌باز</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>کلمه‌باز | فروشگاه</title>
 
 <style>
 *{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+ box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
+ user-select:none;
+}
+
+html,body{
+ margin:0;
+ width:100%;
+ min-height:100%;
+ font-family:Tahoma,Arial,sans-serif;
+ background:#080512;
+ color:#fff;
 }
 
 body{
-    margin:0;
-    min-height:100vh;
-    font-family:Tahoma,Arial,sans-serif;
-    color:#fff;
-    background:
-        radial-gradient(circle at 20% 15%,rgba(132,70,255,.28),transparent 25%),
-        radial-gradient(circle at 80% 30%,rgba(255,180,50,.12),transparent 25%),
-        linear-gradient(160deg,#09051b,#150b32 50%,#070310);
-    overflow-x:hidden;
+ min-height:100vh;
+ overflow-x:hidden;
 }
 
-/* ستاره‌ها */
+button{
+ font-family:inherit;
+ cursor:pointer;
+}
+
+#app{
+ min-height:100vh;
+ position:relative;
+ overflow:hidden;
+ padding-bottom:30px;
+ background:
+ radial-gradient(circle at 50% 0%,rgba(124,58,237,.32),transparent 35%),
+ radial-gradient(circle at 0% 80%,rgba(34,211,238,.12),transparent 30%),
+ linear-gradient(180deg,#0c0620,#160b32 55%,#080512);
+}
+
 .stars{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
+ position:absolute;
+ inset:0;
+ pointer-events:none;
+ overflow:hidden;
 }
 
 .star{
-    position:absolute;
-    width:3px;
-    height:3px;
-    background:#fff;
-    border-radius:50%;
-    opacity:.7;
-    animation:twinkle 2.5s infinite alternate;
+ position:absolute;
+ width:2px;
+ height:2px;
+ background:#fff;
+ border-radius:50%;
+ opacity:.7;
+ animation:twinkle 2s infinite alternate;
 }
 
 @keyframes twinkle{
-    from{opacity:.2;transform:scale(.7)}
-    to{opacity:1;transform:scale(1.4)}
+ from{
+  opacity:.15;
+  transform:scale(.7);
+ }
+ to{
+  opacity:1;
+  transform:scale(1.5);
+ }
 }
 
-.container{
-    position:relative;
-    z-index:2;
-    width:100%;
-    max-width:700px;
-    margin:auto;
-    padding:18px 14px 40px;
+.moon{
+ position:absolute;
+ width:115px;
+ height:115px;
+ border-radius:50%;
+ top:-35px;
+ left:50%;
+ transform:translateX(-50%);
+ background:
+ radial-gradient(
+  circle at 35% 30%,
+  #fff,
+  #d8c8ff 48%,
+  #8664ca
+ );
+ box-shadow:0 0 45px rgba(190,170,255,.5);
+ opacity:.75;
 }
 
-/* هدر */
 .header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:18px;
+ position:relative;
+ z-index:5;
+ height:72px;
+ padding:10px 12px;
+ padding-top:max(10px,env(safe-area-inset-top));
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
 }
 
 .back{
-    width:48px;
-    height:48px;
-    border:none;
-    border-radius:16px;
-    color:#fff;
-    background:rgba(255,255,255,.09);
-    border:1px solid rgba(255,255,255,.12);
-    font-size:23px;
-    cursor:pointer;
-}
-
-.titleBox{
-    flex:1;
-    text-align:center;
+ width:45px;
+ height:45px;
+ border:1px solid rgba(255,255,255,.12);
+ border-radius:15px;
+ background:rgba(18,10,39,.85);
+ color:#fff;
+ font-size:22px;
 }
 
 .title{
-    margin:0;
-    font-size:25px;
-    color:#f4d77b;
-    text-shadow:0 0 18px rgba(255,210,80,.35);
+ flex:1;
+ text-align:center;
 }
 
-.subtitle{
-    margin:6px 0 0;
-    font-size:12px;
-    color:#aaa0c8;
+.title h1{
+ margin:0;
+ font-size:20px;
+ text-shadow:0 0 18px rgba(168,85,247,.8);
 }
 
-.coins{
-    min-width:100px;
-    height:48px;
-    padding:0 12px;
-    border-radius:16px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
-    background:rgba(255,196,55,.1);
-    border:1px solid rgba(255,205,70,.25);
-    color:#ffd968;
-    font-weight:bold;
+.title p{
+ margin:4px 0 0;
+ color:#aa9cc2;
+ font-size:10px;
 }
 
-.coinIcon{
-    font-size:21px;
+.coinBox{
+ min-width:75px;
+ height:42px;
+ padding:0 9px;
+ border-radius:14px;
+ background:rgba(25,15,51,.9);
+ border:1px solid rgba(250,204,21,.2);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:5px;
+ color:#facc15;
+ font-weight:900;
+ font-size:13px;
 }
 
-/* کارت موجودی */
-.balance{
-    padding:20px;
-    margin-bottom:18px;
-    border-radius:24px;
-    background:
-        linear-gradient(135deg,rgba(102,60,190,.25),rgba(35,19,77,.55));
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 15px 40px rgba(0,0,0,.25);
-    text-align:center;
+.hero{
+ position:relative;
+ z-index:3;
+ width:calc(100% - 28px);
+ max-width:520px;
+ margin:8px auto 16px;
+ padding:18px;
+ border-radius:23px;
+ border:1px solid rgba(168,85,247,.2);
+ background:
+ radial-gradient(
+  circle at 80% 20%,
+  rgba(168,85,247,.18),
+  transparent 35%
+ ),
+ rgba(25,14,51,.86);
+ box-shadow:0 15px 40px rgba(0,0,0,.25);
+ text-align:center;
 }
 
-.balanceText{
-    color:#aaa0c8;
-    font-size:13px;
+.heroIcon{
+ font-size:42px;
+ margin-bottom:4px;
 }
 
-.balanceNumber{
-    margin-top:8px;
-    font-size:34px;
-    font-weight:bold;
-    color:#ffd85c;
-    text-shadow:0 0 20px rgba(255,210,70,.3);
+.hero h2{
+ margin:0;
+ font-size:20px;
 }
 
-/* فروشگاه */
-.shopGrid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:13px;
+.hero p{
+ margin:7px 0 0;
+ color:#b8adca;
+ font-size:11px;
+ line-height:1.8;
+}
+
+.grid{
+ position:relative;
+ z-index:4;
+ width:calc(100% - 22px);
+ max-width:600px;
+ margin:auto;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
 }
 
 .item{
-    position:relative;
-    padding:18px 13px;
-    border-radius:22px;
-    background:
-        linear-gradient(150deg,rgba(45,28,88,.85),rgba(18,10,42,.9));
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 12px 30px rgba(0,0,0,.25);
-    overflow:hidden;
+ position:relative;
+ padding:16px 10px 12px;
+ border-radius:20px;
+ background:rgba(24,14,49,.9);
+ border:1px solid rgba(255,255,255,.09);
+ box-shadow:0 10px 25px rgba(0,0,0,.22);
+ text-align:center;
+ overflow:hidden;
 }
 
 .item::before{
-    content:"";
-    position:absolute;
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:rgba(142,82,255,.12);
-    top:-40px;
-    left:-35px;
+ content:"";
+ position:absolute;
+ width:100px;
+ height:100px;
+ border-radius:50%;
+ background:rgba(168,85,247,.12);
+ filter:blur(20px);
+ top:-45px;
+ left:50%;
+ transform:translateX(-50%);
 }
 
-.itemIcon{
-    position:relative;
-    font-size:42px;
-    text-align:center;
-    margin-bottom:10px;
+.icon{
+ position:relative;
+ font-size:42px;
+ margin-bottom:6px;
 }
 
-.itemName{
-    text-align:center;
-    font-size:15px;
-    font-weight:bold;
-    color:#fff;
+.item h3{
+ position:relative;
+ margin:4px 0;
+ font-size:14px;
 }
 
-.itemDesc{
-    text-align:center;
-    font-size:11px;
-    line-height:1.8;
-    color:#aaa0c8;
-    min-height:42px;
-    margin-top:7px;
+.desc{
+ position:relative;
+ min-height:38px;
+ color:#aaa0bd;
+ font-size:10px;
+ line-height:1.7;
 }
 
 .price{
-    margin:13px auto 10px;
-    width:max-content;
-    padding:6px 11px;
-    border-radius:12px;
-    background:rgba(255,204,66,.1);
-    color:#ffd65b;
-    font-size:12px;
-    font-weight:bold;
+ position:relative;
+ margin:8px 0;
+ color:#facc15;
+ font-weight:900;
+ font-size:12px;
 }
 
 .buy{
-    width:100%;
-    border:0;
-    border-radius:14px;
-    padding:12px 8px;
-    background:linear-gradient(135deg,#744cff,#4c27b8);
-    color:#fff;
-    font-size:13px;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 8px 20px rgba(89,50,200,.25);
+ position:relative;
+ width:100%;
+ height:39px;
+ border:0;
+ border-radius:13px;
+ color:#fff;
+ font-size:11px;
+ font-weight:900;
+ background:linear-gradient(135deg,#6d28d9,#a855f7);
+ transition:.15s;
 }
 
 .buy:active{
-    transform:scale(.97);
+ transform:scale(.96);
 }
 
-.buy.disabled{
-    opacity:.45;
-    cursor:not-allowed;
+.stock{
+ position:relative;
+ margin-top:7px;
+ color:#8f84a4;
+ font-size:9px;
 }
 
-/* موجودی آیتم */
-.inventory{
-    margin-top:10px;
-    text-align:center;
-    font-size:11px;
-    color:#bdb2d5;
+.bottom{
+ position:relative;
+ z-index:4;
+ width:calc(100% - 22px);
+ max-width:600px;
+ margin:16px auto 0;
 }
 
-/* پیام */
-.message{
-    position:fixed;
-    left:50%;
-    bottom:22px;
-    transform:translate(-50%,120px);
-    width:calc(100% - 30px);
-    max-width:500px;
-    padding:15px 18px;
-    border-radius:17px;
-    text-align:center;
-    background:rgba(25,16,50,.96);
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow:0 15px 40px rgba(0,0,0,.45);
-    color:#fff;
-    font-size:13px;
-    transition:.35s;
-    z-index:20;
+.info{
+ padding:14px;
+ border-radius:18px;
+ background:rgba(255,255,255,.04);
+ border:1px solid rgba(255,255,255,.07);
+ color:#a99db9;
+ font-size:10px;
+ line-height:1.9;
+ text-align:center;
 }
 
-.message.show{
-    transform:translate(-50%,0);
+.toast{
+ position:fixed;
+ z-index:100;
+ left:50%;
+ bottom:25px;
+ transform:translate(-50%,30px);
+ opacity:0;
+ padding:11px 17px;
+ border-radius:15px;
+ background:rgba(12,7,26,.97);
+ border:1px solid rgba(255,255,255,.1);
+ box-shadow:0 12px 35px rgba(0,0,0,.45);
+ font-size:12px;
+ font-weight:bold;
+ transition:.25s;
+ white-space:nowrap;
+ pointer-events:none;
 }
 
-.message.success{
-    border-color:rgba(91,255,160,.35);
+.toast.show{
+ opacity:1;
+ transform:translate(-50%,0);
 }
 
-.message.error{
-    border-color:rgba(255,90,120,.35);
+.toast.good{
+ border-color:rgba(34,197,94,.5);
 }
 
-/* توضیح پایین */
-.note{
-    margin-top:18px;
-    padding:15px;
-    border-radius:18px;
-    background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.07);
-    color:#9187aa;
-    font-size:11px;
-    line-height:2;
-    text-align:center;
+.toast.bad{
+ border-color:rgba(239,68,68,.5);
 }
 
-@media(max-width:430px){
-    .shopGrid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .item{
-        padding:15px 10px;
-    }
-
-    .itemIcon{
-        font-size:36px;
-    }
-
-    .itemName{
-        font-size:13px;
-    }
-
-    .itemDesc{
-        font-size:10px;
-    }
-
-    .title{
-        font-size:21px;
-    }
-
-    .coins{
-        min-width:80px;
-        font-size:12px;
-    }
+.modal{
+ position:fixed;
+ z-index:200;
+ inset:0;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:rgba(3,1,10,.78);
+ backdrop-filter:blur(8px);
 }
 
-@media(max-width:340px){
-    .shopGrid{
-        grid-template-columns:1fr;
-    }
+.modal.show{
+ display:flex;
+}
+
+.modalBox{
+ width:min(92vw,380px);
+ padding:24px 18px;
+ border-radius:24px;
+ background:#17102d;
+ border:1px solid rgba(255,255,255,.12);
+ text-align:center;
+ box-shadow:0 20px 70px rgba(0,0,0,.6);
+}
+
+.modalIcon{
+ font-size:45px;
+}
+
+.modal h2{
+ margin:8px 0;
+ font-size:20px;
+}
+
+.modal p{
+ color:#b8adca;
+ font-size:12px;
+ line-height:1.8;
+}
+
+.modal button{
+ width:100%;
+ height:45px;
+ border:0;
+ border-radius:14px;
+ color:#fff;
+ font-weight:bold;
+ background:linear-gradient(135deg,#6d28d9,#a855f7);
+}
+
+@media(max-width:360px){
+
+ .grid{
+  gap:7px;
+ }
+
+ .item{
+  padding:13px 7px 10px;
+ }
+
+ .icon{
+  font-size:35px;
+ }
+
+ .item h3{
+  font-size:12px;
+ }
+
+ .desc{
+  font-size:9px;
+ }
+
+ .price{
+  font-size:10px;
+ }
+
+}
+
+@media(min-width:700px){
+
+ .grid{
+  grid-template-columns:repeat(4,1fr);
+ }
+
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
+<div id="app">
 
-<div class="container">
+ <div class="stars" id="stars"></div>
+ <div class="moon"></div>
 
-    <div class="header">
+ <header class="header">
 
-        <button class="back" onclick="goBack()">‹</button>
+  <button
+   class="back"
+   onclick="goHome()"
+   aria-label="بازگشت"
+  >⌂</button>
 
-        <div class="titleBox">
-            <h1 class="title">🛒 فروشگاه جادویی</h1>
-            <p class="subtitle">قدرتت را برای ماجراجویی بیشتر کن</p>
-        </div>
+  <div class="title">
+   <h1>🛒 فروشگاه جادویی</h1>
+   <p>قدرت‌های خودت را بیشتر کن</p>
+  </div>
 
-        <div class="coins">
-            <span class="coinIcon">🪙</span>
-            <span id="topCoins">0</span>
-        </div>
+  <div class="coinBox">
+   🪙 <span id="coins">۰</span>
+  </div>
 
-    </div>
-
-    <div class="balance">
-        <div class="balanceText">موجودی سکه‌های تو</div>
-        <div class="balanceNumber">
-            🪙 <span id="balanceCoins">0</span>
-        </div>
-    </div>
-
-    <div class="shopGrid">
-
-        <!-- نمایش حرف -->
-        <div class="item">
-
-            <div class="itemIcon">🔤</div>
-
-            <div class="itemName">
-                طلسم یک حرف
-            </div>
-
-            <div class="itemDesc">
-                یک حرف از کلمه‌ای که هنوز حل نکرده‌ای را نمایش می‌دهد.
-            </div>
-
-            <div class="price">
-                🪙 25 سکه
-            </div>
-
-            <button class="buy" onclick="buyItem('letter',25)">
-                خرید
-            </button>
-
-            <div class="inventory">
-                موجودی: <span id="letterCount">0</span>
-            </div>
-
-        </div>
+ </header>
 
 
-        <!-- حذف حرف -->
-        <div class="item">
+ <section class="hero">
 
-            <div class="itemIcon">🧹</div>
+  <div class="heroIcon">✨</div>
 
-            <div class="itemName">
-                پاک‌کن جادویی
-            </div>
+  <h2>فروشگاه کلمه‌باز</h2>
 
-            <div class="itemDesc">
-                تعدادی از حروف اشتباه را برای حدس بهتر حذف می‌کند.
-            </div>
+  <p>
+   با سکه‌هایی که در مراحل به دست می‌آوری،
+   آیتم‌های جادویی بخر و مراحل سخت‌تر را راحت‌تر رد کن.
+  </p>
 
-            <div class="price">
-                🪙 30 سکه
-            </div>
-
-            <button class="buy" onclick="buyItem('remove',30)">
-                خرید
-            </button>
-
-            <div class="inventory">
-                موجودی: <span id="removeCount">0</span>
-            </div>
-
-        </div>
+ </section>
 
 
-        <!-- حل کلمه -->
-        <div class="item">
+ <main class="grid">
 
-            <div class="itemIcon">💡</div>
+  <article class="item">
 
-            <div class="itemName">
-                جواب جادویی
-            </div>
+   <div class="icon">🔤</div>
 
-            <div class="itemDesc">
-                یک کلمه از مرحله را به صورت خودکار حل می‌کند.
-            </div>
+   <h3>طلسم یک حرف</h3>
 
-            <div class="price">
-                🪙 50 سکه
-            </div>
+   <div class="desc">
+    یک حرف از یکی از کلمات حل‌نشده را آشکار می‌کند.
+   </div>
 
-            <button class="buy" onclick="buyItem('solve',50)">
-                خرید
-            </button>
+   <div class="price">
+    🪙 ۲۵ سکه
+   </div>
 
-            <div class="inventory">
-                موجودی: <span id="solveCount">0</span>
-            </div>
+   <button
+    class="buy"
+    onclick="buyItem('hintLetters',25)"
+   >
+    خرید
+   </button>
 
-        </div>
+   <div class="stock">
+    موجودی:
+    <span id="hintLetters">۰</span>
+   </div>
+
+  </article>
 
 
-        <!-- معجون -->
-        <div class="item">
+  <article class="item">
 
-            <div class="itemIcon">🧪</div>
+   <div class="icon">🧹</div>
 
-            <div class="itemName">
-                معجون جادویی
-            </div>
+   <h3>پاک‌کن جادویی</h3>
 
-            <div class="itemDesc">
-                یک راهنمایی رایگان برای استفاده در مراحل سخت.
-            </div>
+   <div class="desc">
+    چند حرف بی‌استفاده را از چرخ حروف حذف می‌کند.
+   </div>
 
-            <div class="price">
-                🪙 70 سکه
-            </div>
+   <div class="price">
+    🪙 ۳۰ سکه
+   </div>
 
-            <button class="buy" onclick="buyItem('potion',70)">
-                خرید
-            </button>
+   <button
+    class="buy"
+    onclick="buyItem('removeLetters',30)"
+   >
+    خرید
+   </button>
 
-            <div class="inventory">
-                موجودی: <span id="potionCount">0</span>
-            </div>
+   <div class="stock">
+    موجودی:
+    <span id="removeLetters">۰</span>
+   </div>
 
-        </div>
+  </article>
 
-    </div>
 
-    <div class="note">
-        ✨ آیتم‌های خریداری‌شده در حساب بازی ذخیره می‌شوند.
-        <br>
-        🏰 از آیتم‌ها برای عبور از مراحل سخت استفاده کن!
-    </div>
+  <article class="item">
+
+   <div class="icon">💡</div>
+
+   <h3>جواب جادویی</h3>
+
+   <div class="desc">
+    یکی از کلمات مرحله را به‌صورت خودکار حل می‌کند.
+   </div>
+
+   <div class="price">
+    🪙 ۵۰ سکه
+   </div>
+
+   <button
+    class="buy"
+    onclick="buyItem('solveWords',50)"
+   >
+    خرید
+   </button>
+
+   <div class="stock">
+    موجودی:
+    <span id="solveWords">۰</span>
+   </div>
+
+  </article>
+
+
+  <article class="item">
+
+   <div class="icon">🧪</div>
+
+   <h3>معجون جادویی</h3>
+
+   <div class="desc">
+    پاداش کلمه درست بعدی را دو برابر می‌کند.
+   </div>
+
+   <div class="price">
+    🪙 ۷۰ سکه
+   </div>
+
+   <button
+    class="buy"
+    onclick="buyItem('magicPotions',70)"
+   >
+    خرید
+   </button>
+
+   <div class="stock">
+    موجودی:
+    <span id="magicPotions">۰</span>
+   </div>
+
+  </article>
+
+ </main>
+
+
+ <section class="bottom">
+
+  <div class="info">
+   💎 <b>راهنمایی:</b>
+   سکه‌ها از حل کلمات و کامل‌کردن مراحل به دست می‌آیند.
+   <br>
+   آیتم‌ها کاملاً مجازی هستند و پرداخت واقعی ندارند.
+  </div>
+
+ </section>
 
 </div>
 
-<div class="message" id="message"></div>
+
+<div
+ class="toast"
+ id="toast"
+></div>
+
+
+<div
+ class="modal"
+ id="modal"
+>
+ <div class="modalBox">
+
+  <div
+   class="modalIcon"
+   id="modalIcon"
+  >✨</div>
+
+  <h2 id="modalTitle">
+   خرید موفق!
+  </h2>
+
+  <p id="modalText">
+   آیتم به موجودی شما اضافه شد.
+  </p>
+
+  <button onclick="closeModal()">
+   باشه
+  </button>
+
+ </div>
+</div>
+
 
 <script>
+"use strict";
+
 
 /* =========================
-   ستاره‌ها
+   اعداد فارسی
 ========================= */
 
-const stars = document.getElementById("stars");
+function faNumber(value){
 
-for(let i=0;i<75;i++){
+ return String(value).replace(
+  /\d/g,
+  d=>"۰۱۲۳۴۵۶۷۸۹"[d]
+ );
 
-    const star = document.createElement("div");
-
-    star.className = "star";
-
-    star.style.left = Math.random()*100 + "%";
-    star.style.top = Math.random()*100 + "%";
-
-    const size = Math.random()*3 + 1;
-
-    star.style.width = size + "px";
-    star.style.height = size + "px";
-
-    star.style.animationDelay = (Math.random()*3) + "s";
-
-    stars.appendChild(star);
 }
 
 
@@ -504,115 +640,159 @@ for(let i=0;i<75;i++){
 
 function getCoins(){
 
-    return parseInt(
-        localStorage.getItem("kalemebaz_coins") || "0"
-    );
+ return Number(
+  localStorage.getItem(
+   "kalemebaz_coins"
+  )
+ ) || 0;
 
 }
+
 
 function setCoins(value){
 
-    localStorage.setItem(
-        "kalemebaz_coins",
-        String(Math.max(0,value))
-    );
+ localStorage.setItem(
+  "kalemebaz_coins",
+  String(Math.max(0,value))
+ );
+
+ updateCoins();
+
+}
+
+
+function updateCoins(){
+
+ document.getElementById(
+  "coins"
+ ).textContent =
+  faNumber(getCoins());
 
 }
 
 
 /* =========================
-   آیتم‌ها
+   موجودی آیتم‌ها
 ========================= */
 
-const itemKeys = {
-
-    letter:"kalemebaz_hintLetters",
-
-    remove:"kalemebaz_removeLetters",
-
-    solve:"kalemebaz_solveWords",
-
-    potion:"kalemebaz_magicPotions"
-
-};
+const inventoryKeys = [
+ "hintLetters",
+ "removeLetters",
+ "solveWords",
+ "magicPotions"
+];
 
 
-function getItem(type){
+function getInventory(name){
 
-    return parseInt(
-        localStorage.getItem(itemKeys[type]) || "0"
-    );
+ return Number(
+  localStorage.getItem(
+   "kalemebaz_" + name
+  )
+ ) || 0;
 
 }
 
 
-function setItem(type,value){
+function updateInventory(){
 
-    localStorage.setItem(
-        itemKeys[type],
-        String(Math.max(0,value))
-    );
+ inventoryKeys.forEach(name=>{
 
-}
+  const element =
+   document.getElementById(name);
 
+  if(element){
 
-/* =========================
-   نمایش اطلاعات
-========================= */
+   element.textContent =
+    faNumber(getInventory(name));
 
-function updateShop(){
+  }
 
-    const coins = getCoins();
-
-    document.getElementById("topCoins").textContent = coins;
-    document.getElementById("balanceCoins").textContent = coins;
-
-    document.getElementById("letterCount").textContent =
-        getItem("letter");
-
-    document.getElementById("removeCount").textContent =
-        getItem("remove");
-
-    document.getElementById("solveCount").textContent =
-        getItem("solve");
-
-    document.getElementById("potionCount").textContent =
-        getItem("potion");
+ });
 
 }
 
 
 /* =========================
-   خرید
+   خرید آیتم
 ========================= */
 
-function buyItem(type,price){
+function buyItem(name,price){
 
-    const coins = getCoins();
+ const coins = getCoins();
 
-    if(coins < price){
+ if(coins < price){
 
-        showMessage(
-            "❌ سکه کافی نداری!",
-            "error"
-        );
+  showToast(
+   "🪙 سکه کافی نداری!",
+   "bad"
+  );
 
-        return;
-    }
+  return;
 
-    setCoins(coins - price);
+ }
 
-    setItem(
-        type,
-        getItem(type) + 1
-    );
 
-    updateShop();
+ setCoins(coins-price);
 
-    showMessage(
-        "✨ آیتم با موفقیت خریداری شد!",
-        "success"
-    );
+
+ const key =
+  "kalemebaz_" + name;
+
+
+ const old =
+  Number(
+   localStorage.getItem(key)
+  ) || 0;
+
+
+ localStorage.setItem(
+  key,
+  String(old+1)
+ );
+
+
+ updateInventory();
+
+
+ const names = {
+
+  hintLetters:
+   "طلسم یک حرف",
+
+  removeLetters:
+   "پاک‌کن جادویی",
+
+  solveWords:
+   "جواب جادویی",
+
+  magicPotions:
+   "معجون جادویی"
+
+ };
+
+
+ document.getElementById(
+  "modalIcon"
+ ).textContent = "✨";
+
+
+ document.getElementById(
+  "modalTitle"
+ ).textContent =
+  "خرید موفق!";
+
+
+ document.getElementById(
+  "modalText"
+ ).textContent =
+  names[name] +
+  " به موجودی شما اضافه شد.";
+
+
+ document.getElementById(
+  "modal"
+ ).classList.add("show");
 
 }
 
@@ -621,45 +801,207 @@ function buyItem(type,price){
    پیام
 ========================= */
 
-let messageTimer;
-
-function showMessage(text,type){
-
-    const box = document.getElementById("message");
-
-    box.textContent = text;
-
-    box.className = "message show " + type;
-
-    clearTimeout(messageTimer);
-
-    messageTimer = setTimeout(()=>{
-
-        box.className = "message";
-
-    },2200);
-
-}
+let toastTimer;
 
 
-/* =========================
-   برگشت
-========================= */
+function showToast(text,type=""){
 
-function goBack(){
+ const toast =
+  document.getElementById("toast");
 
-    window.location.href = "index.html";
+ toast.textContent = text;
+
+ toast.className =
+  "toast show " + type;
+
+ clearTimeout(toastTimer);
+
+ toastTimer =
+  setTimeout(()=>{
+
+   toast.className =
+    "toast";
+
+  },1800);
 
 }
 
 
 /* =========================
-   شروع
+   بستن پنجره
 ========================= */
 
-updateShop();
+function closeModal(){
+
+ document.getElementById(
+  "modal"
+ ).classList.remove("show");
+
+}
+
+
+/* =========================
+   خانه
+========================= */
+
+function goHome(){
+
+ location.href =
+  "index.html";
+
+}
+
+
+/* =========================
+   ستاره‌ها
+========================= */
+
+function createStars(){
+
+ const box =
+  document.getElementById("stars");
+
+ box.innerHTML = "";
+
+ for(let i=0;i<80;i++){
+
+  const star =
+   document.createElement("div");
+
+  star.className =
+   "star";
+
+  star.style.left =
+   Math.random()*100 + "%";
+
+  star.style.top =
+   Math.random()*100 + "%";
+
+  const size =
+   Math.random()*2 + 1;
+
+  star.style.width =
+   size + "px";
+
+  star.style.height =
+   size + "px";
+
+  star.style.animationDelay =
+   Math.random()*2 + "s";
+
+  box.appendChild(star);
+
+ }
+
+}
+
+
+/* =========================
+   تنظیمات مشترک
+========================= */
+
+function applySettings(){
+
+ let settings = {};
+
+ try{
+
+  settings =
+   JSON.parse(
+    localStorage.getItem(
+     "kalemebaz_settings"
+    ) || "{}"
+   );
+
+ }catch(error){
+
+  settings = {};
+
+ }
+
+
+ if(
+  settings.brightness !== undefined
+ ){
+
+  const brightness =
+   Number(settings.brightness);
+
+  if(
+   Number.isFinite(brightness) &&
+   brightness > 0
+  ){
+
+   document.body.style.filter =
+    `brightness(${brightness}%)`;
+
+  }
+
+ }
+
+
+ if(settings.stars === false){
+
+  document.getElementById(
+   "stars"
+  ).style.display = "none";
+
+ }
+
+
+ if(settings.theme === "blue"){
+
+  document.documentElement.style.setProperty(
+   "--main",
+   "#2563eb"
+  );
+
+ }
+
+
+ if(settings.theme === "forest"){
+
+  document.documentElement.style.setProperty(
+   "--main",
+   "#16a34a"
+  );
+
+ }
+
+}
+
+
+/* =========================
+   بستن مودال با لمس بیرون
+========================= */
+
+document.getElementById(
+ "modal"
+).addEventListener(
+ "click",
+ function(e){
+
+  if(e.target === this){
+   closeModal();
+  }
+
+ }
+);
+
+
+/* =========================
+   شروع فروشگاه
+========================= */
+
+createStars();
+
+updateCoins();
+
+updateInventory();
+
+applySettings();
 
 </script>
 
 </body>
-  </html>
+</html>
