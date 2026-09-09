@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>کلمه‌باز | گردونه شانس</title>
+
+<style>
+*{
+ box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
+ user-select:none;
+}
+
+html,body{
+ margin:0;
+ min-height:100%;
+ font-family:Tahoma,Arial,sans-serif;
+ background:#080512;
+ color:#fff;
+}
+
+body{
+ overflow-x:hidden;
+}
+
+button{
+ font-family:inherit;
+}
+
+#app{
+ min-height:100vh;
+ position:relative;
+ overflow:hidden;
+ padding-bottom:35px;
+ background:
+ radial-gradient(circle at 50% 15%,rgba(139,92,246,.25),transparent 35%),
+ radial-gradient(circle at 10% 85%,rgba(34,211,238,.1),transparent 30%),
+ linear-gradient(180deg,#0b051b,#160b31 55%,#080512);
+}
+
+.stars{
+ position:absolute;
+ inset:0;
+ overflow:hidden;
+ pointer-events:none;
+}
+
+.star{
+ position:absolute;
+ width:2px;
+ height:2px;
+ background:#fff;
+ border-radius:50%;
+ opacity:.7;
+ animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+ from{opacity:.15;transform:scale(.7)}
+ to{opacity:1;transform:scale(1.5)}
+}
+
+.moon{
+ position:absolute;
+ width:110px;
+ height:110px;
+ top:-35px;
+ left:50%;
+ transform:translateX(-50%);
+ border-radius:50%;
+ background:radial-gradient(circle at 35% 30%,#fff,#d8c8ff 50%,#7955bd);
+ box-shadow:0 0 45px rgba(190,170,255,.45);
+ opacity:.72;
+}
+
+.header{
+ position:relative;
+ z-index:5;
+ height:72px;
+ padding:10px 12px;
+ padding-top:max(10px,env(safe-area-inset-top));
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.back{
+ width:45px;
+ height:45px;
+ border-radius:15px;
+ border:1px solid rgba(255,255,255,.12);
+ background:rgba(20,11,42,.9);
+ color:white;
+ font-size:22px;
+}
+
+.title{
+ flex:1;
+ text-align:center;
+}
+
+.title h1{
+ margin:0;
+ font-size:19px;
+ text-shadow:0 0 18px rgba(168,85,247,.8);
+}
+
+.title p{
+ margin:4px 0 0;
+ color:#aaa0bd;
+ font-size:10px;
+}
+
+.coinBox{
+ min-width:76px;
+ height:42px;
+ border-radius:14px;
+ border:1px solid rgba(250,204,21,.2);
+ background:rgba(25,15,51,.9);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:5px;
+ color:#facc15;
+ font-size:13px;
+ font-weight:900;
+}
+
+.card{
+ position:relative;
+ z-index:3;
+ width:calc(100% - 24px);
+ max-width:500px;
+ margin:12px auto;
+ padding:18px 14px 22px;
+ border-radius:25px;
+ background:rgba(23,13,47,.88);
+ border:1px solid rgba(168,85,247,.2);
+ box-shadow:0 20px 60px rgba(0,0,0,.3);
+ text-align:center;
+}
+
+.card h2{
+ margin:0;
+ font-size:19px;
+}
+
+.card p{
+ color:#aaa0bd;
+ font-size:10px;
+ line-height:1.8;
+ margin:7px auto 12px;
+ max-width:330px;
+}
+
+.wheelArea{
+ width:300px;
+ height:300px;
+ max-width:82vw;
+ max-height:82vw;
+ margin:8px auto 18px;
+ position:relative;
+}
+
+.pointer{
+ position:absolute;
+ z-index:20;
+ top:-4px;
+ left:50%;
+ transform:translateX(-50%);
+ width:0;
+ height:0;
+ border-left:14px solid transparent;
+ border-right:14px solid transparent;
+ border-top:32px solid #facc15;
+ filter:drop-shadow(0 0 8px rgba(250,204,21,.7));
+}
+
+.wheel{
+ width:100%;
+ height:100%;
+ border-radius:50%;
+ border:8px solid #2b1850;
+ box-shadow:
+  0 0 0 3px rgba(168,85,247,.25),
+  0 0 45px rgba(139,92,246,.3),
+  inset 0 0 30px rgba(0,0,0,.5);
+ position:relative;
+ overflow:hidden;
+ transition:transform 4.5s cubic-bezier(.12,.7,.1,1);
+ background:
+ conic-gradient(
+  #7c3aed 0deg 45deg,
+  #2563eb 45deg 90deg,
+  #0891b2 90deg 135deg,
+  #16a34a 135deg 180deg,
+  #ca8a04 180deg 225deg,
+  #ea580c 225deg 270deg,
+  #db2777 270deg 315deg,
+  #9333ea 315deg 360deg
+ );
+}
+
+.segmentText{
+ position:absolute;
+ left:50%;
+ top:50%;
+ width:100px;
+ height:35px;
+ margin-left:-50px;
+ margin-top:-17px;
+ text-align:center;
+ font-size:12px;
+ font-weight:900;
+ color:white;
+ text-shadow:0 2px 5px #000;
+ transform-origin:50% 50%;
+}
+
+.t1{transform:rotate(22.5deg) translateY(-105px) rotate(-22.5deg)}
+.t2{transform:rotate(67.5deg) translateY(-105px) rotate(-67.5deg)}
+.t3{transform:rotate(112.5deg) translateY(-105px) rotate(-112.5deg)}
+.t4{transform:rotate(157.5deg) translateY(-105px) rotate(-157.5deg)}
+.t5{transform:rotate(202.5deg) translateY(-105px) rotate(-202.5deg)}
+.t6{transform:rotate(247.5deg) translateY(-105px) rotate(-247.5deg)}
+.t7{transform:rotate(292.5deg) translateY(-105px) rotate(-292.5deg)}
+.t8{transform:rotate(337.5deg) translateY(-105px) rotate(-337.5deg)}
+
+.center{
+ position:absolute;
+ z-index:10;
+ width:66px;
+ height:66px;
+ top:50%;
+ left:50%;
+ transform:translate(-50%,-50%);
+ border-radius:50%;
+ background:radial-gradient(circle,#302052,#120a25);
+ border:4px solid #b47cff;
+ box-shadow:0 0 22px rgba(168,85,247,.7);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:27px;
+}
+
+.spinButton{
+ width:min(280px,85%);
+ height:51px;
+ border:0;
+ border-radius:17px;
+ background:linear-gradient(135deg,#6d28d9,#a855f7);
+ color:#fff;
+ font-size:14px;
+ font-weight:900;
+ box-shadow:0 10px 25px rgba(109,40,217,.3);
+ transition:.15s;
+}
+
+.spinButton:active{
+ transform:scale(.96);
+}
+
+.spinButton:disabled{
+ opacity:.45;
+ transform:none;
+}
+
+.cost{
+ margin-top:8px;
+ color:#a99db9;
+ font-size:10px;
+}
+
+.timer{
+ margin-top:7px;
+ color:#facc15;
+ font-size:11px;
+ font-weight:bold;
+ min-height:16px;
+}
+
+.rewards{
+ position:relative;
+ z-index:3;
+ width:calc(100% - 24px);
+ max-width:500px;
+ margin:12px auto;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px;
+}
+
+.reward{
+ padding:11px 7px;
+ border-radius:16px;
+ background:rgba(255,255,255,.045);
+ border:1px solid rgba(255,255,255,.07);
+ text-align:center;
+}
+
+.rewardIcon{
+ font-size:25px;
+}
+
+.rewardName{
+ margin-top:4px;
+ font-size:10px;
+ font-weight:bold;
+}
+
+.rewardValue{
+ margin-top:4px;
+ font-size:9px;
+ color:#aaa0bd;
+}
+
+.note{
+ position:relative;
+ z-index:3;
+ width:calc(100% - 24px);
+ max-width:500px;
+ margin:14px auto;
+ padding:13px;
+ border-radius:17px;
+ background:rgba(255,255,255,.035);
+ border:1px solid rgba(255,255,255,.06);
+ color:#a99db8;
+ font-size:9px;
+ line-height:1.9;
+ text-align:center;
+}
+
+.toast{
+ position:fixed;
+ z-index:100;
+ left:50%;
+ bottom:25px;
+ transform:translate(-50%,30px);
+ opacity:0;
+ padding:11px 17px;
+ border-radius:15px;
+ background:rgba(12,7,26,.97);
+ border:1px solid rgba(255,255,255,.1);
+ box-shadow:0 12px 35px rgba(0,0,0,.45);
+ font-size:12px;
+ font-weight:bold;
+ transition:.25s;
+ white-space:nowrap;
+}
+
+.toast.show{
+ opacity:1;
+ transform:translate(-50%,0);
+}
+
+.modal{
+ position:fixed;
+ z-index:200;
+ inset:0;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:rgba(3,1,10,.78);
+ backdrop-filter:blur(8px);
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modalBox{
+ width:min(92vw,380px);
+ padding:25px 18px;
+ border-radius:25px;
+ background:#17102d;
+ border:1px solid rgba(255,255,255,.12);
+ text-align:center;
+ box-shadow:0 20px 70px rgba(0,0,0,.6);
+}
+
+.modalIcon{
+ font-size:48px;
+}
+
+.modal h2{
+ margin:8px 0;
+ font-size:20px;
+}
+
+.modal p{
+ color:#b8adca;
+ font-size:12px;
+ line-height:1.8;
+}
+
+.modal button{
+ width:100%;
+ height:45px;
+ border:0;
+ border-radius:14px;
+ color:white;
+ font-weight:bold;
+ background:linear-gradient(135deg,#6d28d9,#a855f7);
+}
+
+@media(max-width:360px){
+ .wheelArea{
+  width:260px;
+  height:260px;
+ }
+ .segmentText{
+  transform-origin:50% 50%;
+  font-size:10px;
+ }
+ .t1{transform:rotate(22.5deg) translateY(-90px) rotate(-22.5deg)}
+ .t2{transform:rotate(67.5deg) translateY(-90px) rotate(-67.5deg)}
+ .t3{transform:rotate(112.5deg) translateY(-90px) rotate(-112.5deg)}
+ .t4{transform:rotate(157.5deg) translateY(-90px) rotate(-157.5deg)}
+ .t5{transform:rotate(202.5deg) translateY(-90px) rotate(-202.5deg)}
+ .t6{transform:rotate(247.5deg) translateY(-90px) rotate(-247.5deg)}
+ .t7{transform:rotate(292.5deg) translateY(-90px) rotate(-292.5deg)}
+ .t8{transform:rotate(337.5deg) translateY(-90px) rotate(-337.5deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+ <div class="stars" id="stars"></div>
+ <div class="moon"></div>
+
+ <header class="header">
+
+  <button class="back" onclick="goHome()">⌂</button>
+
+  <div class="title">
+   <h1>🎡 گردونه شانس</h1>
+   <p>شانس خودت را امتحان کن!</p>
+  </div>
+
+  <div class="coinBox">
+   🪙 <span id="coins">۰</span>
+  </div>
+
+ </header>
+
+
+ <section class="card">
+
+  <h2>🔮 گردونه جادویی</h2>
+
+  <p>
+   گردونه را بچرخان و یکی از پاداش‌های جادویی
+   کلمه‌باز را دریافت کن.
+  </p>
+
+
+  <div class="wheelArea">
+
+   <div class="pointer"></div>
+
+   <div class="wheel" id="wheel">
+
+    <div class="segmentText t1">🪙 ۳۰ سکه</div>
+    <div class="segmentText t2">⭐ ۳۰ XP</div>
+    <div class="segmentText t3">🪙 ۶۰ سکه</div>
+    <div class="segmentText t4">🔤 طلسم</div>
+    <div class="segmentText t5">💎 ۱۰۰ سکه</div>
+    <div class="segmentText t6">🧹 پاک‌کن</div>
+    <div class="segmentText t7">⭐ ۷۵ XP</div>
+    <div class="segmentText t8">🧪 معجون</div>
+
+    <div class="center">✨</div>
+
+   </div>
+
+  </div>
+
+
+  <button
+   class="spinButton"
+   id="spinButton"
+   onclick="spinWheel()"
+  >
+   🎡 چرخاندن گردونه
+  </button>
+
+  <div class="cost">
+   هزینه: 🪙 ۲۰ سکه
+  </div>
+
+  <div
+   class="timer"
+   id="timer"
+  ></div>
+
+ </section>
+
+
+ <section class="rewards">
+
+  <div class="reward">
+   <div class="rewardIcon">🪙</div>
+   <div class="rewardName">سکه</div>
+   <div class="rewardValue">۳۰ تا ۱۰۰</div>
+  </div>
+
+  <div class="reward">
+   <div class="rewardIcon">⭐</div>
+   <div class="rewardName">XP</div>
+   <div class="rewardValue">۳۰ یا ۷۵</div>
+  </div>
+
+  <div class="reward">
+   <div class="rewardIcon">🔤</div>
+   <div class="rewardName">طلسم</div>
+   <div class="rewardValue">یک عدد</div>
+  </div>
+
+  <div class="reward">
+   <div class="rewardIcon">🧪</div>
+   <div class="rewardName">معجون</div>
+   <div class="rewardValue">یک عدد</div>
+  </div>
+
+ </section>
+
+
+ <div class="note">
+  ✨ <b>نکته:</b>
+  این گردونه فقط بخشی از بازی است و تمام پاداش‌ها
+  مجازی هستند. هیچ پرداخت واقعی در این بخش وجود ندارد.
+ </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<div class="modal" id="modal">
+
+ <div class="modalBox">
+
+  <div class="modalIcon" id="modalIcon">🎁</div>
+
+  <h2 id="modalTitle">پاداش شما!</h2>
+
+  <p id="modalText"></p>
+
+  <button onclick="closeModal()">
+   عالیه!
+  </button>
+
+ </div>
+
+</div>
+
+
+<script>
+"use strict";
+
+
+const SPIN_COST = 20;
+const COOLDOWN = 24 * 60 * 60 * 1000;
+
+
+/* =========================
+   اعداد فارسی
+========================= */
+
+function faNumber(value){
+
+ return String(value).replace(
+  /\d/g,
+  d => "۰۱۲۳۴۵۶۷۸۹"[d]
+ );
+
+}
+
+
+/* =========================
+   سکه
+========================= */
+
+function getCoins(){
+
+ return Number(
+  localStorage.getItem(
+   "kalemebaz_coins"
+  )
+ ) || 0;
+
+}
+
+
+function setCoins(value){
+
+ localStorage.setItem(
+  "kalemebaz_coins",
+  String(Math.max(0,value))
+ );
+
+ updateCoins();
+
+}
+
+
+function updateCoins(){
+
+ document.getElementById(
+  "coins"
+ ).textContent =
+  faNumber(getCoins());
+
+}
+
+
+/* =========================
+   XP
+========================= */
+
+function addXP(amount){
+
+ const old =
+  Number(
+   localStorage.getItem(
+    "kalemebaz_xp"
+   )
+  ) || 0;
+
+ localStorage.setItem(
+  "kalemebaz_xp",
+  String(old + amount)
+ );
+
+}
+
+
+/* =========================
+   آیتم
+========================= */
+
+function addItem(name){
+
+ const key =
+  "kalemebaz_" + name;
+
+ const old =
+  Number(
+   localStorage.getItem(key)
+  ) || 0;
+
+ localStorage.setItem(
+  key,
+  String(old + 1)
+ );
+
+}
+
+
+/* =========================
+   پاداش‌ها
+========================= */
+
+const rewards = [
+
+ {
+  icon:"🪙",
+  title:"۳۰ سکه",
+  type:"coins",
+  value:30
+ },
+
+ {
+  icon:"⭐",
+  title:"۳۰ XP",
+  type:"xp",
+  value:30
+ },
+
+ {
+  icon:"🪙",
+  title:"۶۰ سکه",
+  type:"coins",
+  value:60
+ },
+
+ {
+  icon:"🔤",
+  title:"طلسم یک حرف",
+  type:"item",
+  value:"hintLetters"
+ },
+
+ {
+  icon:"💎",
+  title:"۱۰۰ سکه",
+  type:"coins",
+  value:100
+ },
+
+ {
+  icon:"🧹",
+  title:"پاک‌کن جادویی",
+  type:"item",
+  value:"removeLetters"
+ },
+
+ {
+  icon:"⭐",
+  title:"۷۵ XP",
+  type:"xp",
+  value:75
+ },
+
+ {
+  icon:"🧪",
+  title:"معجون جادویی",
+  type:"item",
+  value:"magicPotions"
+ }
+
+];
+
+
+/* =========================
+   آخرین چرخش
+========================= */
+
+function getLastSpin(){
+
+ return Number(
+  localStorage.getItem(
+   "kalemebaz_lastSpin"
+  )
+ ) || 0;
+
+}
+
+
+function canSpin(){
+
+ return Date.now() -
+  getLastSpin() >=
+  COOLDOWN;
+
+}
+
+
+function remainingTime(){
+
+ const remain =
+  COOLDOWN -
+  (Date.now() - getLastSpin());
+
+ if(remain <= 0){
+  return null;
+ }
+
+ const hours =
+  Math.floor(
+   remain / 3600000
+  );
+
+ const minutes =
+  Math.floor(
+   (remain % 3600000) /
+   60000
+  );
+
+ const seconds =
+  Math.floor(
+   (remain % 60000) /
+   1000
+  );
+
+ return (
+  faNumber(hours) +
+  " ساعت " +
+  faNumber(minutes) +
+  " دقیقه " +
+  faNumber(seconds) +
+  " ثانیه"
+ );
+
+}
+
+
+/* =========================
+   تایمر
+========================= */
+
+function updateTimer(){
+
+ const button =
+  document.getElementById(
+   "spinButton"
+  );
+
+ const timer =
+  document.getElementById(
+   "timer"
+  );
+
+
+ if(canSpin()){
+
+  timer.textContent =
+   "✨ آماده چرخش هستی!";
+
+  button.disabled = false;
+
+ }else{
+
+  timer.textContent =
+   "⏳ چرخش بعدی: " +
+   remainingTime();
+
+  button.disabled = true;
+
+ }
+
+}
+
+
+setInterval(updateTimer,1000);
+
+
+/* =========================
+   چرخاندن
+========================= */
+
+let spinning = false;
+
+
+function spinWheel(){
+
+ if(spinning){
+  return;
+ }
+
+
+ if(!canSpin()){
+
+  showToast(
+   "⏳ هنوز زمان چرخش بعدی نرسیده!",
+   "bad"
+  );
+
+  return;
+
+ }
+
+
+ const coins =
+  getCoins();
+
+
+ if(coins < SPIN_COST){
+
+  showToast(
+   "🪙 برای چرخاندن گردونه ۲۰ سکه لازم داری.",
+   "bad"
+  );
+
+  return;
+
+ }
+
+
+ spinning = true;
+
+ const button =
+  document.getElementById(
+   "spinButton"
+  );
+
+ button.disabled = true;
+
+
+ setCoins(
+  coins - SPIN_COST
+ );
+
+
+ /*
+  هر بار چند دور کامل + زاویه تصادفی
+ */
+
+ const index =
+  Math.floor(
+   Math.random() *
+   rewards.length
+  );
+
+
+ const segmentAngle = 360 / 8;
+
+ /*
+  هدف تقریبی:
+  مرکز هر بخش زیر فلش قرار بگیرد.
+ */
+
+ const target =
+  index * segmentAngle +
+  segmentAngle / 2;
+
+ const extra =
+  360 * (5 + Math.floor(Math.random()*3));
+
+ const rotation =
+  extra + (360 - target);
+
+
+ const wheel =
+  document.getElementById(
+   "wheel"
+  );
+
+
+ wheel.style.transform =
+  `rotate(${rotation}deg)`;
+
+
+ setTimeout(()=>{
+
+  const reward =
+   rewards[index];
+
+  giveReward(reward);
+
+  localStorage.setItem(
+   "kalemebaz_lastSpin",
+   String(Date.now())
+  );
+
+  spinning = false;
+
+  updateTimer();
+
+ },4700);
+
+}
+
+
+/* =========================
+   دادن پاداش
+========================= */
+
+function giveReward(reward){
+
+ if(reward.type === "coins"){
+
+  setCoins(
+   getCoins() + reward.value
+  );
+
+ }
+
+ else if(reward.type === "xp"){
+
+  addXP(
+   reward.value
+  );
+
+ }
+
+ else if(reward.type === "item"){
+
+  addItem(
+   reward.value
+  );
+
+ }
+
+
+ document.getElementById(
+  "modalIcon"
+ ).textContent =
+  reward.icon;
+
+
+ document.getElementById(
+  "modalTitle"
+ ).textContent =
+  "🎉 پاداش دریافت شد!";
+
+
+ document.getElementById(
+  "modalText"
+ ).textContent =
+  "شما " +
+  reward.title +
+  " دریافت کردید.";
+
+
+ document.getElementById(
+  "modal"
+ ).classList.add("show");
+
+}
+
+
+/* =========================
+   مودال
+========================= */
+
+function closeModal(){
+
+ document.getElementById(
+  "modal"
+ ).classList.remove("show");
+
+}
+
+
+/* =========================
+   پیام
+========================= */
+
+let toastTimer;
+
+
+function showToast(text,type=""){
+
+ const toast =
+  document.getElementById(
+   "toast"
+  );
+
+ toast.textContent =
+  text;
+
+ toast.className =
+  "toast show " + type;
+
+ clearTimeout(
+  toastTimer
+ );
+
+ toastTimer =
+  setTimeout(()=>{
+
+   toast.className =
+    "toast";
+
+  },2000);
+
+}
+
+
+/* =========================
+   ستاره‌ها
+========================= */
+
+function createStars(){
+
+ const box =
+  document.getElementById(
+   "stars"
+  );
+
+ for(let i=0;i<85;i++){
+
+  const star =
+   document.createElement(
+    "div"
+   );
+
+  star.className =
+   "star";
+
+  star.style.left =
+   Math.random()*100 + "%";
+
+  star.style.top =
+   Math.random()*100 + "%";
+
+  const size =
+   Math.random()*2 + 1;
+
+  star.style.width =
+   size + "px";
+
+  star.style.height =
+   size + "px";
+
+  star.style.animationDelay =
+   Math.random()*2 + "s";
+
+  box.appendChild(
+   star
+  );
+
+ }
+
+}
+
+
+/* =========================
+   تنظیمات مشترک
+========================= */
+
+function applySettings(){
+
+ let settings = {};
+
+ try{
+
+  settings =
+   JSON.parse(
+    localStorage.getItem(
+     "kalemebaz_settings"
+    ) || "{}"
+   );
+
+ }catch(error){
+
+  settings = {};
+
+ }
+
+
+ if(
+  settings.brightness !== undefined
+ ){
+
+  const brightness =
+   Number(
+    settings.brightness
+   );
+
+  if(
+   Number.isFinite(brightness) &&
+   brightness > 0
+  ){
+
+   document.body.style.filter =
+    `brightness(${brightness}%)`;
+
+  }
+
+ }
+
+
+ if(settings.stars === false){
+
+  document.getElementById(
+   "stars"
+  ).style.display =
+   "none";
+
+ }
+
+}
+
+
+/* =========================
+   خانه
+========================= */
+
+function goHome(){
+
+ location.href =
+  "index.html";
+
+}
+
+
+/* =========================
+   شروع
+========================= */
+
+createStars();
+
+updateCoins();
+
+updateTimer();
+
+applySettings();
+
+</script>
+
+</body>
+  </html>
