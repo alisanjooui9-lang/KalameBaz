@@ -1,7 +1,7 @@
 /* =========================================================
    🎮 KALAMEBAZ — LEVELS.JS
    کلمه‌باز | 1200 مرحله
-   نسخه بهینه‌شده برای game.html
+   نسخه سریع برای موبایل
 ========================================================= */
 
 "use strict";
@@ -60,7 +60,7 @@ function getDifficulty(level) {
 }
 
 /* =========================================================
-   حداقل طول کلمات
+   حداقل طول کلمه
 ========================================================= */
 
 function getMinimumLength(level) {
@@ -82,6 +82,7 @@ function getMinimumLength(level) {
 const WORD_BANK = [
 
     /* طبیعت */
+
     "آسمان","ابر","باران","برف","رعد","برق","باد","طوفان",
     "خورشید","ماه","ستاره","زمین","دریا","رود","رودخانه",
     "کوه","جنگل","درخت","گل","لاله","باغ","چمن","سنگ",
@@ -91,6 +92,7 @@ const WORD_BANK = [
     "سیاره","کهکشان","فضا","مریخ",
 
     /* حیوانات */
+
     "گربه","سگ","اسب","شیر","ببر","پلنگ","گرگ","روباه",
     "خرس","فیل","میمون","زرافه","خرگوش","موش","گوسفند",
     "بز","گاو","گوزن","آهو","کبوتر","عقاب","شاهین","جغد",
@@ -98,12 +100,14 @@ const WORD_BANK = [
     "لاکپشت","مار","قورباغه","پروانه","زنبور","مورچه",
 
     /* خانه */
+
     "خانه","اتاق","آشپزخانه","حمام","پنجره","در","دیوار",
     "سقف","میز","صندلی","تخت","کمد","فرش","پرده","چراغ",
     "آینه","تلویزیون","رادیو","کتابخانه","بالکن","حیاط",
     "باغچه","آسانسور","پله",
 
     /* مدرسه */
+
     "مدرسه","کلاس","معلم","دانش","دانشگاه","کتاب","دفتر",
     "مداد","خودکار","پاک‌کن","تراش","خط‌کش","کیف","تخته",
     "درس","امتحان","سؤال","جواب","نمره","علم","ریاضی",
@@ -112,6 +116,7 @@ const WORD_BANK = [
     "محاسبه","اطلاعات",
 
     /* خوراکی */
+
     "نان","برنج","گوشت","مرغ","ماهی","پنیر","کره","شیر",
     "ماست","تخم‌مرغ","سیب","پرتقال","موز","انگور","هلو",
     "گیلاس","هندوانه","خربزه","انار","لیمو","هویج","خیار",
@@ -119,12 +124,14 @@ const WORD_BANK = [
     "شیرینی","بیسکویت","نوشیدنی","آبمیوه",
 
     /* شهر و مکان */
+
     "شهر","روستا","خیابان","کوچه","میدان","پارک","بازار",
     "فروشگاه","مغازه","بانک","بیمارستان","رستوران","هتل",
     "فرودگاه","ایستگاه","قلعه","کاخ","برج","پل","مسجد",
     "موزه","سینما","ورزشگاه","جاده","کشور","پایتخت","نقشه",
 
     /* وسایل */
+
     "گوشی","تلفن","رایانه","کامپیوتر","لپتاپ","دوربین",
     "ساعت","تقویم","باتری","شارژر","کلید","قفل","چتر",
     "چمدان","کفش","لباس","کلاه","عینک","دوچرخه","ماشین",
@@ -133,6 +140,7 @@ const WORD_BANK = [
     "هدفون","صفحه‌نمایش",
 
     /* انسان */
+
     "مرد","زن","کودک","دوست","خانواده","مادر","پدر",
     "برادر","خواهر","پدربزرگ","مادربزرگ","دکتر","مهندس",
     "پزشک","هنرمند","بازیکن","نویسنده","شاعر","قهرمان",
@@ -140,6 +148,7 @@ const WORD_BANK = [
     "نگهبان",
 
     /* مفاهیم */
+
     "آزادی","دوستی","محبت","امید","آرامش","قدرت","شجاعت",
     "موفقیت","تلاش","هدف","رویا","زمان","روز","شب","صبح",
     "عصر","آینده","گذشته","زندگی","دنیا","جهان","راز",
@@ -150,11 +159,13 @@ const WORD_BANK = [
     "خبر","روزنامه","مجله","صفحه","رمان","شعر","نامه","پیام",
 
     /* بازی */
+
     "بازی","مرحله","امتیاز","سکه","جایزه","گردونه","راهنما",
     "معما","برد","پیروزی","رقابت","تیم","فوتبال","بسکتبال",
     "والیبال","شطرنج","پازل","تاس",
 
     /* فناوری */
+
     "تکنولوژی","نرم‌افزار","برنامه‌نویسی","اینترنت","شبکه",
     "سامانه","داده","هوش","ربات","ماشین","مخابرات",
     "ارتباطات","الکترونیک","نیرو","حرکت","سرعت","مسیر",
@@ -162,21 +173,25 @@ const WORD_BANK = [
     "دانش‌آموز","هوش‌مصنوعی",
 
     /* ماجراجویی */
+
     "ماجراجویی","سفر","کمپ","اردو","غار","گنجینه","گنج",
     "صندوق","دروازه","دژ","تالار","راهرو","تونل","قلعه",
 
     /* فانتزی */
+
     "جادو","جادوگر","جادویی","طلسم","معجون","افسون","شمشیر",
     "سپر","تاج","اژدها","ققنوس","غول","جن","پری","روح",
     "سرزمین","کریستال","الماس","طلا","نقره","شعله",
 
     /* کلمات ترکیبی */
+
     "باغجادویی","جنگلجادویی","برججادویی","قلعهجادویی",
     "درختجادویی","سنگجادویی","آتشجادویی","یخجادویی",
     "بادجادویی","برقجادویی","ستارهجادویی","ماهجادویی",
     "تاججادویی","شمشیرجادویی","سپرجادویی","معجونجادویی",
     "صندوقمخفی","درمخفی","اتاقمخفی","راهمخفی","گنجمخفی",
     "رازمخفی","نقشهمخفی","دروازهمخفی"
+
 ];
 
 /* =========================================================
@@ -192,11 +207,15 @@ const CLEAN_WORD_BANK = [
 ];
 
 /* =========================================================
-   اطلاعات حروف
+   حروف
 ========================================================= */
 
 function getLetters(word) {
-    return [...normalizePersianWord(word)];
+
+    return [
+        ...normalizePersianWord(word)
+    ];
+
 }
 
 function getLetterSet(words) {
@@ -212,345 +231,332 @@ function getLetterSet(words) {
     });
 
     return set;
+
 }
 
 /* =========================================================
-   تعداد حروف چرخ
+   ساخت مرحله سریع
 ========================================================= */
-
-function getLetterCount(words) {
-
-    let count = 0;
-
-    words.forEach(word => {
-
-        const local = {};
-
-        getLetters(word).forEach(letter => {
-
-            local[letter] =
-                (local[letter] || 0) + 1;
-
-        });
-
-        Object.values(local).forEach(n => {
-
-            count += n;
-
-        });
-
-    });
-
-    return count;
-}
-
-/* =========================================================
-   امتیاز مرحله
-========================================================= */
-
-function scoreCombination(words, level) {
-
-    const letters = getLetterSet(words);
-
-    const letterCount = letters.size;
-
-    let score = 0;
-
-    /*
-       چرخ حروف خیلی شلوغ نباشد.
-    */
-
-    if (letterCount <= 12) score += 50;
-    else if (letterCount <= 15) score += 40;
-    else if (letterCount <= 18) score += 25;
-    else if (letterCount <= 21) score += 10;
-    else score -= (letterCount - 21) * 12;
-
-    /*
-       برای مراحل سخت‌تر،
-       تنوع حروف کمی بیشتر شود.
-    */
-
-    if (level >= 500) {
-
-        if (letterCount >= 14)
-            score += 10;
-
-    }
-
-    if (level >= 1000) {
-
-        if (letterCount >= 16)
-            score += 15;
-
-    }
-
-    /*
-       کلمات طولانی‌تر امتیاز بیشتری می‌گیرند.
-    */
-
-    const averageLength =
-        words.reduce(
-            (sum, word) => sum + word.length,
-            0
-        ) / words.length;
-
-    score += averageLength * 3;
-
-    return score;
-}
-
-/* =========================================================
-   انتخاب مرحله
-========================================================= */
-
-const usedStageSignatures = new Set();
 
 function createLevel(level) {
 
-    const count = getWordCount(level);
-    const minLength = getMinimumLength(level);
+    const count =
+        getWordCount(level);
+
+    const minLength =
+        getMinimumLength(level);
 
     let candidates =
         CLEAN_WORD_BANK.filter(
-            word => word.length >= minLength
+            word =>
+                word.length >= minLength
         );
 
-    /*
-       مراحل بالاتر کلمات طولانی‌تر می‌گیرند.
-    */
-
-    if (level >= 600) {
+    if(level >= 600) {
 
         const longWords =
             candidates.filter(
-                word => word.length >= 5
+                word =>
+                    word.length >= 5
             );
 
-        if (longWords.length >= count)
+        if(longWords.length >= count) {
             candidates = longWords;
+        }
 
     }
 
-    if (level >= 900) {
+    if(level >= 900) {
 
         const harderWords =
             candidates.filter(
-                word => word.length >= 6
+                word =>
+                    word.length >= 6
             );
 
-        if (harderWords.length >= count)
+        if(harderWords.length >= count) {
             candidates = harderWords;
-
-    }
-
-    /*
-       چند ترکیب مختلف تولید می‌کنیم
-       و بهترین را انتخاب می‌کنیم.
-    */
-
-    let best = null;
-    let bestScore = -Infinity;
-
-    const attempts = 5;
-
-    for (let attempt = 0; attempt < attempts; attempt++) {
-
-        const selected = [];
-
-        const seed =
-            (
-                level * 7919 +
-                attempt * 104729
-            ) % candidates.length;
-
-        for (let i = 0; i < candidates.length; i++) {
-
-            if (selected.length >= count)
-                break;
-
-            const index =
-                (
-                    seed +
-                    i * (17 + (level % 13)) +
-                    attempt * 7
-                ) % candidates.length;
-
-            const word =
-                candidates[index];
-
-            if (!selected.includes(word))
-                selected.push(word);
-
-        }
-
-        if (selected.length !== count)
-            continue;
-
-        const signature =
-            [...selected]
-                .sort()
-                .join("|");
-
-        /*
-           ترکیب تکراری نباشد.
-        */
-
-        if (usedStageSignatures.has(signature))
-            continue;
-
-        const score =
-            scoreCombination(
-                selected,
-                level
-            );
-
-        if (score > bestScore) {
-
-            best = selected;
-            bestScore = score;
-
         }
 
     }
 
     /*
-       اگر ترکیب مناسب پیدا نشد،
-       یک ترکیب قطعی می‌سازیم.
+       فقط یک انتخاب قطعی و سریع.
+       دیگر ۸۰ بار تلاش نمی‌کنیم.
     */
 
-    if (!best) {
+    const selected = [];
 
-        const selected = [];
+    const start =
+        (
+            level * 7919
+        ) % candidates.length;
 
-        const start =
+    for(
+        let i = 0;
+        i < candidates.length &&
+        selected.length < count;
+        i++
+    ) {
+
+        const index =
             (
-                level * 37 +
-                level * level
+                start +
+                i * (17 + (level % 13))
             ) % candidates.length;
 
-        for (
-            let i = 0;
-            i < candidates.length && selected.length < count;
-            i++
+        const word =
+            candidates[index];
+
+        if(!selected.includes(word)) {
+            selected.push(word);
+        }
+
+    }
+
+    /*
+       اگر به هر دلیلی تعداد کافی نبود،
+       از ابتدای بانک پر می‌کنیم.
+    */
+
+    if(selected.length < count) {
+
+        for(
+            const word of candidates
         ) {
 
-            const index =
-                (
-                    start +
-                    i * 11
-                ) % candidates.length;
+            if(
+                !selected.includes(word)
+            ) {
 
-            const word =
-                candidates[index];
-
-            if (!selected.includes(word))
                 selected.push(word);
 
-        }
+            }
 
-        best = selected.slice(0,count);
+            if(
+                selected.length >= count
+            ) {
+                break;
+            }
+
+        }
 
     }
 
     /*
-       مرتب‌سازی مرحله‌های سخت‌تر.
+       مراحل سخت‌تر:
+       کلمات طولانی‌تر اول قرار بگیرند.
     */
 
-    if (level >= 500) {
+    if(level >= 500) {
 
-        best.sort((a,b) => {
+        selected.sort(
+            (a,b) => {
 
-            if (b.length !== a.length)
-                return b.length - a.length;
+                if(
+                    b.length !== a.length
+                ) {
 
-            return a.localeCompare(
-                b,
-                "fa"
-            );
+                    return (
+                        b.length -
+                        a.length
+                    );
 
-        });
+                }
+
+                return a.localeCompare(
+                    b,
+                    "fa"
+                );
+
+            }
+        );
 
     }
 
-    const finalSignature =
-        [...best]
-            .sort()
-            .join("|");
-
-    usedStageSignatures.add(
-        finalSignature
+    return selected.slice(
+        0,
+        count
     );
 
-    return best;
 }
 
 /* =========================================================
-   ساخت ۱۲۰۰ مرحله
+   کش مراحل
 ========================================================= */
 
-const KALAMEBAZ_LEVELS = {};
+const levelCache = {};
 
-for (
-    let level = 1;
-    level <= TOTAL_LEVELS;
-    level++
-) {
+/*
+   اینجا دیگر ۱۲۰۰ مرحله ساخته نمی‌شود.
+   فقط مرحله‌ای که بازی درخواست کند ساخته می‌شود.
+*/
 
-    KALAMEBAZ_LEVELS[level] =
-        createLevel(level);
+function getLevel(level) {
+
+    level = Number(level);
+
+    if(
+        !Number.isFinite(level) ||
+        level < 1 ||
+        level > TOTAL_LEVELS
+    ) {
+
+        return [];
+
+    }
+
+    if(
+        !levelCache[level]
+    ) {
+
+        levelCache[level] =
+            createLevel(level);
+
+    }
+
+    return levelCache[level];
 
 }
 
 /* =========================================================
-   اطلاعات مراحل
+   Proxy برای سازگاری با game.html
 ========================================================= */
 
-const KALAMEBAZ_LEVEL_INFO = {};
+const KALAMEBAZ_LEVELS =
+    new Proxy(
+        {},
+        {
 
-for (
-    let level = 1;
-    level <= TOTAL_LEVELS;
-    level++
-) {
+            get(target, property) {
 
-    const words =
-        KALAMEBAZ_LEVELS[level];
+                if(
+                    property === "length"
+                ) {
 
-    const letters =
-        [
-            ...getLetterSet(words)
-        ];
+                    return TOTAL_LEVELS;
 
-    KALAMEBAZ_LEVEL_INFO[level] = {
+                }
 
-        level,
+                if(
+                    typeof property === "string" &&
+                    /^\d+$/.test(property)
+                ) {
 
-        words: words.length,
+                    return getLevel(
+                        Number(property)
+                    );
 
-        difficulty:
-            getDifficulty(level),
+                }
 
-        minimumLength:
-            getMinimumLength(level),
+                return target[property];
 
-        letters,
+            },
 
-        letterCount:
-            letters.length
+            has(target, property) {
 
-    };
+                if(
+                    typeof property === "string" &&
+                    /^\d+$/.test(property)
+                ) {
 
-}
+                    const number =
+                        Number(property);
+
+                    return (
+                        number >= 1 &&
+                        number <= TOTAL_LEVELS
+                    );
+
+                }
+
+                return property in target;
+
+            }
+
+        }
+    );
+
+/* =========================================================
+   اطلاعات مرحله به صورت Lazy
+========================================================= */
+
+const KALAMEBAZ_LEVEL_INFO =
+    new Proxy(
+        {},
+        {
+
+            get(target, property) {
+
+                if(
+                    typeof property !== "string" ||
+                    !/^\d+$/.test(property)
+                ) {
+
+                    return target[property];
+
+                }
+
+                const level =
+                    Number(property);
+
+                if(
+                    level < 1 ||
+                    level > TOTAL_LEVELS
+                ) {
+
+                    return undefined;
+
+                }
+
+                if(
+                    !target[level]
+                ) {
+
+                    const words =
+                        getLevel(level);
+
+                    const letters =
+                        [
+                            ...getLetterSet(words)
+                        ];
+
+                    target[level] = {
+
+                        level: level,
+
+                        words:
+                            words.length,
+
+                        difficulty:
+                            getDifficulty(level),
+
+                        minimumLength:
+                            getMinimumLength(level),
+
+                        letters: letters,
+
+                        letterCount:
+                            letters.length
+
+                    };
+
+                }
+
+                return target[level];
+
+            }
+
+        }
+    );
 
 /* =========================================================
    اتصال به window
 ========================================================= */
 
-const levels =
-    KALAMEBAZ_LEVELS;
-
-if (typeof window !== "undefined") {
+if(
+    typeof window !== "undefined"
+) {
 
     window.KALAMEBAZ_LEVELS =
         KALAMEBAZ_LEVELS;
@@ -573,90 +579,24 @@ if (typeof window !== "undefined") {
 }
 
 /* =========================================================
-   اعتبارسنجی
+   تست سبک
 ========================================================= */
 
-(function validateLevels() {
+console.log(
+    "✅ کلمه‌باز آماده است:",
+    TOTAL_LEVELS,
+    "مرحله"
+);
 
-    const numbers =
-        Object.keys(
-            KALAMEBAZ_LEVELS
-        )
-        .map(Number)
-        .sort(
-            (a,b) => a-b
-        );
+console.log(
+    "📚 بانک کلمات:",
+    CLEAN_WORD_BANK.length
+);
 
-    if (
-        numbers.length !==
-        TOTAL_LEVELS
-    ) {
-
-        console.error(
-            "❌ تعداد مراحل اشتباه:",
-            numbers.length
-        );
-
-        return;
-
-    }
-
-    for (
-        let level = 1;
-        level <= TOTAL_LEVELS;
-        level++
-    ) {
-
-        const words =
-            KALAMEBAZ_LEVELS[level];
-
-        const required =
-            getWordCount(level);
-
-        if (
-            !Array.isArray(words) ||
-            words.length !== required
-        ) {
-
-            console.error(
-                "❌ مرحله نامعتبر:",
-                level,
-                words
-            );
-
-            return;
-
-        }
-
-        const unique =
-            new Set(words);
-
-        if (
-            unique.size !==
-            words.length
-        ) {
-
-            console.error(
-                "❌ کلمه تکراری در مرحله:",
-                level
-            );
-
-            return;
-
-        }
-
-    }
-
-    console.log(
-        `✅ کلمه‌باز: ${TOTAL_LEVELS} مرحله آماده است.`
-    );
-
-    console.log(
-        `📚 تعداد کلمات بانک: ${CLEAN_WORD_BANK.length}`
-    );
-
-})();
+console.log(
+    "⚡ حالت سریع: فقط مرحله موردنیاز ساخته می‌شود."
+);
 
 /* =========================================================
-   پایان levels.js
+   پایان
 ========================================================= */
