@@ -352,7 +352,7 @@ function createLevel(level) {
     let best = null;
     let bestScore = -Infinity;
 
-    const attempts = 80;
+    const attempts = 5;
 
     for (let attempt = 0; attempt < attempts; attempt++) {
 
