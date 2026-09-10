@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
 <title>دستاوردها | کلمه‌باز</title>
 
 <style>
@@ -11,7 +10,6 @@
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
-
 html,body{
     margin:0;
     min-height:100%;
@@ -19,37 +17,28 @@ html,body{
     color:#fff;
     background:
         radial-gradient(circle at 50% 0%,rgba(135,80,255,.24),transparent 30%),
-        radial-gradient(circle at 0% 100%,rgba(0,180,255,.10),transparent 35%),
+        radial-gradient(circle at 0 100%,rgba(0,180,255,.10),transparent 35%),
         linear-gradient(160deg,#110a28,#070512 78%);
 }
-
-body{
-    overflow-x:hidden;
-}
-
+body{overflow-x:hidden}
 button{
     font-family:inherit;
     color:#fff;
     border:0;
     cursor:pointer;
 }
-
 .app{
     width:100%;
     max-width:620px;
     margin:auto;
     padding:15px 13px 35px;
 }
-
-/* Header */
-
 .top{
     display:flex;
     align-items:center;
     gap:10px;
     margin-bottom:15px;
 }
-
 .back{
     width:44px;
     height:44px;
@@ -57,31 +46,24 @@ button{
     background:rgba(255,255,255,.08);
     font-size:21px;
 }
-
 .title{
     flex:1;
     text-align:center;
 }
-
 .title h1{
     margin:0;
     font-size:21px;
 }
-
 .title small{
     color:#9690aa;
     font-size:9px;
 }
-
-/* Summary */
-
 .summary{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:8px;
     margin-bottom:14px;
 }
-
 .summaryBox{
     padding:13px 5px;
     text-align:center;
@@ -89,26 +71,18 @@ button{
     background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.08);
 }
-
 .summaryBox span{
     display:block;
     font-size:21px;
     margin-bottom:5px;
 }
-
-.summaryBox b{
-    font-size:13px;
-}
-
+.summaryBox b{font-size:13px}
 .summaryBox small{
     display:block;
     color:#858099;
     font-size:8px;
     margin-top:3px;
 }
-
-/* Progress */
-
 .progressCard{
     padding:16px;
     border-radius:21px;
@@ -118,89 +92,67 @@ button{
         rgba(255,255,255,.055);
     border:1px solid rgba(190,150,255,.16);
 }
-
 .progressTop{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:8px;
 }
-
-.progressTop b{
-    font-size:12px;
-}
-
+.progressTop b{font-size:12px}
 .progressTop span{
     color:#aaa3bd;
     font-size:9px;
 }
-
 .bar{
     height:9px;
     overflow:hidden;
     border-radius:99px;
     background:rgba(255,255,255,.09);
 }
-
 .fill{
     height:100%;
     width:0;
     background:linear-gradient(90deg,#955cff,#36d8ff);
     transition:.5s;
 }
-
-/* Section */
-
 .sectionTitle{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin:17px 2px 9px;
 }
-
 .sectionTitle h2{
     margin:0;
     font-size:14px;
 }
-
 .sectionTitle span{
     color:#817b96;
     font-size:9px;
 }
-
-/* Achievements */
-
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:9px;
 }
-
 .achievement{
     position:relative;
-    min-height:132px;
+    min-height:145px;
     padding:15px 11px;
     border-radius:19px;
     background:rgba(255,255,255,.055);
     border:1px solid rgba(255,255,255,.08);
     overflow:hidden;
 }
-
-.achievement.locked{
-    opacity:.52;
-}
-
+.achievement.locked{opacity:.52}
 .achievement.unlocked{
     background:
         radial-gradient(circle at 50% 0%,rgba(155,100,255,.18),transparent 60%),
         rgba(255,255,255,.07);
     border-color:rgba(178,135,255,.3);
 }
-
 .achievement.claimed{
     border-color:rgba(64,220,160,.35);
 }
-
 .badge{
     width:48px;
     height:48px;
@@ -212,20 +164,16 @@ button{
     background:rgba(255,255,255,.07);
     font-size:26px;
 }
-
 .unlocked .badge{
     background:rgba(140,80,255,.17);
 }
-
 .claimed .badge{
     background:rgba(50,210,150,.13);
 }
-
 .achievement h3{
     margin:0;
     font-size:11px;
 }
-
 .achievement p{
     margin:5px 0;
     min-height:27px;
@@ -233,12 +181,10 @@ button{
     font-size:8px;
     line-height:1.7;
 }
-
 .reward{
     color:#d4c6ff;
     font-size:8px;
 }
-
 .status{
     position:absolute;
     top:9px;
@@ -249,17 +195,13 @@ button{
     background:rgba(0,0,0,.2);
     color:#8e879f;
 }
-
-.unlocked .status{
-    color:#bfa2ff;
+.unlocked .status{color:#bfa2ff}
+.claimed .status{color:#63e7ae}
+.cardProgress{
+    margin-top:6px;
+    color:#817a94;
+    font-size:8px;
 }
-
-.claimed .status{
-    color:#63e7ae;
-}
-
-/* Button */
-
 .claimBtn{
     width:100%;
     min-height:34px;
@@ -269,14 +211,10 @@ button{
     font-weight:bold;
     background:linear-gradient(135deg,#8150ed,#49309b);
 }
-
 .claimBtn:disabled{
     background:rgba(255,255,255,.06);
     color:#716b81;
 }
-
-/* Info */
-
 .info{
     margin-top:17px;
     padding:14px;
@@ -287,7 +225,6 @@ button{
     font-size:9px;
     line-height:2;
 }
-
 .footer{
     text-align:center;
     margin-top:24px;
@@ -295,9 +232,6 @@ button{
     font-size:9px;
     line-height:2;
 }
-
-/* Toast */
-
 .toast{
     position:fixed;
     left:50%;
@@ -314,18 +248,12 @@ button{
     pointer-events:none;
     white-space:nowrap;
 }
-
 .toast.show{
     opacity:1;
     transform:translateX(-50%) translateY(0);
 }
-
 @media(max-width:370px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
+    .grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -335,7 +263,6 @@ button{
 <div class="app">
 
     <div class="top">
-
         <button class="back" onclick="goHome()">‹</button>
 
         <div class="title">
@@ -344,11 +271,7 @@ button{
         </div>
 
         <div style="width:44px"></div>
-
     </div>
-
-
-    <!-- خلاصه -->
 
     <div class="summary">
 
@@ -372,19 +295,11 @@ button{
 
     </div>
 
-
-    <!-- پیشرفت -->
-
     <section class="progressCard">
 
         <div class="progressTop">
-
             <b>🌟 پیشرفت دستاوردها</b>
-
-            <span id="progressText">
-                ۰ از ۱۵
-            </span>
-
+            <span id="progressText">۰ از ۱۵</span>
         </div>
 
         <div class="bar">
@@ -393,18 +308,12 @@ button{
 
     </section>
 
-
-    <!-- مراحل -->
-
     <div class="sectionTitle">
         <h2>🗺️ دستاوردهای مراحل</h2>
-        <span>تا مرحله ۱۲۰۰</span>
+        <span>۱ تا ۱۲۰۰</span>
     </div>
 
     <div class="grid" id="levelAchievements"></div>
-
-
-    <!-- XP -->
 
     <div class="sectionTitle">
         <h2>⭐ دستاوردهای XP</h2>
@@ -413,24 +322,20 @@ button{
 
     <div class="grid" id="xpAchievements"></div>
 
-
-    <!-- Coins -->
-
     <div class="sectionTitle">
         <h2>🪙 دستاوردهای سکه</h2>
-        <span>ثروت جادویی</span>
+        <span>گنجینه</span>
     </div>
 
     <div class="grid" id="coinAchievements"></div>
 
-
     <div class="info">
-        💡 وقتی یک دستاورد را باز کردی، روی دکمه
-        «🎁 دریافت جایزه» بزن تا پاداش آن به حساب تو اضافه شود.
+        💡 وقتی یک دستاورد باز شد، دکمه «🎁 دریافت جایزه» را بزن.
         <br>
         🔮 هر جایزه فقط یک‌بار قابل دریافت است.
+        <br>
+        🗺️ تعداد مراحل کامل‌شده از وضعیت واقعی مراحل بررسی می‌شود.
     </div>
-
 
     <div class="footer">
         کلمه‌باز © Ghost Studio<br>
@@ -439,29 +344,23 @@ button{
 
 </div>
 
-
 <div class="toast" id="toast"></div>
-
 
 <script>
 
-/* =========================================================
-   KALAMEBAZ ACHIEVEMENTS
-   سیستم کامل ۱۲۰۰ مرحله
-========================================================= */
+"use strict";
 
 const TOTAL_LEVELS = 1200;
 
+/* =========================================================
+   ابزار عدد
+========================================================= */
 
-/* ---------------------------------------------------------
-   اطلاعات بازیکن
---------------------------------------------------------- */
-
-function num(key, defaultValue){
+function num(key, defaultValue = 0){
 
     const value =
         parseInt(
-            localStorage.getItem(key)
+            localStorage.getItem(key) || ""
         );
 
     return Number.isFinite(value)
@@ -470,60 +369,106 @@ function num(key, defaultValue){
 
 }
 
+/* =========================================================
+   خواندن تعداد واقعی مراحل کامل‌شده
+========================================================= */
 
-let currentLevel =
-    num(
-        "kalemebaz_currentLevel",
-        1
-    );
+function getRealCompletedLevels(){
+
+    let count = 0;
+
+    for(let level = 1; level <= TOTAL_LEVELS; level++){
+
+        if(
+            localStorage.getItem(
+                "kalemebaz_completed_" + level
+            ) === "1"
+        ){
+
+            count++;
+
+        }
+
+    }
+
+    /*
+       برای سازگاری با نسخه‌های قبلی،
+       مقدار completedLevels هم بررسی می‌شود.
+    */
+
+    const oldValue =
+        Math.max(
+            0,
+            Math.min(
+                TOTAL_LEVELS,
+                num(
+                    "kalemebaz_completedLevels",
+                    0
+                )
+            )
+        );
+
+    /*
+       مقدار واقعی اولویت دارد.
+    */
+
+    if(count > 0){
+
+        localStorage.setItem(
+            "kalemebaz_completedLevels",
+            String(count)
+        );
+
+        return count;
+
+    }
+
+    return oldValue;
+
+}
+
+/* =========================================================
+   اطلاعات بازیکن
+========================================================= */
 
 let completed =
-    num(
-        "kalemebaz_completedLevels",
-        0
-    );
+    getRealCompletedLevels();
 
-let coins =
-    num(
-        "kalemebaz_coins",
-        100
-    );
-
-let xp =
-    num(
-        "kalemebaz_xp",
-        0
-    );
-
-
-/* محدود کردن */
-
-currentLevel =
+let currentLevel =
     Math.max(
         1,
         Math.min(
             TOTAL_LEVELS,
-            currentLevel
+            num(
+                "kalemebaz_currentLevel",
+                1
+            )
         )
     );
 
-completed =
+let coins =
     Math.max(
         0,
-        Math.min(
-            TOTAL_LEVELS,
-            completed
+        num(
+            "kalemebaz_coins",
+            100
         )
     );
 
+let xp =
+    Math.max(
+        0,
+        num(
+            "kalemebaz_xp",
+            0
+        )
+    );
 
-/* ---------------------------------------------------------
+/* =========================================================
    دستاوردها
---------------------------------------------------------- */
+========================================================= */
 
 const achievements = [
-
-    /* مراحل */
 
     {
         id:"level_1",
@@ -534,9 +479,7 @@ const achievements = [
         type:"level",
         target:1,
         rewardText:"🪙 +25 سکه",
-        reward:{
-            coins:25
-        }
+        reward:{coins:25}
     },
 
     {
@@ -547,11 +490,8 @@ const achievements = [
         description:"۵ مرحله را کامل کن.",
         type:"level",
         target:5,
-        rewardText:"🪙 +50 سکه | ⭐ +20 XP",
-        reward:{
-            coins:50,
-            xp:20
-        }
+        rewardText:"🪙 +50 | ⭐ +20 XP",
+        reward:{coins:50,xp:20}
     },
 
     {
@@ -562,11 +502,8 @@ const achievements = [
         description:"۱۰ مرحله را کامل کن.",
         type:"level",
         target:10,
-        rewardText:"🪙 +75 سکه | ⭐ +30 XP",
-        reward:{
-            coins:75,
-            xp:30
-        }
+        rewardText:"🪙 +75 | ⭐ +30 XP",
+        reward:{coins:75,xp:30}
     },
 
     {
@@ -577,11 +514,8 @@ const achievements = [
         description:"۲۵ مرحله را کامل کن.",
         type:"level",
         target:25,
-        rewardText:"🪙 +100 سکه | ⭐ +50 XP",
-        reward:{
-            coins:100,
-            xp:50
-        }
+        rewardText:"🪙 +100 | ⭐ +50 XP",
+        reward:{coins:100,xp:50}
     },
 
     {
@@ -592,7 +526,7 @@ const achievements = [
         description:"۵۰ مرحله را کامل کن.",
         type:"level",
         target:50,
-        rewardText:"🪙 +150 سکه | 🔤 +1 طلسم",
+        rewardText:"🪙 +150 | 🔤 +1 طلسم",
         reward:{
             coins:150,
             hintLetters:1
@@ -607,7 +541,7 @@ const achievements = [
         description:"۱۰۰ مرحله را کامل کن.",
         type:"level",
         target:100,
-        rewardText:"🪙 +200 سکه | ⭐ +100 XP",
+        rewardText:"🪙 +200 | ⭐ +100 XP",
         reward:{
             coins:200,
             xp:100
@@ -622,7 +556,7 @@ const achievements = [
         description:"۲۰۰ مرحله را کامل کن.",
         type:"level",
         target:200,
-        rewardText:"🪙 +300 سکه | 🧹 +1 پاک‌کن",
+        rewardText:"🪙 +300 | 🧹 +1 پاک‌کن",
         reward:{
             coins:300,
             removeLetters:1
@@ -637,7 +571,7 @@ const achievements = [
         description:"۵۰۰ مرحله را کامل کن.",
         type:"level",
         target:500,
-        rewardText:"🪙 +500 سکه | 💡 +1 جواب جادویی",
+        rewardText:"🪙 +500 | 💡 +1 جواب جادویی",
         reward:{
             coins:500,
             solveWords:1
@@ -652,7 +586,7 @@ const achievements = [
         description:"۱۰۰۰ مرحله را کامل کن.",
         type:"level",
         target:1000,
-        rewardText:"🪙 +1000 سکه | ⭐ +250 XP",
+        rewardText:"🪙 +1000 | ⭐ +250 XP",
         reward:{
             coins:1000,
             xp:250
@@ -664,18 +598,15 @@ const achievements = [
         category:"level",
         icon:"🌌",
         title:"افسانه نهایی",
-        description:"هر ۱۲۰۰ مرحله را کامل کن!",
+        description:"تمام ۱۲۰۰ مرحله را کامل کن.",
         type:"level",
         target:1200,
-        rewardText:"🪙 +2000 سکه | 🧪 +3 معجون",
+        rewardText:"🪙 +2000 | 🧪 +3 معجون",
         reward:{
             coins:2000,
             magicPotions:3
         }
     },
-
-
-    /* XP */
 
     {
         id:"xp_100",
@@ -686,9 +617,7 @@ const achievements = [
         type:"xp",
         target:100,
         rewardText:"🪙 +75 سکه",
-        reward:{
-            coins:75
-        }
+        reward:{coins:75}
     },
 
     {
@@ -700,9 +629,7 @@ const achievements = [
         type:"xp",
         target:500,
         rewardText:"🪙 +150 سکه",
-        reward:{
-            coins:150
-        }
+        reward:{coins:150}
     },
 
     {
@@ -713,14 +640,9 @@ const achievements = [
         description:"به ۱۰۰۰ XP برس.",
         type:"xp",
         target:1000,
-        rewardText:"🧪 +1 معجون جادویی",
-        reward:{
-            magicPotions:1
-        }
+        rewardText:"🧪 +1 معجون",
+        reward:{magicPotions:1}
     },
-
-
-    /* سکه */
 
     {
         id:"coins_500",
@@ -731,9 +653,7 @@ const achievements = [
         type:"coins",
         target:500,
         rewardText:"🪙 +100 سکه",
-        reward:{
-            coins:100
-        }
+        reward:{coins:100}
     },
 
     {
@@ -745,17 +665,14 @@ const achievements = [
         type:"coins",
         target:1000,
         rewardText:"🪙 +250 سکه",
-        reward:{
-            coins:250
-        }
+        reward:{coins:250}
     }
 
 ];
 
-
-/* ---------------------------------------------------------
-   شناسه‌های دریافت‌شده
---------------------------------------------------------- */
+/* =========================================================
+   جوایز دریافت‌شده
+========================================================= */
 
 let claimed = [];
 
@@ -777,10 +694,9 @@ try{
 
 }
 
-
-/* ---------------------------------------------------------
-   آیا باز شده؟
---------------------------------------------------------- */
+/* =========================================================
+   وضعیت
+========================================================= */
 
 function isUnlocked(item){
 
@@ -797,11 +713,6 @@ function isUnlocked(item){
 
 }
 
-
-/* ---------------------------------------------------------
-   مقدار فعلی
---------------------------------------------------------- */
-
 function getCurrent(item){
 
     if(item.type === "level")
@@ -817,21 +728,25 @@ function getCurrent(item){
 
 }
 
-
-/* ---------------------------------------------------------
+/* =========================================================
    ذخیره
---------------------------------------------------------- */
+========================================================= */
 
 function saveAll(){
 
     localStorage.setItem(
         "kalemebaz_coins",
-        coins
+        String(coins)
     );
 
     localStorage.setItem(
         "kalemebaz_xp",
-        xp
+        String(xp)
+    );
+
+    localStorage.setItem(
+        "kalemebaz_completedLevels",
+        String(completed)
     );
 
     localStorage.setItem(
@@ -841,10 +756,28 @@ function saveAll(){
 
 }
 
+/* =========================================================
+   آیتم‌ها
+========================================================= */
 
-/* ---------------------------------------------------------
+function addItem(key, amount){
+
+    const oldValue =
+        Math.max(
+            0,
+            num(key,0)
+        );
+
+    localStorage.setItem(
+        key,
+        String(oldValue + amount)
+    );
+
+}
+
+/* =========================================================
    دریافت جایزه
---------------------------------------------------------- */
+========================================================= */
 
 function claimAchievement(id){
 
@@ -876,69 +809,38 @@ function claimAchievement(id){
 
     }
 
-
     const reward =
         item.reward || {};
 
+    if(reward.coins)
+        coins += reward.coins;
 
-    /* سکه */
+    if(reward.xp)
+        xp += reward.xp;
 
-    if(reward.coins){
-
-        coins +=
-            reward.coins;
-
-    }
-
-
-    /* XP */
-
-    if(reward.xp){
-
-        xp +=
-            reward.xp;
-
-    }
-
-
-    /* آیتم‌ها */
-
-    if(reward.hintLetters){
-
+    if(reward.hintLetters)
         addItem(
             "kalemebaz_hintLetters",
             reward.hintLetters
         );
 
-    }
-
-    if(reward.removeLetters){
-
+    if(reward.removeLetters)
         addItem(
             "kalemebaz_removeLetters",
             reward.removeLetters
         );
 
-    }
-
-    if(reward.solveWords){
-
+    if(reward.solveWords)
         addItem(
             "kalemebaz_solveWords",
             reward.solveWords
         );
 
-    }
-
-    if(reward.magicPotions){
-
+    if(reward.magicPotions)
         addItem(
             "kalemebaz_magicPotions",
             reward.magicPotions
         );
-
-    }
-
 
     claimed.push(id);
 
@@ -947,37 +849,16 @@ function claimAchievement(id){
     renderAll();
 
     showToast(
-        "🎁 جایزه «"+
-        item.title+
+        "🎁 جایزه «" +
+        item.title +
         "» دریافت شد!"
     );
 
 }
 
-
-/* ---------------------------------------------------------
-   اضافه کردن آیتم
---------------------------------------------------------- */
-
-function addItem(key,amount){
-
-    const oldValue =
-        num(
-            key,
-            0
-        );
-
-    localStorage.setItem(
-        key,
-        oldValue + amount
-    );
-
-}
-
-
-/* ---------------------------------------------------------
-   ساخت کارت
---------------------------------------------------------- */
+/* =========================================================
+   کارت
+========================================================= */
 
 function createCard(item){
 
@@ -995,27 +876,31 @@ function createCard(item){
 
     card.className =
         "achievement " +
-        (unlocked ? "unlocked " : "locked ") +
-        (alreadyClaimed ? "claimed" : "");
-
+        (
+            unlocked
+            ? "unlocked "
+            : "locked "
+        ) +
+        (
+            alreadyClaimed
+            ? "claimed"
+            : ""
+        );
 
     const badge =
         document.createElement("div");
 
-    badge.className =
-        "badge";
+    badge.className = "badge";
 
     badge.textContent =
         unlocked
-            ? item.icon
-            : "🔒";
-
+        ? item.icon
+        : "🔒";
 
     const status =
         document.createElement("div");
 
-    status.className =
-        "status";
+    status.className = "status";
 
     if(alreadyClaimed){
 
@@ -1034,13 +919,11 @@ function createCard(item){
 
     }
 
-
     const h3 =
         document.createElement("h3");
 
     h3.textContent =
         item.title;
-
 
     const p =
         document.createElement("p");
@@ -1048,72 +931,32 @@ function createCard(item){
     p.textContent =
         item.description;
 
-
     const reward =
         document.createElement("div");
 
-    reward.className =
-        "reward";
+    reward.className = "reward";
 
     reward.textContent =
         "🎁 " +
         item.rewardText;
 
+    const progress =
+        document.createElement("div");
 
-    card.appendChild(
-        badge
-    );
+    progress.className =
+        "cardProgress";
 
-    card.appendChild(
-        status
-    );
+    if(unlocked){
 
-    card.appendChild(
-        h3
-    );
+        progress.textContent =
+            "✓ هدف کامل شد";
 
-    card.appendChild(
-        p
-    );
+    }else{
 
-    card.appendChild(
-        reward
-    );
-
-
-    /* نوار مقدار برای دستاوردهای باز نشده */
-
-    if(!unlocked){
-
-        const progressText =
-            document.createElement("div");
-
-        progressText.style.marginTop =
-            "6px";
-
-        progressText.style.color =
-            "#777188";
-
-        progressText.style.fontSize =
-            "7px";
-
-        const shown =
-            Math.min(
-                current,
-                item.target
-            );
-
-        progressText.textContent =
-            shown +
-            " / " +
-            item.target;
-
-        card.appendChild(
-            progressText
-        );
+        progress.textContent =
+            `${Math.min(current,item.target)} / ${item.target}`;
 
     }
-
 
     const button =
         document.createElement("button");
@@ -1126,51 +969,45 @@ function createCard(item){
         button.textContent =
             "✓ دریافت شده";
 
-        button.disabled =
-            true;
+        button.disabled = true;
 
     }else if(unlocked){
 
         button.textContent =
             "🎁 دریافت جایزه";
 
-        button.onclick =
-            () => claimAchievement(item.id);
+        button.onclick = () =>
+            claimAchievement(item.id);
 
     }else{
 
         button.textContent =
             "🔒 هنوز باز نشده";
 
-        button.disabled =
-            true;
+        button.disabled = true;
 
     }
 
-
-    card.appendChild(
-        button
-    );
-
+    card.appendChild(badge);
+    card.appendChild(status);
+    card.appendChild(h3);
+    card.appendChild(p);
+    card.appendChild(reward);
+    card.appendChild(progress);
+    card.appendChild(button);
 
     return card;
 
 }
 
-
-/* ---------------------------------------------------------
+/* =========================================================
    رندر
---------------------------------------------------------- */
+========================================================= */
 
-function renderCategory(
-    category,
-    elementId
-){
+function renderCategory(id, category){
 
     const box =
-        document.getElementById(
-            elementId
-        );
+        document.getElementById(id);
 
     box.innerHTML = "";
 
@@ -1179,49 +1016,48 @@ function renderCategory(
             item =>
                 item.category === category
         )
-        .forEach(
-            item =>
-                box.appendChild(
-                    createCard(item)
-                )
-        );
+        .forEach(item => {
+
+            box.appendChild(
+                createCard(item)
+            );
+
+        });
 
 }
 
-
-/* ---------------------------------------------------------
-   نمایش همه
---------------------------------------------------------- */
+/* =========================================================
+   رندر کامل
+========================================================= */
 
 function renderAll(){
 
-    renderCategory(
-        "level",
-        "levelAchievements"
-    );
+    /*
+       دوباره وضعیت واقعی را می‌خوانیم
+       تا اگر از game.html برگشته باشیم،
+       اطلاعات جدید نمایش داده شود.
+    */
 
-    renderCategory(
-        "xp",
-        "xpAchievements"
-    );
+    completed =
+        getRealCompletedLevels();
 
-    renderCategory(
-        "coins",
-        "coinAchievements"
-    );
+    coins =
+        Math.max(
+            0,
+            num(
+                "kalemebaz_coins",
+                100
+            )
+        );
 
-
-    document.getElementById(
-        "coins"
-    ).textContent =
-        coins;
-
-
-    document.getElementById(
-        "xp"
-    ).textContent =
-        xp;
-
+    xp =
+        Math.max(
+            0,
+            num(
+                "kalemebaz_xp",
+                0
+            )
+        );
 
     const unlocked =
         achievements.filter(
@@ -1229,80 +1065,83 @@ function renderAll(){
                 isUnlocked(item)
         ).length;
 
-
     document.getElementById(
         "unlockedCount"
     ).textContent =
         unlocked;
 
+    document.getElementById(
+        "coins"
+    ).textContent =
+        coins;
+
+    document.getElementById(
+        "xp"
+    ).textContent =
+        xp;
+
+    const total =
+        achievements.length;
 
     document.getElementById(
         "progressText"
     ).textContent =
-        unlocked +
-        " از " +
-        achievements.length;
-
-
-    const percent =
-        (unlocked /
-        achievements.length) *
-        100;
-
+        `${unlocked} از ${total}`;
 
     document.getElementById(
         "progressFill"
     ).style.width =
-        percent + "%";
+        (
+            unlocked / total * 100
+        ) + "%";
+
+    renderCategory(
+        "levelAchievements",
+        "level"
+    );
+
+    renderCategory(
+        "xpAchievements",
+        "xp"
+    );
+
+    renderCategory(
+        "coinAchievements",
+        "coins"
+    );
 
 }
 
-
-renderAll();
-
-
-/* ---------------------------------------------------------
+/* =========================================================
    Toast
---------------------------------------------------------- */
+========================================================= */
 
 let toastTimer;
 
 function showToast(message){
 
     const toast =
-        document.getElementById(
-            "toast"
-        );
+        document.getElementById("toast");
 
     toast.textContent =
         message;
 
-    toast.classList.add(
-        "show"
-    );
+    toast.classList.add("show");
 
-    clearTimeout(
-        toastTimer
-    );
+    clearTimeout(toastTimer);
 
     toastTimer =
         setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2300
+            () =>
+                toast.classList.remove("show"),
+            2200
         );
 
 }
 
-
-/* ---------------------------------------------------------
+/* =========================================================
    خانه
---------------------------------------------------------- */
+========================================================= */
 
 function goHome(){
 
@@ -1311,61 +1150,20 @@ function goHome(){
 
 }
 
-
-/* ---------------------------------------------------------
-   هماهنگ‌سازی با برگشت به صفحه
---------------------------------------------------------- */
+/* =========================================================
+   بازگشت به صفحه وقتی کاربر از game.html می‌آید
+========================================================= */
 
 window.addEventListener(
     "pageshow",
-    function(){
-
-        currentLevel =
-            num(
-                "kalemebaz_currentLevel",
-                1
-            );
-
-        completed =
-            num(
-                "kalemebaz_completedLevels",
-                0
-            );
-
-        coins =
-            num(
-                "kalemebaz_coins",
-                100
-            );
-
-        xp =
-            num(
-                "kalemebaz_xp",
-                0
-            );
-
-        try{
-
-            claimed =
-                JSON.parse(
-                    localStorage.getItem(
-                        "kalemebaz_claimedAchievements"
-                    ) || "[]"
-                );
-
-            if(!Array.isArray(claimed))
-                claimed = [];
-
-        }catch(e){
-
-            claimed = [];
-
-        }
-
-        renderAll();
-
-    }
+    renderAll
 );
+
+/* =========================================================
+   شروع
+========================================================= */
+
+renderAll();
 
 </script>
 
