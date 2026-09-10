@@ -2,988 +2,1370 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>کلمه‌باز | دستاوردها</title>
+<title>دستاوردها | کلمه‌باز</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-  margin:0;
-  min-height:100%;
-  font-family:Tahoma,Arial,sans-serif;
-  color:#fff;
-  background:#080518;
+    margin:0;
+    min-height:100%;
+    font-family:Tahoma,Arial,sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(135,80,255,.24),transparent 30%),
+        radial-gradient(circle at 0% 100%,rgba(0,180,255,.10),transparent 35%),
+        linear-gradient(160deg,#110a28,#070512 78%);
 }
 
 body{
-  overflow-x:hidden;
-  background:
-    radial-gradient(circle at 50% 10%,rgba(140,75,255,.28),transparent 30%),
-    linear-gradient(180deg,#12062e,#080518 65%,#04020b);
+    overflow-x:hidden;
 }
 
-#stars{
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-  z-index:0;
+button{
+    font-family:inherit;
+    color:#fff;
+    border:0;
+    cursor:pointer;
 }
 
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  border-radius:50%;
-  background:white;
-  box-shadow:0 0 8px white;
-  animation:twinkle 2s infinite alternate;
+.app{
+    width:100%;
+    max-width:620px;
+    margin:auto;
+    padding:15px 13px 35px;
 }
 
-@keyframes twinkle{
-  from{opacity:.2}
-  to{opacity:1}
-}
+/* Header */
 
-.moon{
-  position:fixed;
-  top:35px;
-  left:22px;
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  background:#fff;
-  opacity:.85;
-  box-shadow:0 0 35px rgba(255,255,255,.55);
-  z-index:0;
-}
-
-.moon:after{
-  content:"";
-  position:absolute;
-  left:28px;
-  top:-7px;
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  background:#12062e;
-}
-
-.container{
-  position:relative;
-  z-index:2;
-  width:min(94%,600px);
-  margin:auto;
-  padding:18px 0 45px;
-}
-
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:18px;
-}
-
-.topbar h1{
-  margin:0;
-  font-size:22px;
+.top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
 }
 
 .back{
-  border:0;
-  color:white;
-  background:rgba(255,255,255,.08);
-  padding:10px 15px;
-  border-radius:14px;
-  font-size:14px;
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    font-size:21px;
 }
+
+.title{
+    flex:1;
+    text-align:center;
+}
+
+.title h1{
+    margin:0;
+    font-size:21px;
+}
+
+.title small{
+    color:#9690aa;
+    font-size:9px;
+}
+
+/* Summary */
 
 .summary{
-  padding:20px;
-  border-radius:24px;
-  background:linear-gradient(
-    145deg,
-    rgba(104,53,181,.48),
-    rgba(20,9,49,.92)
-  );
-  border:1px solid rgba(201,159,255,.25);
-  box-shadow:0 15px 45px rgba(0,0,0,.4);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:14px;
 }
 
-.summary-title{
-  color:#d8bfff;
-  font-size:13px;
+.summaryBox{
+    padding:13px 5px;
+    text-align:center;
+    border-radius:17px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
 }
 
-.summary-number{
-  margin-top:8px;
-  font-size:31px;
-  font-weight:bold;
+.summaryBox span{
+    display:block;
+    font-size:21px;
+    margin-bottom:5px;
 }
 
-.summary-desc{
-  margin-top:6px;
-  color:#aaa0b9;
-  font-size:11px;
+.summaryBox b{
+    font-size:13px;
 }
 
-.progress{
-  margin-top:17px;
-  height:10px;
-  border-radius:20px;
-  overflow:hidden;
-  background:rgba(0,0,0,.4);
+.summaryBox small{
+    display:block;
+    color:#858099;
+    font-size:8px;
+    margin-top:3px;
 }
 
-.progress-fill{
-  height:100%;
-  width:0%;
-  border-radius:20px;
-  background:linear-gradient(90deg,#7c42d5,#c18aff);
-  box-shadow:0 0 14px rgba(184,115,255,.7);
-  transition:1s;
+/* Progress */
+
+.progressCard{
+    padding:16px;
+    border-radius:21px;
+    margin-bottom:17px;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(155,100,255,.2),transparent 60%),
+        rgba(255,255,255,.055);
+    border:1px solid rgba(190,150,255,.16);
 }
 
-.progress-text{
-  margin-top:7px;
-  text-align:left;
-  color:#bcb0ca;
-  font-size:10px;
+.progressTop{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
 }
 
-.section-title{
-  margin:25px 4px 12px;
-  font-size:18px;
+.progressTop b{
+    font-size:12px;
+}
+
+.progressTop span{
+    color:#aaa3bd;
+    font-size:9px;
+}
+
+.bar{
+    height:9px;
+    overflow:hidden;
+    border-radius:99px;
+    background:rgba(255,255,255,.09);
+}
+
+.fill{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#955cff,#36d8ff);
+    transition:.5s;
+}
+
+/* Section */
+
+.sectionTitle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:17px 2px 9px;
+}
+
+.sectionTitle h2{
+    margin:0;
+    font-size:14px;
+}
+
+.sectionTitle span{
+    color:#817b96;
+    font-size:9px;
+}
+
+/* Achievements */
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
 }
 
 .achievement{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin-bottom:10px;
-  padding:15px;
-  border-radius:20px;
-  background:rgba(255,255,255,.065);
-  border:1px solid rgba(255,255,255,.08);
-  overflow:hidden;
-}
-
-.achievement.unlocked{
-  border-color:rgba(192,139,255,.35);
-  background:linear-gradient(
-    135deg,
-    rgba(105,55,175,.25),
-    rgba(255,255,255,.05)
-  );
+    position:relative;
+    min-height:132px;
+    padding:15px 11px;
+    border-radius:19px;
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
 }
 
 .achievement.locked{
-  opacity:.55;
+    opacity:.52;
 }
 
-.achievement-icon{
-  flex:0 0 55px;
-  width:55px;
-  height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:17px;
-  font-size:28px;
-  background:rgba(0,0,0,.28);
+.achievement.unlocked{
+    background:
+        radial-gradient(circle at 50% 0%,rgba(155,100,255,.18),transparent 60%),
+        rgba(255,255,255,.07);
+    border-color:rgba(178,135,255,.3);
 }
 
-.unlocked .achievement-icon{
-  box-shadow:0 0 20px rgba(169,100,255,.25);
+.achievement.claimed{
+    border-color:rgba(64,220,160,.35);
 }
 
-.achievement-info{
-  min-width:0;
-  flex:1;
+.badge{
+    width:48px;
+    height:48px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:15px;
+    background:rgba(255,255,255,.07);
+    font-size:26px;
 }
 
-.achievement-name{
-  font-size:14px;
-  font-weight:bold;
+.unlocked .badge{
+    background:rgba(140,80,255,.17);
 }
 
-.achievement-description{
-  margin-top:5px;
-  color:#9e94aa;
-  font-size:10px;
-  line-height:1.7;
+.claimed .badge{
+    background:rgba(50,210,150,.13);
+}
+
+.achievement h3{
+    margin:0;
+    font-size:11px;
+}
+
+.achievement p{
+    margin:5px 0;
+    min-height:27px;
+    color:#9b95ae;
+    font-size:8px;
+    line-height:1.7;
 }
 
 .reward{
-  margin-top:7px;
-  color:#e0c8ff;
-  font-size:10px;
+    color:#d4c6ff;
+    font-size:8px;
 }
 
 .status{
-  flex:0 0 auto;
-  padding:7px 9px;
-  border-radius:11px;
-  font-size:9px;
-  font-weight:bold;
-  background:rgba(255,255,255,.08);
-  color:#a59aac;
+    position:absolute;
+    top:9px;
+    left:9px;
+    padding:4px 6px;
+    border-radius:8px;
+    font-size:7px;
+    background:rgba(0,0,0,.2);
+    color:#8e879f;
 }
 
 .unlocked .status{
-  color:#fff;
-  background:#7040b8;
+    color:#bfa2ff;
 }
 
-.reward-box{
-  margin-top:18px;
-  padding:14px;
-  border-radius:17px;
-  text-align:center;
-  color:#c8b6d9;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.07);
-  font-size:11px;
-  line-height:1.8;
+.claimed .status{
+    color:#63e7ae;
 }
+
+/* Button */
+
+.claimBtn{
+    width:100%;
+    min-height:34px;
+    margin-top:8px;
+    border-radius:10px;
+    font-size:9px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#8150ed,#49309b);
+}
+
+.claimBtn:disabled{
+    background:rgba(255,255,255,.06);
+    color:#716b81;
+}
+
+/* Info */
+
+.info{
+    margin-top:17px;
+    padding:14px;
+    border-radius:17px;
+    color:#9b95ae;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.06);
+    font-size:9px;
+    line-height:2;
+}
+
+.footer{
+    text-align:center;
+    margin-top:24px;
+    color:#5e5872;
+    font-size:9px;
+    line-height:2;
+}
+
+/* Toast */
 
 .toast{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%) translateY(100px);
-  z-index:50;
-  min-width:250px;
-  max-width:90%;
-  padding:14px 18px;
-  border-radius:16px;
-  background:#180d2d;
-  border:1px solid rgba(196,146,255,.35);
-  text-align:center;
-  box-shadow:0 12px 40px rgba(0,0,0,.55);
-  opacity:0;
-  transition:.3s;
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    z-index:100;
+    transform:translateX(-50%) translateY(25px);
+    opacity:0;
+    padding:11px 16px;
+    border-radius:13px;
+    background:#21163c;
+    border:1px solid rgba(255,255,255,.12);
+    font-size:10px;
+    transition:.3s;
+    pointer-events:none;
+    white-space:nowrap;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
-@media(max-width:380px){
-  .achievement{
-    gap:9px;
-    padding:12px;
-  }
+@media(max-width:370px){
 
-  .achievement-icon{
-    flex-basis:48px;
-    width:48px;
-    height:48px;
-    font-size:24px;
-  }
+    .grid{
+        grid-template-columns:1fr;
+    }
 
-  .status{
-    padding:6px;
-    font-size:8px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="stars"></div>
-<div class="moon"></div>
+<div class="app">
 
-<div class="container">
+    <div class="top">
 
-  <div class="topbar">
-    <button class="back" onclick="location.href='index.html'">
-      ← خانه
-    </button>
+        <button class="back" onclick="goHome()">‹</button>
 
-    <h1>🏆 دستاوردها</h1>
-  </div>
+        <div class="title">
+            <h1>🏆 دستاوردها</h1>
+            <small>جوایز ماجراجویی تو</small>
+        </div>
 
-  <section class="summary">
+        <div style="width:44px"></div>
 
-    <div class="summary-title">
-      ✨ تالار افتخارات
     </div>
 
-    <div class="summary-number" id="unlockedCount">
-      0 / 15
+
+    <!-- خلاصه -->
+
+    <div class="summary">
+
+        <div class="summaryBox">
+            <span>🏆</span>
+            <b id="unlockedCount">0</b>
+            <small>باز شده</small>
+        </div>
+
+        <div class="summaryBox">
+            <span>🪙</span>
+            <b id="coins">0</b>
+            <small>سکه</small>
+        </div>
+
+        <div class="summaryBox">
+            <span>⭐</span>
+            <b id="xp">0</b>
+            <small>XP</small>
+        </div>
+
     </div>
 
-    <div class="summary-desc">
-      با پیشرفت در سرزمین کلمات، دستاوردهای بیشتری باز کن.
+
+    <!-- پیشرفت -->
+
+    <section class="progressCard">
+
+        <div class="progressTop">
+
+            <b>🌟 پیشرفت دستاوردها</b>
+
+            <span id="progressText">
+                ۰ از ۱۵
+            </span>
+
+        </div>
+
+        <div class="bar">
+            <div class="fill" id="progressFill"></div>
+        </div>
+
+    </section>
+
+
+    <!-- مراحل -->
+
+    <div class="sectionTitle">
+        <h2>🗺️ دستاوردهای مراحل</h2>
+        <span>تا مرحله ۱۲۰۰</span>
     </div>
 
-    <div class="progress">
-      <div
-        class="progress-fill"
-        id="achievementProgress">
-      </div>
+    <div class="grid" id="levelAchievements"></div>
+
+
+    <!-- XP -->
+
+    <div class="sectionTitle">
+        <h2>⭐ دستاوردهای XP</h2>
+        <span>قدرت بیشتر</span>
     </div>
 
-    <div
-      class="progress-text"
-      id="progressText">
-      0٪
+    <div class="grid" id="xpAchievements"></div>
+
+
+    <!-- Coins -->
+
+    <div class="sectionTitle">
+        <h2>🪙 دستاوردهای سکه</h2>
+        <span>ثروت جادویی</span>
     </div>
 
-  </section>
+    <div class="grid" id="coinAchievements"></div>
 
-  <h2 class="section-title">
-    🏅 دستاوردهای تو
-  </h2>
 
-  <div id="achievementList"></div>
+    <div class="info">
+        💡 وقتی یک دستاورد را باز کردی، روی دکمه
+        «🎁 دریافت جایزه» بزن تا پاداش آن به حساب تو اضافه شود.
+        <br>
+        🔮 هر جایزه فقط یک‌بار قابل دریافت است.
+    </div>
 
-  <div class="reward-box">
-    🎁 پاداش هر دستاورد فقط یک بار به حساب بازیکن اضافه می‌شود.
-    <br>
-    اطلاعات پاداش‌ها نیز در حافظه بازی ذخیره می‌شوند.
-  </div>
+
+    <div class="footer">
+        کلمه‌باز © Ghost Studio<br>
+        سرزمین جادویی کلمات
+    </div>
 
 </div>
 
+
 <div class="toast" id="toast"></div>
+
 
 <script>
 
-/* =====================================================
-   ابزارهای ذخیره‌سازی
-===================================================== */
+/* =========================================================
+   KALAMEBAZ ACHIEVEMENTS
+   سیستم کامل ۱۲۰۰ مرحله
+========================================================= */
 
-function getNumber(key, fallback=0){
+const TOTAL_LEVELS = 1200;
 
-  const value =
-    parseInt(
-      localStorage.getItem(key),
-      10
+
+/* ---------------------------------------------------------
+   اطلاعات بازیکن
+--------------------------------------------------------- */
+
+function num(key, defaultValue){
+
+    const value =
+        parseInt(
+            localStorage.getItem(key)
+        );
+
+    return Number.isFinite(value)
+        ? value
+        : defaultValue;
+
+}
+
+
+let currentLevel =
+    num(
+        "kalemebaz_currentLevel",
+        1
     );
 
-  return Number.isFinite(value)
-    ? value
-    : fallback;
-}
+let completed =
+    num(
+        "kalemebaz_completedLevels",
+        0
+    );
+
+let coins =
+    num(
+        "kalemebaz_coins",
+        100
+    );
+
+let xp =
+    num(
+        "kalemebaz_xp",
+        0
+    );
 
 
-function setNumber(key,value){
+/* محدود کردن */
 
-  localStorage.setItem(
-    key,
-    String(Math.max(0,Math.floor(value)))
-  );
+currentLevel =
+    Math.max(
+        1,
+        Math.min(
+            TOTAL_LEVELS,
+            currentLevel
+        )
+    );
 
-}
+completed =
+    Math.max(
+        0,
+        Math.min(
+            TOTAL_LEVELS,
+            completed
+        )
+    );
 
 
-/* =====================================================
-   لیست دستاوردها
-===================================================== */
+/* ---------------------------------------------------------
+   دستاوردها
+--------------------------------------------------------- */
 
 const achievements = [
 
-  {
-    id:"level_1",
-    icon:"🌱",
-    name:"شروع ماجراجویی",
-    description:"اولین مرحله را کامل کن.",
-    reward:"🪙 25 سکه",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 1,
-    give:()=>{
-      addCoins(25);
-    }
-  },
+    /* مراحل */
 
-  {
-    id:"level_5",
-    icon:"🔥",
-    name:"شروع قدرتمند",
-    description:"۵ مرحله را کامل کن.",
-    reward:"🪙 50 سکه + ✨ 20 XP",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 5,
-    give:()=>{
-      addCoins(50);
-      addXP(20);
-    }
-  },
+    {
+        id:"level_1",
+        category:"level",
+        icon:"🌱",
+        title:"شروع جادویی",
+        description:"اولین مرحله را کامل کن.",
+        type:"level",
+        target:1,
+        rewardText:"🪙 +25 سکه",
+        reward:{
+            coins:25
+        }
+    },
 
-  {
-    id:"level_10",
-    icon:"⚔️",
-    name:"جنگجوی کلمات",
-    description:"۱۰ مرحله را کامل کن.",
-    reward:"🪙 75 سکه + ✨ 30 XP",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 10,
-    give:()=>{
-      addCoins(75);
-      addXP(30);
-    }
-  },
+    {
+        id:"level_5",
+        category:"level",
+        icon:"✨",
+        title:"اولین قدم‌ها",
+        description:"۵ مرحله را کامل کن.",
+        type:"level",
+        target:5,
+        rewardText:"🪙 +50 سکه | ⭐ +20 XP",
+        reward:{
+            coins:50,
+            xp:20
+        }
+    },
 
-  {
-    id:"level_25",
-    icon:"🗺️",
-    name:"کاوشگر",
-    description:"۲۵ مرحله را کامل کن.",
-    reward:"🪙 100 سکه + ✨ 50 XP",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 25,
-    give:()=>{
-      addCoins(100);
-      addXP(50);
-    }
-  },
+    {
+        id:"level_10",
+        category:"level",
+        icon:"🔥",
+        title:"کلمه‌جو",
+        description:"۱۰ مرحله را کامل کن.",
+        type:"level",
+        target:10,
+        rewardText:"🪙 +75 سکه | ⭐ +30 XP",
+        reward:{
+            coins:75,
+            xp:30
+        }
+    },
 
-  {
-    id:"level_50",
-    icon:"🏰",
-    name:"دروازه قلعه",
-    description:"۵۰ مرحله را کامل کن.",
-    reward:"🪙 150 سکه + 🔤 1 طلسم حرف",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 50,
-    give:()=>{
-      addCoins(150);
-      addItem("kalemebaz_hintLetters",1);
-    }
-  },
+    {
+        id:"level_25",
+        category:"level",
+        icon:"⚔️",
+        title:"ماجراجوی کلمات",
+        description:"۲۵ مرحله را کامل کن.",
+        type:"level",
+        target:25,
+        rewardText:"🪙 +100 سکه | ⭐ +50 XP",
+        reward:{
+            coins:100,
+            xp:50
+        }
+    },
 
-  {
-    id:"level_100",
-    icon:"🧙",
-    name:"جادوگر کلمات",
-    description:"۱۰۰ مرحله را کامل کن.",
-    reward:"🪙 200 سکه + ✨ 100 XP",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 100,
-    give:()=>{
-      addCoins(200);
-      addXP(100);
-    }
-  },
+    {
+        id:"level_50",
+        category:"level",
+        icon:"🔮",
+        title:"جادوگر تازه‌کار",
+        description:"۵۰ مرحله را کامل کن.",
+        type:"level",
+        target:50,
+        rewardText:"🪙 +150 سکه | 🔤 +1 طلسم",
+        reward:{
+            coins:150,
+            hintLetters:1
+        }
+    },
 
-  {
-    id:"level_200",
-    icon:"💎",
-    name:"استاد جادویی",
-    description:"۲۰۰ مرحله را کامل کن.",
-    reward:"🪙 300 سکه + 🧹 1 پاک‌کن جادویی",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 200,
-    give:()=>{
-      addCoins(300);
-      addItem("kalemebaz_removeLetters",1);
-    }
-  },
+    {
+        id:"level_100",
+        category:"level",
+        icon:"💎",
+        title:"استاد کلمات",
+        description:"۱۰۰ مرحله را کامل کن.",
+        type:"level",
+        target:100,
+        rewardText:"🪙 +200 سکه | ⭐ +100 XP",
+        reward:{
+            coins:200,
+            xp:100
+        }
+    },
 
-  {
-    id:"level_500",
-    icon:"👑",
-    name:"قهرمان قلعه",
-    description:"۵۰۰ مرحله را کامل کن.",
-    reward:"🪙 500 سکه + 💡 1 جواب جادویی",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 500,
-    give:()=>{
-      addCoins(500);
-      addItem("kalemebaz_solveWords",1);
-    }
-  },
+    {
+        id:"level_200",
+        category:"level",
+        icon:"🏰",
+        title:"فاتح قلعه",
+        description:"۲۰۰ مرحله را کامل کن.",
+        type:"level",
+        target:200,
+        rewardText:"🪙 +300 سکه | 🧹 +1 پاک‌کن",
+        reward:{
+            coins:300,
+            removeLetters:1
+        }
+    },
 
-  {
-    id:"level_1000",
-    icon:"🌌",
-    name:"افسانه سرزمین کلمات",
-    description:"۱۰۰۰ مرحله را کامل کن.",
-    reward:"🪙 1000 سکه + ✨ 250 XP",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 1000,
-    give:()=>{
-      addCoins(1000);
-      addXP(250);
-    }
-  },
+    {
+        id:"level_500",
+        category:"level",
+        icon:"👑",
+        title:"فرمانروای کلمات",
+        description:"۵۰۰ مرحله را کامل کن.",
+        type:"level",
+        target:500,
+        rewardText:"🪙 +500 سکه | 💡 +1 جواب جادویی",
+        reward:{
+            coins:500,
+            solveWords:1
+        }
+    },
 
-  {
-    id:"level_1200",
-    icon:"👑",
-    name:"افسانه بزرگ",
-    description:"تمام ۱۲۰۰ مرحله را کامل کن.",
-    reward:"🪙 2000 سکه + 🧪 3 معجون جادویی",
-    check:()=>getNumber("kalemebaz_completedLevels") >= 1200,
-    give:()=>{
-      addCoins(2000);
-      addItem("kalemebaz_magicPotions",3);
-    }
-  },
+    {
+        id:"level_1000",
+        category:"level",
+        icon:"🔥",
+        title:"افسانه کلمه‌باز",
+        description:"۱۰۰۰ مرحله را کامل کن.",
+        type:"level",
+        target:1000,
+        rewardText:"🪙 +1000 سکه | ⭐ +250 XP",
+        reward:{
+            coins:1000,
+            xp:250
+        }
+    },
 
-  {
-    id:"xp_100",
-    icon:"⭐",
-    name:"جرقه تجربه",
-    description:"به ۱۰۰ XP برس.",
-    reward:"🪙 75 سکه",
-    check:()=>getNumber("kalemebaz_xp") >= 100,
-    give:()=>{
-      addCoins(75);
-    }
-  },
+    {
+        id:"level_1200",
+        category:"level",
+        icon:"🌌",
+        title:"افسانه نهایی",
+        description:"هر ۱۲۰۰ مرحله را کامل کن!",
+        type:"level",
+        target:1200,
+        rewardText:"🪙 +2000 سکه | 🧪 +3 معجون",
+        reward:{
+            coins:2000,
+            magicPotions:3
+        }
+    },
 
-  {
-    id:"xp_500",
-    icon:"✨",
-    name:"انرژی جادویی",
-    description:"به ۵۰۰ XP برس.",
-    reward:"🪙 150 سکه",
-    check:()=>getNumber("kalemebaz_xp") >= 500,
-    give:()=>{
-      addCoins(150);
-    }
-  },
 
-  {
-    id:"xp_1000",
-    icon:"🔮",
-    name:"هسته جادو",
-    description:"به ۱۰۰۰ XP برس.",
-    reward:"🧪 1 معجون جادویی",
-    check:()=>getNumber("kalemebaz_xp") >= 1000,
-    give:()=>{
-      addItem("kalemebaz_magicPotions",1);
-    }
-  },
+    /* XP */
 
-  {
-    id:"coins_500",
-    icon:"🪙",
-    name:"گنج‌یاب",
-    description:"موجودی سکه‌هایت به ۵۰۰ برسد.",
-    reward:"🪙 100 سکه",
-    check:()=>getNumber("kalemebaz_coins",100) >= 500,
-    give:()=>{
-      addCoins(100);
-    }
-  },
+    {
+        id:"xp_100",
+        category:"xp",
+        icon:"⭐",
+        title:"اولین ستاره",
+        description:"به ۱۰۰ XP برس.",
+        type:"xp",
+        target:100,
+        rewardText:"🪙 +75 سکه",
+        reward:{
+            coins:75
+        }
+    },
 
-  {
-    id:"coins_1000",
-    icon:"💰",
-    name:"خزانه‌دار",
-    description:"موجودی سکه‌هایت به ۱۰۰۰ برسد.",
-    reward:"🪙 250 سکه",
-    check:()=>getNumber("kalemebaz_coins",100) >= 1000,
-    give:()=>{
-      addCoins(250);
+    {
+        id:"xp_500",
+        category:"xp",
+        icon:"🌟",
+        title:"قدرت جادویی",
+        description:"به ۵۰۰ XP برس.",
+        type:"xp",
+        target:500,
+        rewardText:"🪙 +150 سکه",
+        reward:{
+            coins:150
+        }
+    },
+
+    {
+        id:"xp_1000",
+        category:"xp",
+        icon:"💫",
+        title:"استاد XP",
+        description:"به ۱۰۰۰ XP برس.",
+        type:"xp",
+        target:1000,
+        rewardText:"🧪 +1 معجون جادویی",
+        reward:{
+            magicPotions:1
+        }
+    },
+
+
+    /* سکه */
+
+    {
+        id:"coins_500",
+        category:"coins",
+        icon:"🪙",
+        title:"کیسه سکه",
+        description:"موجودی سکه را به ۵۰۰ برسان.",
+        type:"coins",
+        target:500,
+        rewardText:"🪙 +100 سکه",
+        reward:{
+            coins:100
+        }
+    },
+
+    {
+        id:"coins_1000",
+        category:"coins",
+        icon:"💰",
+        title:"گنجینه جادویی",
+        description:"موجودی سکه را به ۱۰۰۰ برسان.",
+        type:"coins",
+        target:1000,
+        rewardText:"🪙 +250 سکه",
+        reward:{
+            coins:250
+        }
     }
-  }
 
 ];
 
 
-/* =====================================================
-   پاداش‌های دریافت‌شده
-===================================================== */
+/* ---------------------------------------------------------
+   شناسه‌های دریافت‌شده
+--------------------------------------------------------- */
 
-function getClaimed(){
+let claimed = [];
 
-  try{
+try{
 
-    const data =
-      JSON.parse(
-        localStorage.getItem(
-          "kalemebaz_claimedAchievements"
-        ) || "[]"
-      );
+    claimed =
+        JSON.parse(
+            localStorage.getItem(
+                "kalemebaz_claimedAchievements"
+            ) || "[]"
+        );
 
-    return Array.isArray(data)
-      ? data
-      : [];
+    if(!Array.isArray(claimed))
+        claimed = [];
 
-  }catch(e){
+}catch(e){
 
-    return [];
-
-  }
+    claimed = [];
 
 }
 
 
-function saveClaimed(list){
+/* ---------------------------------------------------------
+   آیا باز شده؟
+--------------------------------------------------------- */
 
-  localStorage.setItem(
-    "kalemebaz_claimedAchievements",
-    JSON.stringify(list)
-  );
+function isUnlocked(item){
 
-}
+    if(item.type === "level")
+        return completed >= item.target;
 
+    if(item.type === "xp")
+        return xp >= item.target;
 
-/* =====================================================
-   سکه
-===================================================== */
+    if(item.type === "coins")
+        return coins >= item.target;
 
-function addCoins(amount){
-
-  const coins =
-    getNumber("kalemebaz_coins",100);
-
-  setNumber(
-    "kalemebaz_coins",
-    coins + amount
-  );
+    return false;
 
 }
 
 
-/* =====================================================
-   XP
-===================================================== */
+/* ---------------------------------------------------------
+   مقدار فعلی
+--------------------------------------------------------- */
 
-function addXP(amount){
+function getCurrent(item){
 
-  const xp =
-    getNumber("kalemebaz_xp",0);
+    if(item.type === "level")
+        return completed;
 
-  setNumber(
-    "kalemebaz_xp",
-    xp + amount
-  );
+    if(item.type === "xp")
+        return xp;
+
+    if(item.type === "coins")
+        return coins;
+
+    return 0;
 
 }
 
 
-/* =====================================================
-   آیتم‌ها
-===================================================== */
+/* ---------------------------------------------------------
+   ذخیره
+--------------------------------------------------------- */
+
+function saveAll(){
+
+    localStorage.setItem(
+        "kalemebaz_coins",
+        coins
+    );
+
+    localStorage.setItem(
+        "kalemebaz_xp",
+        xp
+    );
+
+    localStorage.setItem(
+        "kalemebaz_claimedAchievements",
+        JSON.stringify(claimed)
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   دریافت جایزه
+--------------------------------------------------------- */
+
+function claimAchievement(id){
+
+    const item =
+        achievements.find(
+            a => a.id === id
+        );
+
+    if(!item)
+        return;
+
+    if(claimed.includes(id)){
+
+        showToast(
+            "این جایزه قبلاً دریافت شده است."
+        );
+
+        return;
+
+    }
+
+    if(!isUnlocked(item)){
+
+        showToast(
+            "🔒 این دستاورد هنوز باز نشده."
+        );
+
+        return;
+
+    }
+
+
+    const reward =
+        item.reward || {};
+
+
+    /* سکه */
+
+    if(reward.coins){
+
+        coins +=
+            reward.coins;
+
+    }
+
+
+    /* XP */
+
+    if(reward.xp){
+
+        xp +=
+            reward.xp;
+
+    }
+
+
+    /* آیتم‌ها */
+
+    if(reward.hintLetters){
+
+        addItem(
+            "kalemebaz_hintLetters",
+            reward.hintLetters
+        );
+
+    }
+
+    if(reward.removeLetters){
+
+        addItem(
+            "kalemebaz_removeLetters",
+            reward.removeLetters
+        );
+
+    }
+
+    if(reward.solveWords){
+
+        addItem(
+            "kalemebaz_solveWords",
+            reward.solveWords
+        );
+
+    }
+
+    if(reward.magicPotions){
+
+        addItem(
+            "kalemebaz_magicPotions",
+            reward.magicPotions
+        );
+
+    }
+
+
+    claimed.push(id);
+
+    saveAll();
+
+    renderAll();
+
+    showToast(
+        "🎁 جایزه «"+
+        item.title+
+        "» دریافت شد!"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   اضافه کردن آیتم
+--------------------------------------------------------- */
 
 function addItem(key,amount){
 
-  const count =
-    getNumber(key,0);
+    const oldValue =
+        num(
+            key,
+            0
+        );
 
-  setNumber(
-    key,
-    count + amount
-  );
+    localStorage.setItem(
+        key,
+        oldValue + amount
+    );
 
 }
 
 
-/* =====================================================
-   بررسی و پرداخت پاداش
-===================================================== */
+/* ---------------------------------------------------------
+   ساخت کارت
+--------------------------------------------------------- */
 
-function processAchievements(){
-
-  let claimed =
-    getClaimed();
-
-  const newlyUnlocked = [];
-
-  achievements.forEach(achievement=>{
+function createCard(item){
 
     const unlocked =
-      achievement.check();
+        isUnlocked(item);
 
     const alreadyClaimed =
-      claimed.includes(
-        achievement.id
-      );
+        claimed.includes(item.id);
 
-    /*
-      اگر باز شده ولی قبلاً پاداش نگرفته،
-      پاداش را بده.
-    */
-
-    if(unlocked && !alreadyClaimed){
-
-      achievement.give();
-
-      claimed.push(
-        achievement.id
-      );
-
-      newlyUnlocked.push(
-        achievement
-      );
-
-    }
-
-  });
-
-  saveClaimed(claimed);
-
-  return newlyUnlocked;
-
-}
-
-
-/* =====================================================
-   نمایش دستاوردها
-===================================================== */
-
-function render(){
-
-  const list =
-    document.getElementById(
-      "achievementList"
-    );
-
-  list.innerHTML = "";
-
-  const claimed =
-    getClaimed();
-
-  let unlockedCount = 0;
-
-  achievements.forEach(achievement=>{
-
-    const unlocked =
-      achievement.check();
-
-    const received =
-      claimed.includes(
-        achievement.id
-      );
-
-    if(unlocked){
-      unlockedCount++;
-    }
+    const current =
+        getCurrent(item);
 
     const card =
-      document.createElement("div");
+        document.createElement("div");
 
     card.className =
-      "achievement " +
-      (unlocked ? "unlocked" : "locked");
+        "achievement " +
+        (unlocked ? "unlocked " : "locked ") +
+        (alreadyClaimed ? "claimed" : "");
 
-    card.innerHTML = `
 
-      <div class="achievement-icon">
-        ${achievement.icon}
-      </div>
+    const badge =
+        document.createElement("div");
 
-      <div class="achievement-info">
+    badge.className =
+        "badge";
 
-        <div class="achievement-name">
-          ${achievement.name}
-        </div>
+    badge.textContent =
+        unlocked
+            ? item.icon
+            : "🔒";
 
-        <div class="achievement-description">
-          ${achievement.description}
-        </div>
 
-        <div class="reward">
-          🎁 ${achievement.reward}
-        </div>
+    const status =
+        document.createElement("div");
 
-      </div>
+    status.className =
+        "status";
 
-      <div class="status">
-        ${
-          received
-          ? "دریافت شد"
-          : unlocked
-          ? "باز شد"
-          : "قفل"
+    if(alreadyClaimed){
+
+        status.textContent =
+            "✓ دریافت شد";
+
+    }else if(unlocked){
+
+        status.textContent =
+            "🎁 آماده";
+
+    }else{
+
+        status.textContent =
+            "🔒 قفل";
+
+    }
+
+
+    const h3 =
+        document.createElement("h3");
+
+    h3.textContent =
+        item.title;
+
+
+    const p =
+        document.createElement("p");
+
+    p.textContent =
+        item.description;
+
+
+    const reward =
+        document.createElement("div");
+
+    reward.className =
+        "reward";
+
+    reward.textContent =
+        "🎁 " +
+        item.rewardText;
+
+
+    card.appendChild(
+        badge
+    );
+
+    card.appendChild(
+        status
+    );
+
+    card.appendChild(
+        h3
+    );
+
+    card.appendChild(
+        p
+    );
+
+    card.appendChild(
+        reward
+    );
+
+
+    /* نوار مقدار برای دستاوردهای باز نشده */
+
+    if(!unlocked){
+
+        const progressText =
+            document.createElement("div");
+
+        progressText.style.marginTop =
+            "6px";
+
+        progressText.style.color =
+            "#777188";
+
+        progressText.style.fontSize =
+            "7px";
+
+        const shown =
+            Math.min(
+                current,
+                item.target
+            );
+
+        progressText.textContent =
+            shown +
+            " / " +
+            item.target;
+
+        card.appendChild(
+            progressText
+        );
+
+    }
+
+
+    const button =
+        document.createElement("button");
+
+    button.className =
+        "claimBtn";
+
+    if(alreadyClaimed){
+
+        button.textContent =
+            "✓ دریافت شده";
+
+        button.disabled =
+            true;
+
+    }else if(unlocked){
+
+        button.textContent =
+            "🎁 دریافت جایزه";
+
+        button.onclick =
+            () => claimAchievement(item.id);
+
+    }else{
+
+        button.textContent =
+            "🔒 هنوز باز نشده";
+
+        button.disabled =
+            true;
+
+    }
+
+
+    card.appendChild(
+        button
+    );
+
+
+    return card;
+
+}
+
+
+/* ---------------------------------------------------------
+   رندر
+--------------------------------------------------------- */
+
+function renderCategory(
+    category,
+    elementId
+){
+
+    const box =
+        document.getElementById(
+            elementId
+        );
+
+    box.innerHTML = "";
+
+    achievements
+        .filter(
+            item =>
+                item.category === category
+        )
+        .forEach(
+            item =>
+                box.appendChild(
+                    createCard(item)
+                )
+        );
+
+}
+
+
+/* ---------------------------------------------------------
+   نمایش همه
+--------------------------------------------------------- */
+
+function renderAll(){
+
+    renderCategory(
+        "level",
+        "levelAchievements"
+    );
+
+    renderCategory(
+        "xp",
+        "xpAchievements"
+    );
+
+    renderCategory(
+        "coins",
+        "coinAchievements"
+    );
+
+
+    document.getElementById(
+        "coins"
+    ).textContent =
+        coins;
+
+
+    document.getElementById(
+        "xp"
+    ).textContent =
+        xp;
+
+
+    const unlocked =
+        achievements.filter(
+            item =>
+                isUnlocked(item)
+        ).length;
+
+
+    document.getElementById(
+        "unlockedCount"
+    ).textContent =
+        unlocked;
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        unlocked +
+        " از " +
+        achievements.length;
+
+
+    const percent =
+        (unlocked /
+        achievements.length) *
+        100;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent + "%";
+
+}
+
+
+renderAll();
+
+
+/* ---------------------------------------------------------
+   Toast
+--------------------------------------------------------- */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2300
+        );
+
+}
+
+
+/* ---------------------------------------------------------
+   خانه
+--------------------------------------------------------- */
+
+function goHome(){
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* ---------------------------------------------------------
+   هماهنگ‌سازی با برگشت به صفحه
+--------------------------------------------------------- */
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        currentLevel =
+            num(
+                "kalemebaz_currentLevel",
+                1
+            );
+
+        completed =
+            num(
+                "kalemebaz_completedLevels",
+                0
+            );
+
+        coins =
+            num(
+                "kalemebaz_coins",
+                100
+            );
+
+        xp =
+            num(
+                "kalemebaz_xp",
+                0
+            );
+
+        try{
+
+            claimed =
+                JSON.parse(
+                    localStorage.getItem(
+                        "kalemebaz_claimedAchievements"
+                    ) || "[]"
+                );
+
+            if(!Array.isArray(claimed))
+                claimed = [];
+
+        }catch(e){
+
+            claimed = [];
+
         }
-      </div>
 
-    `;
-
-    list.appendChild(card);
-
-  });
-
-  const total =
-    achievements.length;
-
-  const percent =
-    Math.round(
-      (unlockedCount / total) * 100
-    );
-
-  document.getElementById(
-    "unlockedCount"
-  ).textContent =
-    unlockedCount +
-    " / " +
-    total;
-
-  document.getElementById(
-    "achievementProgress"
-  ).style.width =
-    percent + "%";
-
-  document.getElementById(
-    "progressText"
-  ).textContent =
-    percent + "٪";
-
-}
-
-
-/* =====================================================
-   ستاره‌ها
-===================================================== */
-
-function createStars(){
-
-  const box =
-    document.getElementById("stars");
-
-  for(let i=0;i<90;i++){
-
-    const star =
-      document.createElement("div");
-
-    star.className = "star";
-
-    star.style.left =
-      Math.random()*100 + "%";
-
-    star.style.top =
-      Math.random()*100 + "%";
-
-    star.style.animationDelay =
-      Math.random()*3 + "s";
-
-    const size =
-      Math.random()*2 + 1;
-
-    star.style.width =
-      size + "px";
-
-    star.style.height =
-      size + "px";
-
-    box.appendChild(star);
-
-  }
-
-}
-
-
-/* =====================================================
-   پیام
-===================================================== */
-
-function showToast(text){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent = text;
-
-  toast.classList.add("show");
-
-  clearTimeout(
-    window.toastTimer
-  );
-
-  window.toastTimer =
-    setTimeout(()=>{
-
-      toast.classList.remove("show");
-
-    },3500);
-
-}
-
-
-/* =====================================================
-   تنظیمات مشترک
-===================================================== */
-
-function applySettings(){
-
-  try{
-
-    const settings =
-      JSON.parse(
-        localStorage.getItem(
-          "kalemebaz_settings"
-        ) || "{}"
-      );
-
-    const brightness =
-      Number(
-        settings.brightness || 100
-      );
-
-    document.body.style.filter =
-      `brightness(${brightness}%)`;
-
-    if(settings.stars === false){
-
-      document.getElementById(
-        "stars"
-      ).style.display = "none";
+        renderAll();
 
     }
-
-    if(settings.theme === "blue"){
-
-      document.body.style.background =
-        "radial-gradient(circle at 50% 10%,rgba(40,110,255,.3),transparent 30%),linear-gradient(180deg,#06152e,#050817,#02040b)";
-
-    }
-
-    if(settings.theme === "forest"){
-
-      document.body.style.background =
-        "radial-gradient(circle at 50% 10%,rgba(30,150,90,.28),transparent 30%),linear-gradient(180deg,#061e18,#06100e,#020706)";
-
-    }
-
-  }catch(e){}
-
-}
-
-
-/* =====================================================
-   شروع صفحه
-===================================================== */
-
-createStars();
-
-applySettings();
-
-/*
-  مهم:
-  اینجا پاداش‌ها بررسی می‌شوند.
-  هر پاداش فقط یک بار ثبت می‌شود.
-*/
-
-const newlyUnlocked =
-  processAchievements();
-
-render();
-
-
-/* نمایش پاداش جدید */
-
-if(newlyUnlocked.length > 0){
-
-  setTimeout(()=>{
-
-    const first =
-      newlyUnlocked[0];
-
-    showToast(
-      "🎉 دستاورد «" +
-      first.name +
-      "» باز شد! پاداش دریافت شد."
-    );
-
-  },500);
-
-}
+);
 
 </script>
 
