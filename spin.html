@@ -1,1191 +1,633 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>کلمه‌باز | گردونه شانس</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پاداش روزانه | کلمه‌باز</title>
 
-<style>
-*{
- box-sizing:border-box;
- -webkit-tap-highlight-color:transparent;
- user-select:none;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-html,body{
- margin:0;
- min-height:100%;
- font-family:Tahoma,Arial,sans-serif;
- background:#080512;
- color:#fff;
-}
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 10%, #273b72 0%, transparent 35%),
+        linear-gradient(180deg, #070b20 0%, #101735 55%, #070a18 100%);
+      overflow-x: hidden;
+    }
 
-body{
- overflow-x:hidden;
-}
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
 
-button{
- font-family:inherit;
-}
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: .8;
+      box-shadow: 0 0 8px #fff;
+    }
 
-#app{
- min-height:100vh;
- position:relative;
- overflow:hidden;
- padding-bottom:35px;
- background:
- radial-gradient(circle at 50% 15%,rgba(139,92,246,.25),transparent 35%),
- radial-gradient(circle at 10% 85%,rgba(34,211,238,.1),transparent 30%),
- linear-gradient(180deg,#0b051b,#160b31 55%,#080512);
-}
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(950px, 94%);
+      margin: auto;
+      padding: 18px 0 35px;
+    }
 
-.stars{
- position:absolute;
- inset:0;
- overflow:hidden;
- pointer-events:none;
-}
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
 
-.star{
- position:absolute;
- width:2px;
- height:2px;
- background:#fff;
- border-radius:50%;
- opacity:.7;
- animation:twinkle 2s infinite alternate;
-}
+    .back {
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+    }
 
-@keyframes twinkle{
- from{opacity:.15;transform:scale(.7)}
- to{opacity:1;transform:scale(1.5)}
-}
+    .coins {
+      background: rgba(255,196,55,.12);
+      border: 1px solid rgba(255,196,55,.3);
+      color: #ffd75a;
+      padding: 10px 15px;
+      border-radius: 14px;
+      font-weight: bold;
+    }
 
-.moon{
- position:absolute;
- width:110px;
- height:110px;
- top:-35px;
- left:50%;
- transform:translateX(-50%);
- border-radius:50%;
- background:radial-gradient(circle at 35% 30%,#fff,#d8c8ff 50%,#7955bd);
- box-shadow:0 0 45px rgba(190,170,255,.45);
- opacity:.72;
-}
+    .hero {
+      text-align: center;
+      padding: 20px 10px 25px;
+    }
 
-.header{
- position:relative;
- z-index:5;
- height:72px;
- padding:10px 12px;
- padding-top:max(10px,env(safe-area-inset-top));
- display:flex;
- align-items:center;
- gap:10px;
-}
+    .hero-icon {
+      font-size: 62px;
+      filter: drop-shadow(0 0 15px rgba(255,214,77,.5));
+      margin-bottom: 8px;
+    }
 
-.back{
- width:45px;
- height:45px;
- border-radius:15px;
- border:1px solid rgba(255,255,255,.12);
- background:rgba(20,11,42,.9);
- color:white;
- font-size:22px;
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(25px, 7vw, 42px);
+    }
 
-.title{
- flex:1;
- text-align:center;
-}
+    .subtitle {
+      color: #bfc9e9;
+      margin: 10px auto 0;
+      line-height: 1.8;
+      max-width: 650px;
+      font-size: 14px;
+    }
 
-.title h1{
- margin:0;
- font-size:19px;
- text-shadow:0 0 18px rgba(168,85,247,.8);
-}
+    .status {
+      margin: 18px auto 25px;
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      text-align: center;
+    }
 
-.title p{
- margin:4px 0 0;
- color:#aaa0bd;
- font-size:10px;
-}
+    .status-title {
+      color: #aebbe2;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
 
-.coinBox{
- min-width:76px;
- height:42px;
- border-radius:14px;
- border:1px solid rgba(250,204,21,.2);
- background:rgba(25,15,51,.9);
- display:flex;
- align-items:center;
- justify-content:center;
- gap:5px;
- color:#facc15;
- font-size:13px;
- font-weight:900;
-}
+    .day-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffd75a;
+    }
 
-.card{
- position:relative;
- z-index:3;
- width:calc(100% - 24px);
- max-width:500px;
- margin:12px auto;
- padding:18px 14px 22px;
- border-radius:25px;
- background:rgba(23,13,47,.88);
- border:1px solid rgba(168,85,247,.2);
- box-shadow:0 20px 60px rgba(0,0,0,.3);
- text-align:center;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
 
-.card h2{
- margin:0;
- font-size:19px;
-}
+    .day {
+      position: relative;
+      padding: 15px;
+      min-height: 145px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.1);
+      transition: .2s;
+      overflow: hidden;
+    }
 
-.card p{
- color:#aaa0bd;
- font-size:10px;
- line-height:1.8;
- margin:7px auto 12px;
- max-width:330px;
-}
+    .day.current {
+      border-color: #ffd75a;
+      box-shadow: 0 0 22px rgba(255,215,90,.14);
+      background: rgba(255,215,90,.07);
+    }
 
-.wheelArea{
- width:300px;
- height:300px;
- max-width:82vw;
- max-height:82vw;
- margin:8px auto 18px;
- position:relative;
-}
+    .day.special {
+      border-color: rgba(176,128,255,.55);
+      background: rgba(126,76,190,.12);
+    }
 
-.pointer{
- position:absolute;
- z-index:20;
- top:-4px;
- left:50%;
- transform:translateX(-50%);
- width:0;
- height:0;
- border-left:14px solid transparent;
- border-right:14px solid transparent;
- border-top:32px solid #facc15;
- filter:drop-shadow(0 0 8px rgba(250,204,21,.7));
-}
+    .day.big {
+      border-color: rgba(255,177,54,.7);
+      background: rgba(255,150,40,.11);
+    }
 
-.wheel{
- width:100%;
- height:100%;
- border-radius:50%;
- border:8px solid #2b1850;
- box-shadow:
-  0 0 0 3px rgba(168,85,247,.25),
-  0 0 45px rgba(139,92,246,.3),
-  inset 0 0 30px rgba(0,0,0,.5);
- position:relative;
- overflow:hidden;
- transition:transform 4.5s cubic-bezier(.12,.7,.1,1);
- background:
- conic-gradient(
-  #7c3aed 0deg 45deg,
-  #2563eb 45deg 90deg,
-  #0891b2 90deg 135deg,
-  #16a34a 135deg 180deg,
-  #ca8a04 180deg 225deg,
-  #ea580c 225deg 270deg,
-  #db2777 270deg 315deg,
-  #9333ea 315deg 360deg
- );
-}
+    .day.final {
+      grid-column: 1 / -1;
+      min-height: 190px;
+      border-color: #ffd75a;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255,215,90,.16), transparent 60%),
+        rgba(255,255,255,.07);
+      box-shadow: 0 0 35px rgba(255,215,90,.12);
+    }
 
-.segmentText{
- position:absolute;
- left:50%;
- top:50%;
- width:100px;
- height:35px;
- margin-left:-50px;
- margin-top:-17px;
- text-align:center;
- font-size:12px;
- font-weight:900;
- color:white;
- text-shadow:0 2px 5px #000;
- transform-origin:50% 50%;
-}
+    .day.locked {
+      opacity: .42;
+    }
 
-.t1{transform:rotate(22.5deg) translateY(-105px) rotate(-22.5deg)}
-.t2{transform:rotate(67.5deg) translateY(-105px) rotate(-67.5deg)}
-.t3{transform:rotate(112.5deg) translateY(-105px) rotate(-112.5deg)}
-.t4{transform:rotate(157.5deg) translateY(-105px) rotate(-157.5deg)}
-.t5{transform:rotate(202.5deg) translateY(-105px) rotate(-202.5deg)}
-.t6{transform:rotate(247.5deg) translateY(-105px) rotate(-247.5deg)}
-.t7{transform:rotate(292.5deg) translateY(-105px) rotate(-292.5deg)}
-.t8{transform:rotate(337.5deg) translateY(-105px) rotate(-337.5deg)}
+    .day.claimed {
+      opacity: .68;
+    }
 
-.center{
- position:absolute;
- z-index:10;
- width:66px;
- height:66px;
- top:50%;
- left:50%;
- transform:translate(-50%,-50%);
- border-radius:50%;
- background:radial-gradient(circle,#302052,#120a25);
- border:4px solid #b47cff;
- box-shadow:0 0 22px rgba(168,85,247,.7);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:27px;
-}
+    .day-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
 
-.spinButton{
- width:min(280px,85%);
- height:51px;
- border:0;
- border-radius:17px;
- background:linear-gradient(135deg,#6d28d9,#a855f7);
- color:#fff;
- font-size:14px;
- font-weight:900;
- box-shadow:0 10px 25px rgba(109,40,217,.3);
- transition:.15s;
-}
+    .day-title {
+      font-weight: bold;
+      color: #fff;
+    }
 
-.spinButton:active{
- transform:scale(.96);
-}
+    .badge {
+      font-size: 11px;
+      padding: 5px 8px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.09);
+      color: #bfc9e9;
+    }
 
-.spinButton:disabled{
- opacity:.45;
- transform:none;
-}
+    .reward {
+      line-height: 1.9;
+      color: #e7ebfa;
+      font-size: 13px;
+      min-height: 48px;
+    }
 
-.cost{
- margin-top:8px;
- color:#a99db9;
- font-size:10px;
-}
+    .reward strong {
+      color: #ffd75a;
+    }
 
-.timer{
- margin-top:7px;
- color:#facc15;
- font-size:11px;
- font-weight:bold;
- min-height:16px;
-}
+    .claim {
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 11px;
+      margin-top: 8px;
+      color: #10152b;
+      background: linear-gradient(135deg, #ffe27a, #ffbd38);
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.rewards{
- position:relative;
- z-index:3;
- width:calc(100% - 24px);
- max-width:500px;
- margin:12px auto;
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:9px;
-}
+    .claim:disabled {
+      cursor: not-allowed;
+      background: rgba(255,255,255,.09);
+      color: #8d96b5;
+    }
 
-.reward{
- padding:11px 7px;
- border-radius:16px;
- background:rgba(255,255,255,.045);
- border:1px solid rgba(255,255,255,.07);
- text-align:center;
-}
+    .final .claim {
+      font-size: 16px;
+      padding: 14px;
+    }
 
-.rewardIcon{
- font-size:25px;
-}
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translate(-50%, 120px);
+      width: min(90%, 430px);
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: #171d3a;
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: 0 10px 30px rgba(0,0,0,.4);
+      text-align: center;
+      z-index: 20;
+      transition: .3s;
+    }
 
-.rewardName{
- margin-top:4px;
- font-size:10px;
- font-weight:bold;
-}
+    .toast.show {
+      transform: translate(-50%, 0);
+    }
 
-.rewardValue{
- margin-top:4px;
- font-size:9px;
- color:#aaa0bd;
-}
+    @media (min-width: 650px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
 
-.note{
- position:relative;
- z-index:3;
- width:calc(100% - 24px);
- max-width:500px;
- margin:14px auto;
- padding:13px;
- border-radius:17px;
- background:rgba(255,255,255,.035);
- border:1px solid rgba(255,255,255,.06);
- color:#a99db8;
- font-size:9px;
- line-height:1.9;
- text-align:center;
-}
+      .day.final {
+        grid-column: 1 / -1;
+      }
+    }
 
-.toast{
- position:fixed;
- z-index:100;
- left:50%;
- bottom:25px;
- transform:translate(-50%,30px);
- opacity:0;
- padding:11px 17px;
- border-radius:15px;
- background:rgba(12,7,26,.97);
- border:1px solid rgba(255,255,255,.1);
- box-shadow:0 12px 35px rgba(0,0,0,.45);
- font-size:12px;
- font-weight:bold;
- transition:.25s;
- white-space:nowrap;
-}
+    @media (max-width: 390px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
 
-.toast.show{
- opacity:1;
- transform:translate(-50%,0);
-}
-
-.modal{
- position:fixed;
- z-index:200;
- inset:0;
- display:none;
- align-items:center;
- justify-content:center;
- padding:20px;
- background:rgba(3,1,10,.78);
- backdrop-filter:blur(8px);
-}
-
-.modal.show{
- display:flex;
-}
-
-.modalBox{
- width:min(92vw,380px);
- padding:25px 18px;
- border-radius:25px;
- background:#17102d;
- border:1px solid rgba(255,255,255,.12);
- text-align:center;
- box-shadow:0 20px 70px rgba(0,0,0,.6);
-}
-
-.modalIcon{
- font-size:48px;
-}
-
-.modal h2{
- margin:8px 0;
- font-size:20px;
-}
-
-.modal p{
- color:#b8adca;
- font-size:12px;
- line-height:1.8;
-}
-
-.modal button{
- width:100%;
- height:45px;
- border:0;
- border-radius:14px;
- color:white;
- font-weight:bold;
- background:linear-gradient(135deg,#6d28d9,#a855f7);
-}
-
-@media(max-width:360px){
- .wheelArea{
-  width:260px;
-  height:260px;
- }
- .segmentText{
-  transform-origin:50% 50%;
-  font-size:10px;
- }
- .t1{transform:rotate(22.5deg) translateY(-90px) rotate(-22.5deg)}
- .t2{transform:rotate(67.5deg) translateY(-90px) rotate(-67.5deg)}
- .t3{transform:rotate(112.5deg) translateY(-90px) rotate(-112.5deg)}
- .t4{transform:rotate(157.5deg) translateY(-90px) rotate(-157.5deg)}
- .t5{transform:rotate(202.5deg) translateY(-90px) rotate(-202.5deg)}
- .t6{transform:rotate(247.5deg) translateY(-90px) rotate(-247.5deg)}
- .t7{transform:rotate(292.5deg) translateY(-90px) rotate(-292.5deg)}
- .t8{transform:rotate(337.5deg) translateY(-90px) rotate(-337.5deg)}
-}
-</style>
+      .day.final {
+        grid-column: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="app">
+<div class="stars" id="stars"></div>
 
- <div class="stars" id="stars"></div>
- <div class="moon"></div>
+<div class="container">
 
- <header class="header">
-
-  <button class="back" onclick="goHome()">⌂</button>
-
-  <div class="title">
-   <h1>🎡 گردونه شانس</h1>
-   <p>شانس خودت را امتحان کن!</p>
+  <div class="topbar">
+    <a class="back" href="index.html">← خانه</a>
+    <div class="coins">🪙 <span id="coins">0</span></div>
   </div>
 
-  <div class="coinBox">
-   🪙 <span id="coins">۰</span>
+  <section class="hero">
+    <div class="hero-icon">🎁</div>
+    <h1>پاداش روزانه</h1>
+    <div class="subtitle">
+      هر روز وارد شو و جایزه همان روز را دریافت کن.
+      پاداش‌های ویژه در روزهای ۷، ۱۴، ۲۰ و ۳۰ منتظر تو هستند!
+    </div>
+  </section>
+
+  <div class="status">
+    <div class="status-title">روز فعلی</div>
+    <div class="day-number" id="currentDayText">روز ۱ از ۳۰</div>
   </div>
 
- </header>
-
-
- <section class="card">
-
-  <h2>🔮 گردونه جادویی</h2>
-
-  <p>
-   گردونه را بچرخان و یکی از پاداش‌های جادویی
-   کلمه‌باز را دریافت کن.
-  </p>
-
-
-  <div class="wheelArea">
-
-   <div class="pointer"></div>
-
-   <div class="wheel" id="wheel">
-
-    <div class="segmentText t1">🪙 ۳۰ سکه</div>
-    <div class="segmentText t2">⭐ ۳۰ XP</div>
-    <div class="segmentText t3">🪙 ۶۰ سکه</div>
-    <div class="segmentText t4">🔤 طلسم</div>
-    <div class="segmentText t5">💎 ۱۰۰ سکه</div>
-    <div class="segmentText t6">🧹 پاک‌کن</div>
-    <div class="segmentText t7">⭐ ۷۵ XP</div>
-    <div class="segmentText t8">🧪 معجون</div>
-
-    <div class="center">✨</div>
-
-   </div>
-
-  </div>
-
-
-  <button
-   class="spinButton"
-   id="spinButton"
-   onclick="spinWheel()"
-  >
-   🎡 چرخاندن گردونه
-  </button>
-
-  <div class="cost">
-   هزینه: 🪙 ۲۰ سکه
-  </div>
-
-  <div
-   class="timer"
-   id="timer"
-  ></div>
-
- </section>
-
-
- <section class="rewards">
-
-  <div class="reward">
-   <div class="rewardIcon">🪙</div>
-   <div class="rewardName">سکه</div>
-   <div class="rewardValue">۳۰ تا ۱۰۰</div>
-  </div>
-
-  <div class="reward">
-   <div class="rewardIcon">⭐</div>
-   <div class="rewardName">XP</div>
-   <div class="rewardValue">۳۰ یا ۷۵</div>
-  </div>
-
-  <div class="reward">
-   <div class="rewardIcon">🔤</div>
-   <div class="rewardName">طلسم</div>
-   <div class="rewardValue">یک عدد</div>
-  </div>
-
-  <div class="reward">
-   <div class="rewardIcon">🧪</div>
-   <div class="rewardName">معجون</div>
-   <div class="rewardValue">یک عدد</div>
-  </div>
-
- </section>
-
-
- <div class="note">
-  ✨ <b>نکته:</b>
-  این گردونه فقط بخشی از بازی است و تمام پاداش‌ها
-  مجازی هستند. هیچ پرداخت واقعی در این بخش وجود ندارد.
- </div>
+  <div class="grid" id="rewardGrid"></div>
 
 </div>
-
 
 <div class="toast" id="toast"></div>
 
-
-<div class="modal" id="modal">
-
- <div class="modalBox">
-
-  <div class="modalIcon" id="modalIcon">🎁</div>
-
-  <h2 id="modalTitle">پاداش شما!</h2>
-
-  <p id="modalText"></p>
-
-  <button onclick="closeModal()">
-   عالیه!
-  </button>
-
- </div>
-
-</div>
-
-
 <script>
-"use strict";
-
-
-const SPIN_COST = 20;
-const COOLDOWN = 24 * 60 * 60 * 1000;
-
-
-/* =========================
-   اعداد فارسی
-========================= */
-
-function faNumber(value){
-
- return String(value).replace(
-  /\d/g,
-  d => "۰۱۲۳۴۵۶۷۸۹"[d]
- );
-
-}
-
-
-/* =========================
-   سکه
-========================= */
-
-function getCoins(){
-
- return Number(
-  localStorage.getItem(
-   "kalemebaz_coins"
-  )
- ) || 0;
-
-}
-
-
-function setCoins(value){
-
- localStorage.setItem(
-  "kalemebaz_coins",
-  String(Math.max(0,value))
- );
-
- updateCoins();
-
-}
-
-
-function updateCoins(){
-
- document.getElementById(
-  "coins"
- ).textContent =
-  faNumber(getCoins());
-
-}
-
-
-/* =========================
-   XP
-========================= */
-
-function addXP(amount){
-
- const old =
-  Number(
-   localStorage.getItem(
-    "kalemebaz_xp"
-   )
-  ) || 0;
-
- localStorage.setItem(
-  "kalemebaz_xp",
-  String(old + amount)
- );
-
-}
-
-
-/* =========================
-   آیتم
-========================= */
-
-function addItem(name){
-
- const key =
-  "kalemebaz_" + name;
-
- const old =
-  Number(
-   localStorage.getItem(key)
-  ) || 0;
-
- localStorage.setItem(
-  key,
-  String(old + 1)
- );
-
-}
-
-
-/* =========================
-   پاداش‌ها
-========================= */
-
-const rewards = [
-
- {
-  icon:"🪙",
-  title:"۳۰ سکه",
-  type:"coins",
-  value:30
- },
-
- {
-  icon:"⭐",
-  title:"۳۰ XP",
-  type:"xp",
-  value:30
- },
-
- {
-  icon:"🪙",
-  title:"۶۰ سکه",
-  type:"coins",
-  value:60
- },
-
- {
-  icon:"🔤",
-  title:"طلسم یک حرف",
-  type:"item",
-  value:"hintLetters"
- },
-
- {
-  icon:"💎",
-  title:"۱۰۰ سکه",
-  type:"coins",
-  value:100
- },
-
- {
-  icon:"🧹",
-  title:"پاک‌کن جادویی",
-  type:"item",
-  value:"removeLetters"
- },
-
- {
-  icon:"⭐",
-  title:"۷۵ XP",
-  type:"xp",
-  value:75
- },
-
- {
-  icon:"🧪",
-  title:"معجون جادویی",
-  type:"item",
-  value:"magicPotions"
- }
-
-];
-
-
-/* =========================
-   آخرین چرخش
-========================= */
-
-function getLastSpin(){
-
- return Number(
-  localStorage.getItem(
-   "kalemebaz_lastSpin"
-  )
- ) || 0;
-
-}
-
-
-function canSpin(){
-
- return Date.now() -
-  getLastSpin() >=
-  COOLDOWN;
-
-}
-
-
-function remainingTime(){
-
- const remain =
-  COOLDOWN -
-  (Date.now() - getLastSpin());
-
- if(remain <= 0){
-  return null;
- }
-
- const hours =
-  Math.floor(
-   remain / 3600000
-  );
-
- const minutes =
-  Math.floor(
-   (remain % 3600000) /
-   60000
-  );
-
- const seconds =
-  Math.floor(
-   (remain % 60000) /
-   1000
-  );
-
- return (
-  faNumber(hours) +
-  " ساعت " +
-  faNumber(minutes) +
-  " دقیقه " +
-  faNumber(seconds) +
-  " ثانیه"
- );
-
-}
-
-
-/* =========================
-   تایمر
-========================= */
-
-function updateTimer(){
-
- const button =
-  document.getElementById(
-   "spinButton"
-  );
-
- const timer =
-  document.getElementById(
-   "timer"
-  );
-
-
- if(canSpin()){
-
-  timer.textContent =
-   "✨ آماده چرخش هستی!";
-
-  button.disabled = false;
-
- }else{
-
-  timer.textContent =
-   "⏳ چرخش بعدی: " +
-   remainingTime();
-
-  button.disabled = true;
-
- }
-
-}
-
-
-setInterval(updateTimer,1000);
-
-
-/* =========================
-   چرخاندن
-========================= */
-
-let spinning = false;
-
-
-function spinWheel(){
-
- if(spinning){
-  return;
- }
-
-
- if(!canSpin()){
-
-  showToast(
-   "⏳ هنوز زمان چرخش بعدی نرسیده!",
-   "bad"
-  );
-
-  return;
-
- }
-
-
- const coins =
-  getCoins();
-
-
- if(coins < SPIN_COST){
-
-  showToast(
-   "🪙 برای چرخاندن گردونه ۲۰ سکه لازم داری.",
-   "bad"
-  );
-
-  return;
-
- }
-
-
- spinning = true;
-
- const button =
-  document.getElementById(
-   "spinButton"
-  );
-
- button.disabled = true;
-
-
- setCoins(
-  coins - SPIN_COST
- );
-
-
- /*
-  هر بار چند دور کامل + زاویه تصادفی
- */
-
- const index =
-  Math.floor(
-   Math.random() *
-   rewards.length
-  );
-
-
- const segmentAngle = 360 / 8;
-
- /*
-  هدف تقریبی:
-  مرکز هر بخش زیر فلش قرار بگیرد.
- */
-
- const target =
-  index * segmentAngle +
-  segmentAngle / 2;
-
- const extra =
-  360 * (5 + Math.floor(Math.random()*3));
-
- const rotation =
-  extra + (360 - target);
-
-
- const wheel =
-  document.getElementById(
-   "wheel"
-  );
-
-
- wheel.style.transform =
-  `rotate(${rotation}deg)`;
-
-
- setTimeout(()=>{
-
-  const reward =
-   rewards[index];
-
-  giveReward(reward);
-
-  localStorage.setItem(
-   "kalemebaz_lastSpin",
-   String(Date.now())
-  );
-
-  spinning = false;
-
-  updateTimer();
-
- },4700);
-
-}
-
-
-/* =========================
-   دادن پاداش
-========================= */
-
-function giveReward(reward){
-
- if(reward.type === "coins"){
-
-  setCoins(
-   getCoins() + reward.value
-  );
-
- }
-
- else if(reward.type === "xp"){
-
-  addXP(
-   reward.value
-  );
-
- }
-
- else if(reward.type === "item"){
-
-  addItem(
-   reward.value
-  );
-
- }
-
-
- document.getElementById(
-  "modalIcon"
- ).textContent =
-  reward.icon;
-
-
- document.getElementById(
-  "modalTitle"
- ).textContent =
-  "🎉 پاداش دریافت شد!";
-
-
- document.getElementById(
-  "modalText"
- ).textContent =
-  "شما " +
-  reward.title +
-  " دریافت کردید.";
-
-
- document.getElementById(
-  "modal"
- ).classList.add("show");
-
-}
-
-
-/* =========================
-   مودال
-========================= */
-
-function closeModal(){
-
- document.getElementById(
-  "modal"
- ).classList.remove("show");
-
-}
-
-
-/* =========================
-   پیام
-========================= */
-
-let toastTimer;
-
-
-function showToast(text,type=""){
-
- const toast =
-  document.getElementById(
-   "toast"
-  );
-
- toast.textContent =
-  text;
-
- toast.className =
-  "toast show " + type;
-
- clearTimeout(
-  toastTimer
- );
-
- toastTimer =
-  setTimeout(()=>{
-
-   toast.className =
-    "toast";
-
-  },2000);
-
-}
-
-
-/* =========================
-   ستاره‌ها
-========================= */
-
-function createStars(){
-
- const box =
-  document.getElementById(
-   "stars"
-  );
-
- for(let i=0;i<85;i++){
-
-  const star =
-   document.createElement(
-    "div"
-   );
-
-  star.className =
-   "star";
-
-  star.style.left =
-   Math.random()*100 + "%";
-
-  star.style.top =
-   Math.random()*100 + "%";
-
-  const size =
-   Math.random()*2 + 1;
-
-  star.style.width =
-   size + "px";
-
-  star.style.height =
-   size + "px";
-
-  star.style.animationDelay =
-   Math.random()*2 + "s";
-
-  box.appendChild(
-   star
-  );
-
- }
-
-}
-
-
-/* =========================
-   تنظیمات مشترک
-========================= */
-
-function applySettings(){
-
- let settings = {};
-
- try{
-
-  settings =
-   JSON.parse(
-    localStorage.getItem(
-     "kalemebaz_settings"
-    ) || "{}"
-   );
-
- }catch(error){
-
-  settings = {};
-
- }
-
-
- if(
-  settings.brightness !== undefined
- ){
-
-  const brightness =
-   Number(
-    settings.brightness
-   );
-
-  if(
-   Number.isFinite(brightness) &&
-   brightness > 0
-  ){
-
-   document.body.style.filter =
-    `brightness(${brightness}%)`;
-
+  const TOTAL_DAYS = 30;
+
+  const REWARDS = {
+    1:  { coins: 100 },
+    2:  { coins: 100 },
+    3:  { coins: 100 },
+    4:  { coins: 100 },
+    5:  { coins: 100 },
+    6:  { coins: 100 },
+
+    7:  { coins: 500, hintLetters: 1 },
+
+    8:  { coins: 100 },
+    9:  { coins: 100 },
+    10: { coins: 100 },
+    11: { coins: 100 },
+    12: { coins: 100 },
+    13: { coins: 100 },
+
+    14: { coins: 1000, hintLetters: 2, removeLetters: 1 },
+
+    15: { coins: 100 },
+    16: { coins: 100 },
+    17: { coins: 100 },
+    18: { coins: 100 },
+    19: { coins: 100 },
+
+    20: { coins: 2000, removeLetters: 2, solveWords: 1 },
+
+    21: { coins: 100 },
+    22: { coins: 100 },
+    23: { coins: 100 },
+    24: { coins: 100 },
+    25: { coins: 100 },
+    26: { coins: 100 },
+    27: { coins: 100 },
+    28: { coins: 100 },
+    29: { coins: 100 },
+
+    30: {
+      coins: 10000,
+      hintLetters: 5,
+      removeLetters: 5,
+      solveWords: 3,
+      magicPotions: 3,
+      xp: 500
+    }
+  };
+
+  const DAY_KEY = "kalemebaz_dailyRewardDay";
+  const DATE_KEY = "kalemebaz_dailyRewardLastDate";
+  const CLAIMED_KEY = "kalemebaz_dailyRewardClaimed";
+
+  function getNumber(key, defaultValue = 0) {
+    const value = Number(localStorage.getItem(key));
+    return Number.isFinite(value) ? value : defaultValue;
   }
 
- }
+  function setNumber(key, value) {
+    localStorage.setItem(key, String(value));
+  }
 
+  function getCurrentDay() {
+    let day = getNumber(DAY_KEY, 1);
 
- if(settings.stars === false){
+    if (day < 1) day = 1;
+    if (day > TOTAL_DAYS + 1) day = TOTAL_DAYS + 1;
 
-  document.getElementById(
-   "stars"
-  ).style.display =
-   "none";
+    return day;
+  }
 
- }
+  function getToday() {
+    const d = new Date();
 
-}
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
 
+    return `${y}-${m}-${day}`;
+  }
 
-/* =========================
-   خانه
-========================= */
+  function alreadyClaimedToday() {
+    return localStorage.getItem(DATE_KEY) === getToday();
+  }
 
-function goHome(){
+  function getCoins() {
+    return getNumber("kalemebaz_coins", 100);
+  }
 
- location.href =
-  "index.html";
+  function addCoins(amount) {
+    setNumber("kalemebaz_coins", getCoins() + amount);
+  }
 
-}
+  function addItem(key, amount) {
+    setNumber(key, getNumber(key, 0) + amount);
+  }
 
+  function addXP(amount) {
+    setNumber("kalemebaz_xp", getNumber("kalemebaz_xp", 0) + amount);
+  }
 
-/* =========================
-   شروع
-========================= */
+  function rewardText(reward) {
+    const parts = [];
 
-createStars();
+    if (reward.coins) {
+      parts.push(`🪙 <strong>${reward.coins.toLocaleString("fa-IR")}</strong> سکه`);
+    }
 
-updateCoins();
+    if (reward.hintLetters) {
+      parts.push(`💡 ${reward.hintLetters} طلسم`);
+    }
 
-updateTimer();
+    if (reward.removeLetters) {
+      parts.push(`🧹 ${reward.removeLetters} پاک‌کن`);
+    }
 
-applySettings();
+    if (reward.solveWords) {
+      parts.push(`✨ ${reward.solveWords} جواب`);
+    }
 
+    if (reward.magicPotions) {
+      parts.push(`🧪 ${reward.magicPotions} معجون جادویی`);
+    }
+
+    if (reward.xp) {
+      parts.push(`⭐ ${reward.xp} XP`);
+    }
+
+    return parts.join("<br>");
+  }
+
+  function getDayClass(day, currentDay) {
+    let classes = ["day"];
+
+    if (day === currentDay) classes.push("current");
+    if (day < currentDay) classes.push("claimed");
+    if (day > currentDay) classes.push("locked");
+
+    if (day === 7 || day === 14) {
+      classes.push("special");
+    }
+
+    if (day === 20) {
+      classes.push("big");
+    }
+
+    if (day === 30) {
+      classes.push("final");
+    }
+
+    return classes.join(" ");
+  }
+
+  function render() {
+    const currentDay = getCurrentDay();
+    const claimedToday = alreadyClaimedToday();
+
+    document.getElementById("coins").textContent =
+      getCoins().toLocaleString("fa-IR");
+
+    if (currentDay <= TOTAL_DAYS) {
+      document.getElementById("currentDayText").textContent =
+        `روز ${currentDay.toLocaleString("fa-IR")} از ${TOTAL_DAYS}`;
+    } else {
+      document.getElementById("currentDayText").textContent =
+        "🎉 هر ۳۰ روز کامل شد!";
+    }
+
+    const grid = document.getElementById("rewardGrid");
+    grid.innerHTML = "";
+
+    for (let day = 1; day <= TOTAL_DAYS; day++) {
+      const reward = REWARDS[day];
+
+      const card = document.createElement("div");
+      card.className = getDayClass(day, currentDay);
+
+      let badge = "🔒 قفل";
+
+      if (day < currentDay) {
+        badge = "✓ دریافت شد";
+      } else if (day === currentDay) {
+        badge = claimedToday ? "✓ امروز دریافت شد" : "🎁 آماده";
+      }
+
+      const button = document.createElement("button");
+      button.className = "claim";
+
+      if (day < currentDay) {
+        button.textContent = "دریافت شده ✓";
+        button.disabled = true;
+      } else if (day > currentDay) {
+        button.textContent = "🔒 قفل";
+        button.disabled = true;
+      } else if (claimedToday) {
+        button.textContent = "✓ امروز دریافت شد";
+        button.disabled = true;
+      } else {
+        button.textContent = "🎁 دریافت پاداش";
+        button.disabled = false;
+        button.onclick = claimReward;
+      }
+
+      card.innerHTML = `
+        <div class="day-head">
+          <div class="day-title">روز ${day.toLocaleString("fa-IR")}</div>
+          <div class="badge">${badge}</div>
+        </div>
+
+        <div class="reward">
+          ${rewardText(reward)}
+        </div>
+      `;
+
+      card.appendChild(button);
+      grid.appendChild(card);
+    }
+  }
+
+  function claimReward() {
+    const currentDay = getCurrentDay();
+
+    if (currentDay > TOTAL_DAYS) {
+      showToast("🎉 تمام ۳۰ روز را کامل کرده‌ای!");
+      return;
+    }
+
+    if (alreadyClaimedToday()) {
+      showToast("⏰ پاداش امروز را قبلاً دریافت کرده‌ای.");
+      return;
+    }
+
+    const reward = REWARDS[currentDay];
+
+    if (!reward) {
+      showToast("خطایی در پاداش این روز رخ داد.");
+      return;
+    }
+
+    if (reward.coins) {
+      addCoins(reward.coins);
+    }
+
+    if (reward.hintLetters) {
+      addItem("kalemebaz_hintLetters", reward.hintLetters);
+    }
+
+    if (reward.removeLetters) {
+      addItem("kalemebaz_removeLetters", reward.removeLetters);
+    }
+
+    if (reward.solveWords) {
+      addItem("kalemebaz_solveWords", reward.solveWords);
+    }
+
+    if (reward.magicPotions) {
+      addItem("kalemebaz_magicPotions", reward.magicPotions);
+    }
+
+    if (reward.xp) {
+      addXP(reward.xp);
+    }
+
+    localStorage.setItem(DATE_KEY, getToday());
+
+    if (currentDay < TOTAL_DAYS) {
+      setNumber(DAY_KEY, currentDay + 1);
+    } else {
+      setNumber(DAY_KEY, TOTAL_DAYS + 1);
+    }
+
+    localStorage.setItem(
+      CLAIMED_KEY + "_" + currentDay,
+      getToday()
+    );
+
+    if (currentDay === 30) {
+      showToast("👑 پاداش افسانه‌ای روز ۳۰ دریافت شد!");
+    } else if (currentDay === 20) {
+      showToast("🔥 پاداش بزرگ روز ۲۰ دریافت شد!");
+    } else if (currentDay === 14) {
+      showToast("💜 پاداش ویژه روز ۱۴ دریافت شد!");
+    } else if (currentDay === 7) {
+      showToast("⭐ پاداش ویژه روز ۷ دریافت شد!");
+    } else {
+      showToast("🎁 پاداش امروز با موفقیت دریافت شد!");
+    }
+
+    render();
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2600);
+  }
+
+  function createStars() {
+    const box = document.getElementById("stars");
+
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+
+      const size = 1 + Math.random() * 3;
+      star.style.width = size + "px";
+      star.style.height = size + "px";
+
+      star.style.opacity = 0.25 + Math.random() * 0.75;
+
+      box.appendChild(star);
+    }
+  }
+
+  createStars();
+  render();
 </script>
 
 </body>
-  </html>
+</html>
