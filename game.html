@@ -143,7 +143,7 @@ body{
     left:10px;
     right:10px;
 
-    height:145px;
+    height:220px;
 
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -193,12 +193,14 @@ body{
 
 .word-card.found{
     border-color:rgba(88,255,184,.5);
+
     background:
         linear-gradient(
             135deg,
             rgba(27,106,91,.75),
             rgba(14,53,52,.85)
         );
+
     color:#7dffc8;
 }
 
@@ -213,9 +215,11 @@ body{
     width:17px;
     height:24px;
     border-bottom:2px solid rgba(255,255,255,.55);
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:15px;
 }
 
@@ -228,7 +232,8 @@ body{
 #currentWord{
     position:fixed;
     left:50%;
-    top:300px;
+    top:350px;
+
     transform:translateX(-50%);
 
     min-width:120px;
@@ -265,10 +270,10 @@ body{
     position:fixed;
 
     left:50%;
-    top:62%;
+    top:70%;
 
-    width:min(86vw,360px);
-    height:min(86vw,360px);
+    width:min(78vw,340px);
+    height:min(78vw,340px);
 
     transform:translate(-50%,-50%);
 
@@ -295,10 +300,13 @@ body{
 
 #wheelCenter{
     position:absolute;
+
     left:50%;
     top:50%;
+
     width:90px;
     height:90px;
+
     transform:translate(-50%,-50%);
 
     border-radius:50%;
@@ -595,7 +603,7 @@ body{
 
     #wordPanel{
         top:105px;
-        height:125px;
+        height:180px;
         grid-auto-rows:48px;
         gap:6px;
     }
@@ -606,13 +614,13 @@ body{
     }
 
     #currentWord{
-        top:238px;
+        top:285px;
     }
 
     #wheel{
-        top:63%;
-        width:min(76vw,300px);
-        height:min(76vw,300px);
+        top:69%;
+        width:min(70vw,290px);
+        height:min(70vw,290px);
     }
 
     .letter{
@@ -711,7 +719,6 @@ body{
 
 </div>
 
-<!-- مهم: levels.js قبل از کد بازی -->
 <script src="levels.js"></script>
 
 <script>
@@ -734,20 +741,14 @@ const MAX_LEVEL =
         1200
     );
 
-/*
-    قانون تعداد کلمات:
-
-    1 تا 100       = 4
-    101 تا 200     = 5
-    201 تا 300     = 6
-    301 تا 400     = 7
-    401 تا 1200    = 8
-*/
+/* =========================================================
+   تعداد کلمات هر بازه
+========================================================= */
 
 function getRequiredWordCount(levelNumber){
 
     if(levelNumber >= 1 && levelNumber <= 100){
-        return 4;
+        return 7;
     }
 
     if(levelNumber >= 101 && levelNumber <= 200){
@@ -766,9 +767,8 @@ function getRequiredWordCount(levelNumber){
         return 8;
     }
 
-    return 4;
+    return 7;
 }
-
 
 /* =========================================================
    LEVEL
@@ -787,7 +787,6 @@ if(!Number.isFinite(level) || level < 1){
 if(level > MAX_LEVEL){
     level = MAX_LEVEL;
 }
-
 
 /* =========================================================
    PLAYER DATA
@@ -825,7 +824,6 @@ if(typeof player.unlocked !== "number"){
 if(typeof player.hints !== "number"){
     player.hints = 3;
 }
-
 
 /* =========================================================
    DOM
@@ -867,7 +865,6 @@ const coinsEl =
 const xpEl =
     document.querySelector("#xp span");
 
-
 /* =========================================================
    STARS
 ========================================================= */
@@ -907,7 +904,6 @@ function createStars(){
 
 createStars();
 
-
 /* =========================================================
    SAVE
 ========================================================= */
@@ -932,7 +928,6 @@ function updateStats(){
 }
 
 updateStats();
-
 
 /* =========================================================
    GET LEVEL DATA
@@ -968,9 +963,8 @@ if(!levelData){
     };
 }
 
-
 /* =========================================================
-   WORD NORMALIZER
+   NORMALIZER
 ========================================================= */
 
 function normalizeWord(word){
@@ -984,10 +978,8 @@ function normalizeWord(word){
         .replace(/\s+/g,"");
 }
 
-
 /* =========================================================
-   IMPORTANT:
-   فقط تعداد کلمات مجاز این مرحله را می‌گیریم.
+   STAGE WORDS
 ========================================================= */
 
 function getStageWords(){
@@ -1015,25 +1007,14 @@ function getStageWords(){
             .map(normalizeWord)
             .filter(Boolean);
 
-    /*
-       حذف کلمات تکراری
-    */
-
     source =
         [...new Set(source)];
-
-    /*
-       بسیار مهم:
-       حتی اگر levels.js مثلاً 14 کلمه بدهد،
-       فقط تعداد مجاز مرحله استفاده می‌شود.
-    */
 
     return source.slice(0,required);
 }
 
 let stageWords =
     getStageWords();
-
 
 /* =========================================================
    DIFFICULTY
@@ -1070,7 +1051,6 @@ document.getElementById("levelTitle").textContent =
 document.getElementById("difficulty").textContent =
     getDifficultyText();
 
-
 /* =========================================================
    WORD PANEL
 ========================================================= */
@@ -1081,11 +1061,6 @@ const foundWords =
 function renderWords(){
 
     wordPanel.innerHTML = "";
-
-    /*
-       اینجا فقط stageWords نمایش داده می‌شود.
-       بنابراین دیگر ۱۴ کلمه وارد سینی نمی‌شود.
-    */
 
     stageWords.forEach(word=>{
 
@@ -1104,11 +1079,6 @@ function renderWords(){
 
         letters.className =
             "word-letters";
-
-        /*
-           اگر کلمه پیدا نشده باشد،
-           تعداد خانه‌ها نشان داده می‌شود.
-        */
 
         for(const ch of word){
 
@@ -1132,7 +1102,6 @@ function renderWords(){
 }
 
 renderWords();
-
 
 /* =========================================================
    LETTER WHEEL
@@ -1163,14 +1132,8 @@ function getUniqueLetters(){
         }
     });
 
-    /*
-       برای اینکه حلقه خیلی شلوغ نشود،
-       حروف یکتا استفاده می‌شوند.
-    */
-
     return all;
 }
-
 
 function buildWheel(){
 
@@ -1194,25 +1157,25 @@ function buildWheel(){
         Math.min(rect.width,rect.height);
 
     const radius =
-        Math.max(72, size * .34);
+        Math.max(72,size*.34);
 
     const center =
-        size / 2;
+        size/2;
 
     letters.forEach((letter,index)=>{
 
         const angle =
-            (-Math.PI / 2) +
-            (index / letters.length) *
-            Math.PI * 2;
+            (-Math.PI/2) +
+            (index/letters.length) *
+            Math.PI*2;
 
         const x =
             center +
-            Math.cos(angle) * radius;
+            Math.cos(angle)*radius;
 
         const y =
             center +
-            Math.sin(angle) * radius;
+            Math.sin(angle)*radius;
 
         const el =
             document.createElement("div");
@@ -1227,10 +1190,10 @@ function buildWheel(){
             String(index);
 
         el.style.left =
-            x + "px";
+            x+"px";
 
         el.style.top =
-            y + "px";
+            y+"px";
 
         el.addEventListener(
             "pointerdown",
@@ -1251,9 +1214,8 @@ function buildWheel(){
     drawLines();
 }
 
-
 /* =========================================================
-   SELECT LETTER
+   SELECT
 ========================================================= */
 
 function selectLetter(index){
@@ -1284,7 +1246,6 @@ function selectLetter(index){
     drawLines();
 }
 
-
 /* =========================================================
    POINTER DOWN
 ========================================================= */
@@ -1314,7 +1275,6 @@ function handlePointerDown(event){
         );
     }catch(e){}
 }
-
 
 /* =========================================================
    POINTER MOVE
@@ -1353,15 +1313,13 @@ function handlePointerMove(event){
             letterData[i];
 
         const dx =
-            x - data.x;
+            x-data.x;
 
         const dy =
-            y - data.y;
+            y-data.y;
 
         const distance =
-            Math.sqrt(
-                dx*dx + dy*dy
-            );
+            Math.sqrt(dx*dx+dy*dy);
 
         if(
             distance < 43 &&
@@ -1379,9 +1337,8 @@ function handlePointerMove(event){
     drawLines();
 }
 
-
 /* =========================================================
-   FINISH DRAG
+   FINISH
 ========================================================= */
 
 function finishDrag(event){
@@ -1405,7 +1362,6 @@ function finishDrag(event){
     submitWord();
 }
 
-
 /* =========================================================
    POINTER EVENTS
 ========================================================= */
@@ -1428,7 +1384,6 @@ window.addEventListener(
     {passive:false}
 );
 
-
 /* =========================================================
    CLEAR SELECTION
 ========================================================= */
@@ -1439,7 +1394,6 @@ function clearSelectedVisual(){
         data.element.classList.remove("selected");
     });
 }
-
 
 /* =========================================================
    CURRENT WORD
@@ -1452,9 +1406,8 @@ function getCurrentWord(){
     );
 }
 
-
 /* =========================================================
-   SUBMIT WORD
+   SUBMIT
 ========================================================= */
 
 function submitWord(){
@@ -1510,7 +1463,6 @@ function submitWord(){
     checkLevelComplete();
 }
 
-
 /* =========================================================
    RESET
 ========================================================= */
@@ -1528,9 +1480,8 @@ function resetSelection(){
     drawLines();
 }
 
-
 /* =========================================================
-   CHECK COMPLETE
+   COMPLETE CHECK
 ========================================================= */
 
 function checkLevelComplete(){
@@ -1542,7 +1493,6 @@ function checkLevelComplete(){
         completeLevel();
     }
 }
-
 
 /* =========================================================
    COMPLETE
@@ -1559,7 +1509,7 @@ function completeLevel(){
     levelCompleted = true;
 
     const reward =
-        50 + level * 2;
+        50 + level*2;
 
     player.coins += reward;
     player.xp += 50;
@@ -1569,17 +1519,17 @@ function completeLevel(){
         level < MAX_LEVEL
     ){
         player.unlocked =
-            level + 1;
+            level+1;
     }
 
     savePlayer();
     updateStats();
 
     modalText.textContent =
-        "مرحله " +
-        level +
-        " را کامل کردی! +" +
-        reward +
+        "مرحله "+
+        level+
+        " را کامل کردی! +"+
+        reward+
         " سکه";
 
     if(level >= MAX_LEVEL){
@@ -1592,7 +1542,6 @@ function completeLevel(){
 
     modal.classList.add("show");
 }
-
 
 /* =========================================================
    NEXT
@@ -1614,14 +1563,13 @@ nextBtn.addEventListener(
         }
 
         const nextLevel =
-            level + 1;
+            level+1;
 
         location.href =
-            "game.html?level=" +
+            "game.html?level="+
             nextLevel;
     }
 );
-
 
 /* =========================================================
    TOAST
@@ -1647,172 +1595,166 @@ function showToast(message){
         );
 }
 
-
 /* =========================================================
    HINT
 ========================================================= */
 
 document
-    .getElementById("hintBtn")
-    .addEventListener(
-        "click",
-        ()=>{
+.getElementById("hintBtn")
+.addEventListener(
+    "click",
+    ()=>{
 
-            if(player.hints <= 0){
+        if(player.hints <= 0){
 
-                if(player.coins >= 30){
+            if(player.coins >= 30){
 
-                    player.coins -= 30;
-                    player.hints += 1;
+                player.coins -= 30;
+                player.hints += 1;
 
-                }else{
-
-                    showToast(
-                        "سکه کافی نداری"
-                    );
-
-                    return;
-                }
-            }
-
-            const remaining =
-                stageWords.filter(
-                    word => !foundWords.has(word)
-                );
-
-            if(!remaining.length){
-                return;
-            }
-
-            const target =
-                remaining[0];
-
-            const first =
-                target[0];
-
-            const index =
-                letterData.findIndex(
-                    data =>
-                        data.letter === first
-                );
-
-            if(index !== -1){
-
-                player.hints--;
-
-                savePlayer();
-                updateStats();
+            }else{
 
                 showToast(
-                    "💡 کلمه‌ای با «" +
-                    first +
-                    "» شروع می‌شود"
+                    "سکه کافی نداری"
                 );
+
+                return;
             }
         }
-    );
 
+        const remaining =
+            stageWords.filter(
+                word=>!foundWords.has(word)
+            );
+
+        if(!remaining.length){
+            return;
+        }
+
+        const target =
+            remaining[0];
+
+        const first =
+            target[0];
+
+        const index =
+            letterData.findIndex(
+                data=>data.letter===first
+            );
+
+        if(index !== -1){
+
+            player.hints--;
+
+            savePlayer();
+            updateStats();
+
+            showToast(
+                "💡 کلمه‌ای با «"+
+                first+
+                "» شروع می‌شود"
+            );
+        }
+    }
+);
 
 /* =========================================================
    SHUFFLE
 ========================================================= */
 
 document
-    .getElementById("shuffleBtn")
-    .addEventListener(
-        "click",
-        ()=>{
+.getElementById("shuffleBtn")
+.addEventListener(
+    "click",
+    ()=>{
 
-            const letters =
-                [...letterData]
-                    .map(x=>x.letter);
+        const letters =
+            [...letterData]
+            .map(x=>x.letter);
 
-            letters.sort(
-                ()=>Math.random()-.5
-            );
+        letters.sort(
+            ()=>Math.random()-.5
+        );
 
-            letterData.forEach(
-                (data,index)=>{
-                    data.letter =
-                        letters[index];
+        letterData.forEach(
+            (data,index)=>{
 
-                    data.element.textContent =
-                        letters[index];
-                }
-            );
+                data.letter =
+                    letters[index];
 
-            resetSelection();
+                data.element.textContent =
+                    letters[index];
+            }
+        );
 
-            showToast(
-                "🔄 حروف جابه‌جا شدند"
-            );
-        }
-    );
+        resetSelection();
 
+        showToast(
+            "🔄 حروف جابه‌جا شدند"
+        );
+    }
+);
 
 /* =========================================================
-   CLEAR BUTTON
+   CLEAR
 ========================================================= */
 
 document
-    .getElementById("clearBtn")
-    .addEventListener(
-        "click",
-        ()=>{
-            resetSelection();
-        }
-    );
-
+.getElementById("clearBtn")
+.addEventListener(
+    "click",
+    ()=>{
+        resetSelection();
+    }
+);
 
 /* =========================================================
    HOME
 ========================================================= */
 
 document
-    .getElementById("homeBtn")
-    .addEventListener(
-        "click",
-        ()=>{
-            location.href =
-                "index.html";
-        }
-    );
-
+.getElementById("homeBtn")
+.addEventListener(
+    "click",
+    ()=>{
+        location.href =
+            "index.html";
+    }
+);
 
 /* =========================================================
    SHOP
 ========================================================= */
 
 document
-    .getElementById("shopBtn")
-    .addEventListener(
-        "click",
-        ()=>{
-            location.href =
-                "shop.html";
-        }
-    );
-
+.getElementById("shopBtn")
+.addEventListener(
+    "click",
+    ()=>{
+        location.href =
+            "shop.html";
+    }
+);
 
 /* =========================================================
-   CONNECTION LINES
+   CANVAS
 ========================================================= */
 
 function resizeCanvas(){
 
     connectionCanvas.width =
-        window.innerWidth *
+        window.innerWidth*
         devicePixelRatio;
 
     connectionCanvas.height =
-        window.innerHeight *
+        window.innerHeight*
         devicePixelRatio;
 
     connectionCanvas.style.width =
-        window.innerWidth + "px";
+        window.innerWidth+"px";
 
     connectionCanvas.style.height =
-        window.innerHeight + "px";
+        window.innerHeight+"px";
 
     ctx.setTransform(
         devicePixelRatio,
@@ -1834,7 +1776,6 @@ window.addEventListener(
     }
 );
 
-
 function drawLines(){
 
     ctx.clearRect(
@@ -1844,7 +1785,7 @@ function drawLines(){
         window.innerHeight
     );
 
-    if(selectedIndices.length < 2){
+    if(selectedIndices.length<2){
         return;
     }
 
@@ -1860,14 +1801,14 @@ function drawLines(){
                 letterData[index];
 
             const x =
-                wheelRect.left +
+                wheelRect.left+
                 data.x;
 
             const y =
-                wheelRect.top +
+                wheelRect.top+
                 data.y;
 
-            if(i === 0){
+            if(i===0){
                 ctx.moveTo(x,y);
             }else{
                 ctx.lineTo(x,y);
@@ -1875,24 +1816,23 @@ function drawLines(){
         }
     );
 
-    ctx.lineWidth = 6;
+    ctx.lineWidth=6;
 
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
+    ctx.lineCap="round";
+    ctx.lineJoin="round";
 
-    ctx.strokeStyle =
+    ctx.strokeStyle=
         "rgba(158,126,255,.8)";
 
-    ctx.shadowBlur = 15;
+    ctx.shadowBlur=15;
 
-    ctx.shadowColor =
+    ctx.shadowColor=
         "rgba(125,85,255,.8)";
 
     ctx.stroke();
 
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur=0;
 }
-
 
 /* =========================================================
    START
@@ -1900,15 +1840,10 @@ function drawLines(){
 
 function startGame(){
 
-    /*
-       اگر levels.js کلمات بیشتری برگرداند،
-       getStageWords قبلاً آنها را محدود کرده.
-    */
-
     const required =
         getRequiredWordCount(level);
 
-    if(stageWords.length > required){
+    if(stageWords.length>required){
 
         stageWords =
             stageWords.slice(
