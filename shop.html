@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
 <title>کلمه‌باز | فروشگاه</title>
 
 <style>
@@ -36,14 +37,31 @@ button{
     min-height:100vh;
     position:relative;
     overflow:hidden;
-    padding-bottom:30px;
+    padding-bottom:35px;
+
     background:
-        radial-gradient(circle at 50% 0%,rgba(124,58,237,.32),transparent 35%),
-        radial-gradient(circle at 0% 80%,rgba(34,211,238,.12),transparent 30%),
-        linear-gradient(180deg,#0c0620,#160b32 55%,#080512);
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(124,58,237,.32),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 0% 80%,
+            rgba(34,211,238,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #0c0620,
+            #160b32 55%,
+            #080512
+        );
 }
 
-/* ستاره‌ها */
+/* =========================
+   ستاره‌ها
+========================= */
+
 .stars{
     position:absolute;
     inset:0;
@@ -53,8 +71,6 @@ button{
 
 .star{
     position:absolute;
-    width:2px;
-    height:2px;
     background:#fff;
     border-radius:50%;
     opacity:.7;
@@ -66,21 +82,30 @@ button{
         opacity:.15;
         transform:scale(.7);
     }
+
     to{
         opacity:1;
         transform:scale(1.5);
     }
 }
 
-/* ماه */
+/* =========================
+   ماه
+========================= */
+
 .moon{
     position:absolute;
+
     width:115px;
     height:115px;
+
     border-radius:50%;
+
     top:-35px;
     left:50%;
+
     transform:translateX(-50%);
+
     background:
         radial-gradient(
             circle at 35% 30%,
@@ -88,29 +113,46 @@ button{
             #d8c8ff 48%,
             #8664ca
         );
-    box-shadow:0 0 45px rgba(190,170,255,.5);
+
+    box-shadow:
+        0 0 45px rgba(190,170,255,.5);
+
     opacity:.75;
 }
 
-/* هدر */
+/* =========================
+   هدر
+========================= */
+
 .header{
     position:relative;
     z-index:5;
+
     height:72px;
-    padding:10px 12px;
-    padding-top:max(10px,env(safe-area-inset-top));
+
+    padding:
+        10px
+        12px
+        10px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:10px;
 }
 
 .back{
     width:45px;
     height:45px;
+
     border:1px solid rgba(255,255,255,.12);
+
     border-radius:15px;
-    background:rgba(18,10,39,.85);
+
+    background:
+        rgba(18,10,39,.85);
+
     font-size:22px;
 }
 
@@ -121,42 +163,71 @@ button{
 
 .title h1{
     margin:0;
+
     font-size:20px;
-    text-shadow:0 0 18px rgba(168,85,247,.8);
+
+    text-shadow:
+        0 0 18px rgba(168,85,247,.8);
 }
 
 .title p{
     margin:4px 0 0;
+
     color:#aa9cc2;
+
     font-size:10px;
 }
 
 .coinBox{
     min-width:75px;
     height:42px;
+
     padding:0 9px;
+
     border-radius:14px;
-    background:rgba(25,15,51,.9);
-    border:1px solid rgba(250,204,21,.2);
+
+    background:
+        rgba(25,15,51,.9);
+
+    border:
+        1px solid
+        rgba(250,204,21,.2);
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     gap:5px;
+
     color:#facc15;
+
     font-weight:900;
     font-size:13px;
 }
 
-/* معرفی */
+/* =========================
+   معرفی فروشگاه
+========================= */
+
 .hero{
     position:relative;
     z-index:3;
+
     width:calc(100% - 28px);
     max-width:520px;
-    margin:8px auto 16px;
+
+    margin:
+        8px auto
+        16px;
+
     padding:18px;
+
     border-radius:23px;
-    border:1px solid rgba(168,85,247,.2);
+
+    border:
+        1px solid
+        rgba(168,85,247,.2);
+
     background:
         radial-gradient(
             circle at 80% 20%,
@@ -164,7 +235,11 @@ button{
             transparent 35%
         ),
         rgba(25,14,51,.86);
-    box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
+
     text-align:center;
 }
 
@@ -180,84 +255,140 @@ button{
 
 .hero p{
     margin:7px 0 0;
+
     color:#b8adca;
+
     font-size:11px;
     line-height:1.8;
 }
 
-/* کارت‌ها */
+/* =========================
+   محصولات
+========================= */
+
 .grid{
     position:relative;
     z-index:4;
+
     width:calc(100% - 22px);
     max-width:600px;
+
     margin:auto;
+
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:10px;
 }
 
 .item{
     position:relative;
-    padding:16px 10px 12px;
+
+    padding:
+        16px
+        10px
+        12px;
+
     border-radius:20px;
-    background:rgba(24,14,49,.9);
-    border:1px solid rgba(255,255,255,.09);
-    box-shadow:0 10px 25px rgba(0,0,0,.22);
+
+    background:
+        rgba(24,14,49,.9);
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.22);
+
     text-align:center;
+
     overflow:hidden;
 }
 
 .item::before{
     content:"";
+
     position:absolute;
+
     width:100px;
     height:100px;
+
     border-radius:50%;
-    background:rgba(168,85,247,.12);
+
+    background:
+        rgba(168,85,247,.12);
+
     filter:blur(20px);
+
     top:-45px;
     left:50%;
+
     transform:translateX(-50%);
 }
 
 .icon{
     position:relative;
+
     font-size:42px;
+
     margin-bottom:6px;
 }
 
 .item h3{
     position:relative;
+
     margin:4px 0;
+
     font-size:14px;
 }
 
 .desc{
     position:relative;
+
     min-height:42px;
+
     color:#aaa0bd;
+
     font-size:10px;
+
     line-height:1.7;
 }
 
 .price{
     position:relative;
+
     margin:8px 0;
+
     color:#facc15;
+
     font-weight:900;
+
     font-size:12px;
 }
 
 .buy{
     position:relative;
+
     width:100%;
     height:39px;
+
     border:0;
     border-radius:13px;
+
     font-size:11px;
     font-weight:900;
-    background:linear-gradient(135deg,#6d28d9,#a855f7);
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #a855f7
+        );
+
     transition:.15s;
 }
 
@@ -267,74 +398,132 @@ button{
 
 .stock{
     position:relative;
+
     margin-top:7px;
+
     color:#8f84a4;
+
     font-size:9px;
 }
 
-/* پایین */
+/* =========================
+   اطلاعات پایین
+========================= */
+
 .bottom{
     position:relative;
     z-index:4;
+
     width:calc(100% - 22px);
     max-width:600px;
+
     margin:16px auto 0;
 }
 
 .info{
     padding:14px;
+
     border-radius:18px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.07);
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
     color:#a99db9;
+
     font-size:10px;
+
     line-height:1.9;
+
     text-align:center;
 }
 
-/* پیام */
+/* =========================
+   Toast
+========================= */
+
 .toast{
     position:fixed;
+
     z-index:100;
+
     left:50%;
     bottom:25px;
-    transform:translate(-50%,30px);
+
+    transform:
+        translate(-50%,30px);
+
     opacity:0;
-    padding:11px 17px;
+
+    padding:
+        11px
+        17px;
+
     border-radius:15px;
-    background:rgba(12,7,26,.97);
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 12px 35px rgba(0,0,0,.45);
+
+    background:
+        rgba(12,7,26,.97);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.45);
+
     font-size:12px;
+
     font-weight:bold;
+
     transition:.25s;
+
     white-space:nowrap;
+
     pointer-events:none;
 }
 
 .toast.show{
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(-50%,0);
 }
 
 .toast.good{
-    border-color:rgba(34,197,94,.5);
+    border-color:
+        rgba(34,197,94,.5);
 }
 
 .toast.bad{
-    border-color:rgba(239,68,68,.5);
+    border-color:
+        rgba(239,68,68,.5);
 }
 
-/* مودال */
+/* =========================
+   مودال
+========================= */
+
 .modal{
     position:fixed;
+
     z-index:200;
+
     inset:0;
+
     display:none;
+
     align-items:center;
     justify-content:center;
+
     padding:20px;
-    background:rgba(3,1,10,.78);
+
+    background:
+        rgba(3,1,10,.78);
+
     backdrop-filter:blur(8px);
 }
 
@@ -344,12 +533,22 @@ button{
 
 .modalBox{
     width:min(92vw,380px);
+
     padding:24px 18px;
+
     border-radius:24px;
+
     background:#17102d;
-    border:1px solid rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
     text-align:center;
-    box-shadow:0 20px 70px rgba(0,0,0,.6);
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.6);
 }
 
 .modalIcon{
@@ -358,23 +557,40 @@ button{
 
 .modal h2{
     margin:8px 0;
+
     font-size:20px;
 }
 
 .modal p{
     color:#b8adca;
+
     font-size:12px;
+
     line-height:1.8;
 }
 
 .modal button{
     width:100%;
+
     height:45px;
+
     border:0;
+
     border-radius:14px;
+
     font-weight:bold;
-    background:linear-gradient(135deg,#6d28d9,#a855f7);
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #a855f7
+        );
 }
+
+/* =========================
+   موبایل کوچک
+========================= */
 
 @media(max-width:360px){
 
@@ -383,7 +599,10 @@ button{
     }
 
     .item{
-        padding:13px 7px 10px;
+        padding:
+            13px
+            7px
+            10px;
     }
 
     .icon{
@@ -403,64 +622,108 @@ button{
     }
 }
 
+/* =========================
+   صفحه بزرگ
+========================= */
+
 @media(min-width:700px){
 
     .grid{
-        grid-template-columns:repeat(4,1fr);
+        grid-template-columns:
+            repeat(4,1fr);
     }
 
 }
 </style>
 </head>
 
+
 <body>
 
 <div id="app">
 
-    <div class="stars" id="stars"></div>
+    <div
+        class="stars"
+        id="stars"
+    ></div>
+
     <div class="moon"></div>
+
+
+    <!-- هدر -->
 
     <header class="header">
 
-        <button class="back" onclick="goHome()">
+        <button
+            class="back"
+            onclick="goHome()"
+        >
             ⌂
         </button>
 
+
         <div class="title">
-            <h1>🛒 فروشگاه جادویی</h1>
-            <p>آیتم‌های کمکی کلمه‌باز</p>
+
+            <h1>
+                🛒 فروشگاه جادویی
+            </h1>
+
+            <p>
+                آیتم‌های کمکی کلمه‌باز
+            </p>
+
         </div>
 
+
         <div class="coinBox">
-            🪙 <span id="coins">۰</span>
+
+            🪙
+
+            <span id="coins">
+                ۰
+            </span>
+
         </div>
 
     </header>
 
 
+    <!-- معرفی -->
+
     <section class="hero">
 
-        <div class="heroIcon">✨</div>
+        <div class="heroIcon">
+            ✨
+        </div>
 
-        <h2>فروشگاه کلمه‌باز</h2>
+        <h2>
+            فروشگاه کلمه‌باز
+        </h2>
 
         <p>
-            با سکه‌هایی که از بازی به دست می‌آوری،
-            آیتم‌های کمکی بخر و برای مراحل سخت آماده شو.
+            با سکه‌هایی که از حل کلمات و کامل‌کردن مراحل
+            به دست می‌آوری، ابزارهای کمکی تهیه کن.
         </p>
 
     </section>
 
 
+    <!-- محصولات -->
+
     <main class="grid">
+
 
         <!-- حرف -->
 
         <article class="item">
 
-            <div class="icon">🔤</div>
+            <div class="icon">
+                🔤
+            </div>
 
-            <h3>طلسم یک حرف</h3>
+            <h3>
+                طلسم یک حرف
+            </h3>
 
             <div class="desc">
                 یک حرف از یکی از کلمات حل‌نشده را آشکار می‌کند.
@@ -479,7 +742,9 @@ button{
 
             <div class="stock">
                 موجودی:
-                <span id="hintLetters">۰</span>
+                <span id="hintLetters">
+                    ۰
+                </span>
             </div>
 
         </article>
@@ -489,9 +754,13 @@ button{
 
         <article class="item">
 
-            <div class="icon">🧹</div>
+            <div class="icon">
+                🧹
+            </div>
 
-            <h3>پاک‌کن جادویی</h3>
+            <h3>
+                پاک‌کن جادویی
+            </h3>
 
             <div class="desc">
                 چند حرف بی‌استفاده را از چرخ حروف حذف می‌کند.
@@ -510,19 +779,25 @@ button{
 
             <div class="stock">
                 موجودی:
-                <span id="removeLetters">۰</span>
+                <span id="removeLetters">
+                    ۰
+                </span>
             </div>
 
         </article>
 
 
-        <!-- حل خودکار -->
+        <!-- حل -->
 
         <article class="item">
 
-            <div class="icon">💡</div>
+            <div class="icon">
+                💡
+            </div>
 
-            <h3>جواب جادویی</h3>
+            <h3>
+                جواب جادویی
+            </h3>
 
             <div class="desc">
                 یکی از کلمات مرحله را به‌صورت خودکار حل می‌کند.
@@ -541,7 +816,9 @@ button{
 
             <div class="stock">
                 موجودی:
-                <span id="solveWords">۰</span>
+                <span id="solveWords">
+                    ۰
+                </span>
             </div>
 
         </article>
@@ -551,9 +828,13 @@ button{
 
         <article class="item">
 
-            <div class="icon">🧪</div>
+            <div class="icon">
+                🧪
+            </div>
 
-            <h3>معجون جادویی</h3>
+            <h3>
+                معجون جادویی
+            </h3>
 
             <div class="desc">
                 پاداش کلمه درست بعدی را دو برابر می‌کند.
@@ -572,7 +853,9 @@ button{
 
             <div class="stock">
                 موجودی:
-                <span id="magicPotions">۰</span>
+                <span id="magicPotions">
+                    ۰
+                </span>
             </div>
 
         </article>
@@ -580,11 +863,16 @@ button{
     </main>
 
 
+    <!-- راهنما -->
+
     <section class="bottom">
 
         <div class="info">
 
-            💎 <b>راهنمای فروشگاه</b>
+            💎
+            <b>
+                راهنمای فروشگاه
+            </b>
 
             <br>
 
@@ -601,7 +889,7 @@ button{
 </div>
 
 
-<!-- پیام -->
+<!-- Toast -->
 
 <div
     class="toast"
@@ -647,21 +935,23 @@ button{
 
 
 /* =========================
-   اعداد فارسی
+   تبدیل عدد به فارسی
 ========================= */
 
 function faNumber(value){
 
     return String(value).replace(
         /\d/g,
-        d => "۰۱۲۳۴۵۶۷۸۹"[d]
+        function(d){
+            return "۰۱۲۳۴۵۶۷۸۹"[d];
+        }
     );
 
 }
 
 
 /* =========================
-   سکه‌ها
+   مدیریت سکه
 ========================= */
 
 function getCoins(){
@@ -673,9 +963,20 @@ function getCoins(){
             )
         );
 
-    return Number.isFinite(value)
-        ? Math.max(0,value)
-        : 100;
+
+    if(
+        Number.isFinite(value)
+    ){
+
+        return Math.max(
+            0,
+            Math.floor(value)
+        );
+
+    }
+
+
+    return 100;
 
 }
 
@@ -684,8 +985,14 @@ function setCoins(value){
 
     localStorage.setItem(
         "kalemebaz_coins",
-        String(Math.max(0,Math.floor(value)))
+        String(
+            Math.max(
+                0,
+                Math.floor(value)
+            )
+        )
     );
+
 
     updateCoins();
 
@@ -694,22 +1001,30 @@ function setCoins(value){
 
 function updateCoins(){
 
-    document.getElementById("coins")
-        .textContent =
-        faNumber(getCoins());
+    document.getElementById(
+        "coins"
+    ).textContent =
+        faNumber(
+            getCoins()
+        );
 
 }
 
 
 /* =========================
-   موجودی
+   مدیریت موجودی
 ========================= */
 
 const inventoryKeys = [
+
     "hintLetters",
+
     "removeLetters",
+
     "solveWords",
+
     "magicPotions"
+
 ];
 
 
@@ -722,39 +1037,59 @@ function getInventory(name){
             )
         );
 
-    return Number.isFinite(value)
-        ? Math.max(0,Math.floor(value))
-        : 0;
+
+    if(
+        Number.isFinite(value)
+    ){
+
+        return Math.max(
+            0,
+            Math.floor(value)
+        );
+
+    }
+
+
+    return 0;
 
 }
 
 
 function updateInventory(){
 
-    inventoryKeys.forEach(name => {
+    inventoryKeys.forEach(
+        function(name){
 
-        const element =
-            document.getElementById(name);
+            const element =
+                document.getElementById(
+                    name
+                );
 
-        if(!element) return;
 
-        element.textContent =
-            faNumber(
-                getInventory(name)
-            );
+            if(!element)
+                return;
 
-    });
+
+            element.textContent =
+                faNumber(
+                    getInventory(name)
+                );
+
+        }
+    );
 
 }
 
 
 /* =========================
-   خرید
+   خرید آیتم
 ========================= */
 
 function buyItem(name,price){
 
-    const coins = getCoins();
+    const coins =
+        getCoins();
+
 
     if(coins < price){
 
@@ -768,8 +1103,18 @@ function buyItem(name,price){
     }
 
 
-    setCoins(coins - price);
+    /*
+       کم کردن سکه
+    */
 
+    setCoins(
+        coins - price
+    );
+
+
+    /*
+       اضافه کردن آیتم
+    */
 
     const key =
         "kalemebaz_" + name;
@@ -787,6 +1132,10 @@ function buyItem(name,price){
 
     updateInventory();
 
+
+    /*
+       نام آیتم
+    */
 
     const names = {
 
@@ -831,35 +1180,46 @@ function buyItem(name,price){
 
 
 /* =========================
-   پیام کوچک
+   Toast
 ========================= */
 
 let toastTimer;
 
 
-function showToast(text,type=""){
+function showToast(
+    text,
+    type=""
+){
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
 
-    toast.textContent = text;
+    toast.textContent =
+        text;
 
 
     toast.className =
         "toast show " + type;
 
 
-    clearTimeout(toastTimer);
+    clearTimeout(
+        toastTimer
+    );
 
 
     toastTimer =
-        setTimeout(() => {
+        setTimeout(
+            function(){
 
-            toast.className =
-                "toast";
+                toast.className =
+                    "toast";
 
-        },1800);
+            },
+            1800
+        );
 
 }
 
@@ -870,23 +1230,31 @@ function showToast(text,type=""){
 
 function closeModal(){
 
-    document.getElementById("modal")
-        .classList.remove("show");
+    document.getElementById(
+        "modal"
+    ).classList.remove(
+        "show"
+    );
 
 }
 
 
-document.getElementById("modal")
-    .addEventListener(
-        "click",
-        function(event){
+document.getElementById(
+    "modal"
+).addEventListener(
+    "click",
+    function(event){
 
-            if(event.target === this){
-                closeModal();
-            }
+        if(
+            event.target === this
+        ){
+
+            closeModal();
 
         }
-    );
+
+    }
+);
 
 
 /* =========================
@@ -902,22 +1270,30 @@ function goHome(){
 
 
 /* =========================
-   ستاره‌ها
+   ساخت ستاره‌ها
 ========================= */
 
 function createStars(){
 
     const box =
-        document.getElementById("stars");
+        document.getElementById(
+            "stars"
+        );
 
 
     box.innerHTML = "";
 
 
-    for(let i=0;i<80;i++){
+    for(
+        let i = 0;
+        i < 80;
+        i++
+    ){
 
         const star =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         star.className =
@@ -925,15 +1301,15 @@ function createStars(){
 
 
         star.style.left =
-            Math.random()*100 + "%";
+            Math.random() * 100 + "%";
 
 
         star.style.top =
-            Math.random()*100 + "%";
+            Math.random() * 100 + "%";
 
 
         const size =
-            Math.random()*2 + 1;
+            Math.random() * 2 + 1;
 
 
         star.style.width =
@@ -945,10 +1321,16 @@ function createStars(){
 
 
         star.style.animationDelay =
-            Math.random()*2 + "s";
+            Math.random() * 2 + "s";
 
 
-        box.appendChild(star");
+        /*
+           خط اصلاح‌شده
+        */
+
+        box.appendChild(
+            star
+        );
 
     }
 
@@ -956,7 +1338,7 @@ function createStars(){
 
 
 /* =========================
-   تنظیمات
+   تنظیمات بازی
 ========================= */
 
 function applySettings(){
@@ -980,31 +1362,49 @@ function applySettings(){
     }
 
 
+    /*
+       روشنایی
+    */
+
     if(
         settings.brightness !== undefined
     ){
 
         const brightness =
-            Number(settings.brightness);
+            Number(
+                settings.brightness
+            );
 
 
         if(
-            Number.isFinite(brightness) &&
+            Number.isFinite(
+                brightness
+            ) &&
             brightness > 0
         ){
 
             document.body.style.filter =
-                `brightness(${brightness}%)`;
+                "brightness(" +
+                brightness +
+                "%)";
 
         }
 
     }
 
 
-    if(settings.stars === false){
+    /*
+       خاموش کردن ستاره‌ها
+    */
 
-        document.getElementById("stars")
-            .style.display = "none";
+    if(
+        settings.stars === false
+    ){
+
+        document.getElementById(
+            "stars"
+        ).style.display =
+            "none";
 
     }
 
@@ -1012,7 +1412,7 @@ function applySettings(){
 
 
 /* =========================
-   شروع
+   اجرای اولیه
 ========================= */
 
 createStars();
