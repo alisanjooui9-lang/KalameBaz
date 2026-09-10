@@ -2,522 +2,460 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<title>کلمه‌باز | ماجراجویی جادویی</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>کلمه‌باز | سرزمین کلمات جادویی</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-  margin:0;
-  min-height:100%;
-  font-family:Tahoma,Arial,sans-serif;
-  color:#fff;
-  background:#070411;
+    margin:0;
+    min-height:100%;
+    font-family:Tahoma,Arial,sans-serif;
+    color:#fff;
+    background:#080616;
 }
 
 body{
-  overflow-x:hidden;
-  background:
-    radial-gradient(circle at 50% 10%,rgba(137,73,255,.28),transparent 28%),
-    radial-gradient(circle at 15% 80%,rgba(0,180,255,.12),transparent 25%),
-    linear-gradient(180deg,#12062e 0%,#080518 60%,#04020b 100%);
-  transition:.3s;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 50% 10%,rgba(130,80,255,.25),transparent 28%),
+        radial-gradient(circle at 10% 80%,rgba(0,180,255,.10),transparent 30%),
+        linear-gradient(160deg,#110a28,#070512 75%);
+}
+
+button{
+    font-family:inherit;
+    color:#fff;
+    border:0;
+    cursor:pointer;
 }
 
 #stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:0;
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
 }
 
 .star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 8px #fff;
-  animation:twinkle 2s infinite alternate;
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.6;
+    animation:twinkle 2s infinite alternate;
 }
 
 @keyframes twinkle{
-  from{
-    opacity:.15;
-    transform:scale(.7);
-  }
-  to{
-    opacity:1;
-    transform:scale(1.5);
-  }
+    from{opacity:.15;transform:scale(.7)}
+    to{opacity:1;transform:scale(1.5)}
 }
 
 .moon{
-  position:fixed;
-  width:115px;
-  height:115px;
-  top:30px;
-  left:20px;
-  border-radius:50%;
-  background:#fff;
-  opacity:.88;
-  box-shadow:0 0 35px rgba(255,255,255,.6);
-  z-index:0;
+    position:fixed;
+    top:28px;
+    left:22px;
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#fff,#bbb4ff);
+    box-shadow:0 0 40px rgba(190,180,255,.45);
+    z-index:0;
 }
 
-.moon:after{
-  content:"";
-  position:absolute;
-  width:115px;
-  height:115px;
-  border-radius:50%;
-  top:-8px;
-  left:28px;
-  background:#12062e;
+.app{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    padding:14px 13px 35px;
 }
 
-.container{
-  position:relative;
-  z-index:2;
-  width:min(94%,600px);
-  margin:auto;
-  padding:18px 0 45px;
+.topbar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
 }
 
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:18px;
+.icon{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+    font-size:20px;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:9px;
+.brand{
+    flex:1;
+    text-align:center;
 }
 
-.logo-icon{
-  width:45px;
-  height:45px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:15px;
-  background:linear-gradient(145deg,#7437c4,#28134f);
-  border:1px solid rgba(210,170,255,.3);
-  box-shadow:0 0 20px rgba(137,73,255,.4);
-  font-size:25px;
+.brand h1{
+    margin:0;
+    font-size:24px;
 }
 
-.logo-text h1{
-  margin:0;
-  font-size:21px;
-}
-
-.logo-text span{
-  display:block;
-  margin-top:4px;
-  color:#a99bbd;
-  font-size:11px;
-}
-
-.header-buttons{
-  display:flex;
-  gap:7px;
-}
-
-.icon-btn{
-  width:43px;
-  height:43px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:14px;
-  background:rgba(255,255,255,.07);
-  color:#fff;
-  font-size:20px;
+.brand p{
+    margin:4px 0 0;
+    font-size:10px;
+    color:#aaa5c8;
 }
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-bottom:15px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:7px;
+    margin-bottom:14px;
 }
 
 .stat{
-  padding:12px 5px;
-  text-align:center;
-  border-radius:17px;
-  background:rgba(255,255,255,.065);
-  border:1px solid rgba(255,255,255,.08);
+    padding:10px 5px;
+    text-align:center;
+    border-radius:15px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.09);
 }
 
-.stat-icon{
-  font-size:20px;
+.stat small{
+    display:block;
+    color:#aaa5c8;
+    font-size:9px;
+    margin-bottom:4px;
 }
 
-.stat-value{
-  margin-top:5px;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.stat-label{
-  margin-top:3px;
-  color:#aaa0bd;
-  font-size:10px;
+.stat b{
+    font-size:14px;
 }
 
 .hero{
-  position:relative;
-  overflow:hidden;
-  padding:24px 18px;
-  border-radius:27px;
-  background:
-    linear-gradient(145deg,
-      rgba(108,51,185,.55),
-      rgba(19,9,48,.94));
-  border:1px solid rgba(194,151,255,.28);
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.45),
-    inset 0 0 35px rgba(166,102,255,.08);
+    position:relative;
+    padding:22px 18px;
+    margin-bottom:14px;
+    text-align:center;
+    border-radius:25px;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(155,100,255,.25),transparent 55%),
+        linear-gradient(145deg,rgba(55,30,100,.75),rgba(18,12,42,.9));
+    border:1px solid rgba(185,145,255,.25);
+    box-shadow:0 18px 50px rgba(0,0,0,.35);
+    overflow:hidden;
 }
 
 .hero:before{
-  content:"";
-  position:absolute;
-  width:210px;
-  height:210px;
-  right:-80px;
-  top:-100px;
-  border-radius:50%;
-  background:rgba(182,116,255,.18);
-  filter:blur(35px);
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(130,80,255,.12);
+    filter:blur(30px);
+    left:50%;
+    top:-100px;
+    transform:translateX(-50%);
 }
 
-.hero-content{
-  position:relative;
-  z-index:2;
+.magicIcon{
+    position:relative;
+    font-size:48px;
+    margin-bottom:4px;
 }
 
-.hero-title{
-  color:#d9c0ff;
-  font-size:13px;
+.hero h2{
+    position:relative;
+    margin:0;
+    font-size:23px;
 }
 
-.level{
-  margin:8px 0;
-  font-size:31px;
-  font-weight:bold;
+.hero p{
+    position:relative;
+    margin:8px 0 15px;
+    color:#c0b9d8;
+    font-size:12px;
 }
 
-.level-description{
-  color:#b9aec9;
-  font-size:12px;
+.mainButton{
+    position:relative;
+    width:100%;
+    min-height:54px;
+    border-radius:17px;
+    font-size:16px;
+    font-weight:900;
+    background:linear-gradient(135deg,#8754ff,#49309c);
+    box-shadow:0 8px 25px rgba(100,55,220,.3);
 }
 
-.xp-info{
-  display:flex;
-  justify-content:space-between;
-  margin-top:19px;
-  margin-bottom:8px;
-  color:#c7b9d7;
-  font-size:11px;
+.xpBox{
+    margin-top:15px;
 }
 
-.xp-bar{
-  height:10px;
-  overflow:hidden;
-  border-radius:20px;
-  background:rgba(0,0,0,.4);
+.xpInfo{
+    display:flex;
+    justify-content:space-between;
+    font-size:10px;
+    color:#aaa5c8;
+    margin-bottom:6px;
 }
 
-.xp-fill{
-  height:100%;
-  width:0%;
-  border-radius:20px;
-  background:linear-gradient(90deg,#7740d4,#c38cff);
-  box-shadow:0 0 13px rgba(181,113,255,.7);
-  transition:1s;
+.xpBar{
+    height:8px;
+    background:rgba(255,255,255,.1);
+    border-radius:99px;
+    overflow:hidden;
 }
 
-.start{
-  width:100%;
-  margin-top:20px;
-  padding:15px;
-  border:0;
-  border-radius:17px;
-  color:#fff;
-  font-size:16px;
-  font-weight:bold;
-  background:linear-gradient(135deg,#7b42d2,#4d2491);
-  box-shadow:0 9px 25px rgba(85,38,153,.35);
+.xpFill{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#9b63ff,#38d8ff);
+    box-shadow:0 0 15px rgba(100,120,255,.5);
+    transition:.5s;
 }
 
-.section-title{
-  margin:25px 4px 12px;
-  font-size:18px;
+.sectionTitle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:18px 2px 9px;
+}
+
+.sectionTitle h3{
+    margin:0;
+    font-size:15px;
+}
+
+.sectionTitle span{
+    font-size:10px;
+    color:#8f88aa;
 }
 
 .menu{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
 }
 
-.menu-card{
-  min-height:105px;
-  padding:16px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.065);
-  color:#fff;
-  text-align:right;
-  transition:.15s;
+.menuCard{
+    min-height:86px;
+    padding:13px;
+    text-align:right;
+    border-radius:18px;
+    background:rgba(255,255,255,.065);
+    border:1px solid rgba(255,255,255,.09);
 }
 
-.menu-card:active{
-  transform:scale(.97);
+.menuCard .emoji{
+    font-size:27px;
+    display:block;
+    margin-bottom:5px;
 }
 
-.menu-icon{
-  font-size:29px;
+.menuCard b{
+    font-size:12px;
 }
 
-.menu-title{
-  margin-top:9px;
-  font-weight:bold;
-  font-size:14px;
-}
-
-.menu-desc{
-  margin-top:4px;
-  color:#9e94ad;
-  font-size:10px;
-}
-
-.map-card{
-  padding:16px;
-  border-radius:22px;
-  background:
-    linear-gradient(145deg,
-      rgba(40,23,76,.8),
-      rgba(13,7,31,.9));
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.map-info{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:12px;
-  color:#bdb1cb;
-  font-size:12px;
+.menuCard small{
+    display:block;
+    color:#9992b3;
+    margin-top:4px;
+    font-size:9px;
 }
 
 .map{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  padding:8px 2px 12px;
-  scrollbar-width:none;
+    padding:15px;
+    border-radius:22px;
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.09);
 }
 
-.map::-webkit-scrollbar{
-  display:none;
+.mapInfo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:13px;
 }
 
-.node{
-  flex:0 0 55px;
-  width:55px;
-  height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,.12);
-  background:#130a29;
-  color:#80758f;
-  font-weight:bold;
-  font-size:12px;
+.mapInfo b{
+    font-size:13px;
 }
 
-.node.completed{
-  background:#382060;
-  border-color:#8f5ee0;
-  color:#fff;
+.mapInfo span{
+    color:#aaa5c8;
+    font-size:10px;
 }
 
-.node.current{
-  background:linear-gradient(145deg,#9b5cf1,#54289a);
-  border-color:#d7b9ff;
-  color:#fff;
-  box-shadow:0 0 22px rgba(154,90,239,.65);
-  transform:scale(1.08);
+.levelGrid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
 }
 
-.node.locked{
-  opacity:.42;
+.level{
+    aspect-ratio:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    font-size:11px;
+    font-weight:bold;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
+    color:#9992b4;
 }
 
-.notice{
-  margin-top:12px;
-  padding:12px;
-  border-radius:15px;
-  background:rgba(255,255,255,.045);
-  color:#a99eb8;
-  font-size:11px;
-  text-align:center;
+.level.current{
+    color:#fff;
+    background:linear-gradient(145deg,#8450ff,#4b2c9c);
+    border-color:#b995ff;
+    box-shadow:0 0 18px rgba(130,75,255,.45);
+}
+
+.level.done{
+    color:#72efb5;
+    background:rgba(65,215,155,.1);
+    border-color:rgba(65,215,155,.3);
+}
+
+.level.locked{
+    opacity:.45;
+}
+
+.mapMore{
+    width:100%;
+    margin-top:10px;
+    min-height:42px;
+    border-radius:13px;
+    background:rgba(255,255,255,.07);
+    color:#bcb5d2;
+    font-size:11px;
 }
 
 .footer{
-  margin-top:30px;
-  text-align:center;
-  color:#6f657d;
-  font-size:10px;
+    text-align:center;
+    margin-top:25px;
+    color:#625c78;
+    font-size:9px;
+    line-height:2;
 }
 
-.modal-bg{
-  position:fixed;
-  inset:0;
-  z-index:30;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(6px);
-}
-
-.modal-bg.show{
-  display:flex;
-}
+/* modal */
 
 .modal{
-  width:min(100%,430px);
-  padding:22px;
-  border-radius:25px;
-  background:#130a28;
-  border:1px solid rgba(190,145,255,.25);
-  box-shadow:0 20px 70px rgba(0,0,0,.65);
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(4,2,12,.78);
+    backdrop-filter:blur(7px);
 }
 
-.modal h2{
-  margin-top:0;
-  font-size:19px;
+.modal.show{
+    display:flex;
 }
 
-.setting{
-  margin:16px 0;
+.modalBox{
+    width:min(94vw,420px);
+    max-height:85vh;
+    overflow:auto;
+    padding:22px;
+    border-radius:25px;
+    background:linear-gradient(160deg,#251545,#0f0920);
+    border:1px solid rgba(190,150,255,.25);
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
 }
 
-.setting label{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  color:#c9bfd4;
-  font-size:12px;
-}
-
-.setting input[type="range"]{
-  width:100%;
-}
-
-.switch-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-}
-
-.switch{
-  width:48px;
-  height:27px;
-  border:0;
-  border-radius:30px;
-  background:#39294e;
-  position:relative;
-}
-
-.switch.active{
-  background:#7742c7;
-}
-
-.switch:after{
-  content:"";
-  position:absolute;
-  width:21px;
-  height:21px;
-  top:3px;
-  right:3px;
-  border-radius:50%;
-  background:#fff;
-  transition:.2s;
-}
-
-.switch.active:after{
-  right:24px;
-}
-
-.theme-row{
-  display:flex;
-  gap:7px;
-}
-
-.theme{
-  flex:1;
-  padding:11px 5px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:13px;
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  font-size:11px;
+.modalBox h2{
+    margin:0 0 15px;
+    font-size:19px;
 }
 
 .close{
-  width:100%;
-  margin-top:8px;
-  padding:13px;
-  border:0;
-  border-radius:15px;
-  background:#6c39b7;
-  color:#fff;
-  font-weight:bold;
+    float:left;
+    width:35px;
+    height:35px;
+    border-radius:11px;
+    background:rgba(255,255,255,.08);
+}
+
+.setting{
+    margin:14px 0;
+}
+
+.setting label{
+    display:flex;
+    justify-content:space-between;
+    color:#c9c2dd;
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+.setting input[type=range]{
+    width:100%;
+}
+
+.themeButtons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+}
+
+.themeButtons button{
+    min-height:40px;
+    border-radius:11px;
+    background:#2c1c4c;
+    font-size:10px;
+}
+
+.switch{
+    width:100%;
+    min-height:42px;
+    border-radius:12px;
+    background:rgba(255,255,255,.07);
+    margin-top:7px;
 }
 
 .toast{
-  position:fixed;
-  z-index:50;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%) translateY(100px);
-  padding:13px 18px;
-  border-radius:15px;
-  background:#191029;
-  border:1px solid rgba(194,145,255,.25);
-  opacity:0;
-  transition:.3s;
-  white-space:nowrap;
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    z-index:300;
+    transform:translateX(-50%) translateY(25px);
+    opacity:0;
+    padding:11px 17px;
+    border-radius:13px;
+    background:#21163c;
+    border:1px solid rgba(255,255,255,.12);
+    transition:.3s;
+    font-size:11px;
+    pointer-events:none;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
-@media(max-width:360px){
-  .menu{
-    grid-template-columns:1fr 1fr;
-  }
+@media(max-width:370px){
 
-  .level{
-    font-size:27px;
-  }
+    .levelGrid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .brand h1{
+        font-size:21px;
+    }
 }
 </style>
 </head>
@@ -527,212 +465,198 @@ header{
 <div id="stars"></div>
 <div class="moon"></div>
 
-<div class="container">
+<div class="app">
 
-<header>
+    <div class="topbar">
 
-  <div class="logo">
-    <div class="logo-icon">🔮</div>
+        <button class="icon" onclick="openProfile()">👤</button>
 
-    <div class="logo-text">
-      <h1>کلمه‌باز</h1>
-      <span>ماجراجویی در سرزمین کلمات</span>
+        <div class="brand">
+            <h1>✨ کلمه‌باز</h1>
+            <p>سرزمین جادویی کلمات</p>
+        </div>
+
+        <button class="icon" onclick="openSettings()">⚙️</button>
+
     </div>
-  </div>
 
-  <div class="header-buttons">
-    <button class="icon-btn" onclick="location.href='profile.html'">
-      👤
-    </button>
+    <div class="stats">
 
-    <button class="icon-btn" onclick="openSettings()">
-      ⚙️
-    </button>
-  </div>
+        <div class="stat">
+            <small>🪙 سکه</small>
+            <b id="coins">100</b>
+        </div>
 
-</header>
+        <div class="stat">
+            <small>⭐ XP</small>
+            <b id="xp">0</b>
+        </div>
 
-<div class="stats">
+        <div class="stat">
+            <small>🏆 کامل‌شده</small>
+            <b id="completed">0</b>
+        </div>
 
-  <div class="stat">
-    <div class="stat-icon">🪙</div>
-    <div class="stat-value" id="coins">100</div>
-    <div class="stat-label">سکه</div>
-  </div>
+    </div>
 
-  <div class="stat">
-    <div class="stat-icon">✨</div>
-    <div class="stat-value" id="xp">0</div>
-    <div class="stat-label">XP</div>
-  </div>
+    <section class="hero">
 
-  <div class="stat">
-    <div class="stat-icon">🏆</div>
-    <div class="stat-value" id="completed">0</div>
-    <div class="stat-label">تکمیل‌شده</div>
-  </div>
+        <div class="magicIcon">🔮</div>
+
+        <h2 id="currentTitle">مرحله ۱</h2>
+
+        <p id="currentText">
+            ماجراجویی خودت را در سرزمین کلمات شروع کن!
+        </p>
+
+        <button class="mainButton" onclick="continueGame()">
+            ✨ ادامه ماجراجویی
+        </button>
+
+        <div class="xpBox">
+
+            <div class="xpInfo">
+                <span>پیشرفت تا مرحله بعد</span>
+                <span id="levelProgressText">۱ / ۱۲۰۰</span>
+            </div>
+
+            <div class="xpBar">
+                <div class="xpFill" id="xpFill"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="sectionTitle">
+        <h3>🌟 امکانات</h3>
+        <span>جادوی خودت را انتخاب کن</span>
+    </div>
+
+    <div class="menu">
+
+        <button class="menuCard" onclick="openShop()">
+            <span class="emoji">🛒</span>
+            <b>فروشگاه</b>
+            <small>خرید ابزارهای جادویی</small>
+        </button>
+
+        <button class="menuCard" onclick="openSpin()">
+            <span class="emoji">🎡</span>
+            <b>گردونه شانس</b>
+            <small>هر ۲۴ ساعت یک چرخش</small>
+        </button>
+
+        <button class="menuCard" onclick="openAchievements()">
+            <span class="emoji">🏆</span>
+            <b>دستاوردها</b>
+            <small>جایزه‌های ویژه</small>
+        </button>
+
+        <button class="menuCard" onclick="openProfile()">
+            <span class="emoji">👤</span>
+            <b>پروفایل</b>
+            <small>مشاهده پیشرفت</small>
+        </button>
+
+    </div>
+
+    <div class="sectionTitle">
+        <h3>🗺️ نقشه سرزمین</h3>
+        <span>۱۲۰۰ مرحله</span>
+    </div>
+
+    <section class="map">
+
+        <div class="mapInfo">
+            <b>✨ مسیر ماجراجویی</b>
+            <span id="mapProgress">مرحله ۱ از ۱۲۰۰</span>
+        </div>
+
+        <div class="levelGrid" id="levelGrid"></div>
+
+        <button class="mapMore" onclick="showMoreLevels()">
+            نمایش مراحل بیشتر ⬇️
+        </button>
+
+    </section>
+
+    <div class="footer">
+        کلمه‌باز © Ghost Studio<br>
+        ساخته‌شده برای موبایل
+    </div>
 
 </div>
 
-<section class="hero">
+<!-- Settings -->
 
-  <div class="hero-content">
+<div class="modal" id="settingsModal">
 
-    <div class="hero-title">
-      ✨ ماجراجویی فعلی
-    </div>
+    <div class="modalBox">
 
-    <div class="level" id="levelTitle">
-      مرحله ۱
-    </div>
+        <button class="close" onclick="closeSettings()">✕</button>
 
-    <div class="level-description">
-      مسیر جادویی خودت را ادامه بده و کلمات را پیدا کن.
-    </div>
+        <h2>⚙️ تنظیمات</h2>
 
-    <div class="xp-info">
-      <span>پیشرفت تجربه</span>
-      <span id="xpText">0 / 100 XP</span>
-    </div>
+        <div class="setting">
 
-    <div class="xp-bar">
-      <div class="xp-fill" id="xpFill"></div>
-    </div>
+            <label>
+                <span>☀️ روشنایی</span>
+                <span id="brightnessValue">100%</span>
+            </label>
 
-    <button class="start" onclick="continueGame()">
-      ✨ ادامه ماجراجویی
-    </button>
+            <input
+                id="brightness"
+                type="range"
+                min="60"
+                max="130"
+                value="100"
+                oninput="changeBrightness(this.value)"
+            >
 
-  </div>
+        </div>
 
-</section>
+        <div class="setting">
 
-<h2 class="section-title">🪄 امکانات</h2>
+            <label>
+                <span>✨ ستاره‌ها</span>
+            </label>
 
-<div class="menu">
+            <button
+                class="switch"
+                id="starsSwitch"
+                onclick="toggleStars()"
+            >
+                فعال
+            </button>
 
-  <button class="menu-card" onclick="location.href='shop.html'">
-    <div class="menu-icon">🛒</div>
-    <div class="menu-title">فروشگاه جادویی</div>
-    <div class="menu-desc">خرید راهنما و آیتم</div>
-  </button>
+        </div>
 
-  <button class="menu-card" onclick="location.href='spin.html'">
-    <div class="menu-icon">🎡</div>
-    <div class="menu-title">گردونه شانس</div>
-    <div class="menu-desc">شانس خودت را امتحان کن</div>
-  </button>
+        <div class="setting">
 
-  <button class="menu-card" onclick="location.href='achievements.html'">
-    <div class="menu-icon">🏆</div>
-    <div class="menu-title">دستاوردها</div>
-    <div class="menu-desc">افتخاراتت را ببین</div>
-  </button>
+            <label>
+                <span>🎨 تم</span>
+            </label>
 
-  <button class="menu-card" onclick="location.href='profile.html'">
-    <div class="menu-icon">👤</div>
-    <div class="menu-title">پروفایل</div>
-    <div class="menu-desc">آمار و شخصیت بازیکن</div>
-  </button>
+            <div class="themeButtons">
 
-</div>
+                <button onclick="setTheme('purple')">
+                    بنفش
+                </button>
 
-<h2 class="section-title">🗺️ نقشه سرزمین کلمات</h2>
+                <button onclick="setTheme('blue')">
+                    آبی
+                </button>
 
-<div class="map-card">
+                <button onclick="setTheme('forest')">
+                    جنگلی
+                </button>
 
-  <div class="map-info">
-    <span>مسیر ماجراجویی</span>
-    <span id="mapProgress">۱ / ۱۲۰۰</span>
-  </div>
+            </div>
 
-  <div class="map" id="map"></div>
-
-  <div class="notice">
-    🔒 با کامل کردن هر مرحله، مرحله بعدی باز می‌شود.
-  </div>
-
-</div>
-
-<div class="footer">
-  کلمه‌باز • یک ماجراجویی جادویی از Ghost Studio
-</div>
-
-</div>
-
-<!-- تنظیمات -->
-
-<div class="modal-bg" id="settingsModal">
-
-<div class="modal">
-
-  <h2>⚙️ تنظیمات بازی</h2>
-
-  <div class="setting">
-
-    <label>
-      <span>روشنایی</span>
-      <span id="brightnessText">100%</span>
-    </label>
-
-    <input
-      id="brightness"
-      type="range"
-      min="60"
-      max="130"
-      value="100"
-      oninput="changeBrightness(this.value)"
-    >
-
-  </div>
-
-  <div class="switch-row">
-    <span>✨ نمایش ستاره‌ها</span>
-    <button
-      class="switch active"
-      id="starsSwitch"
-      onclick="toggleStars()">
-    </button>
-  </div>
-
-  <div class="switch-row">
-    <span>🎵 صدا</span>
-    <button
-      class="switch active"
-      id="soundSwitch"
-      onclick="toggleSound()">
-    </button>
-  </div>
-
-  <div class="setting">
-
-    <label>
-      <span>تم</span>
-    </label>
-
-    <div class="theme-row">
-
-      <button class="theme" onclick="setTheme('purple')">
-        🟣 جادویی
-      </button>
-
-      <button class="theme" onclick="setTheme('blue')">
-        🔵 آبی
-      </button>
-
-      <button class="theme" onclick="setTheme('forest')">
-        🟢 جنگلی
-      </button>
+        </div>
 
     </div>
-
-  </div>
-
-  <button class="close" onclick="closeSettings()">
-    بستن
-  </button>
-
-</div>
 
 </div>
 
@@ -740,432 +664,537 @@ header{
 
 <script>
 
-/* -------------------------
-   داده‌های اصلی
-------------------------- */
+/* =========================================================
+   KALAMEBAZ INDEX
+========================================================= */
 
-function number(key,defaultValue){
+const TOTAL_LEVELS = 1200;
 
-  const value =
-    parseInt(
-      localStorage.getItem(key),
-      10
+/* ---------------------------------------------------------
+   localStorage
+--------------------------------------------------------- */
+
+function getNumber(key,defaultValue){
+
+    return parseInt(
+        localStorage.getItem(key) ||
+        String(defaultValue)
     );
 
-  return Number.isFinite(value)
-    ? value
-    : defaultValue;
 }
 
 let currentLevel =
-  Math.max(
-    1,
-    Math.min(
-      1200,
-      number("kalemebaz_currentLevel",1)
-    )
-  );
+    getNumber(
+        "kalemebaz_currentLevel",
+        1
+    );
 
-let coins =
-  number("kalemebaz_coins",100);
+if(currentLevel < 1)
+    currentLevel = 1;
 
-let xp =
-  number("kalemebaz_xp",0);
+if(currentLevel > TOTAL_LEVELS)
+    currentLevel = TOTAL_LEVELS;
 
 let completed =
-  number("kalemebaz_completedLevels",0);
-
-
-/* -------------------------
-   نمایش اطلاعات
-------------------------- */
-
-function updateStats(){
-
-  document.getElementById("coins")
-    .textContent = coins;
-
-  document.getElementById("xp")
-    .textContent = xp;
-
-  document.getElementById("completed")
-    .textContent = completed;
-
-  document.getElementById("levelTitle")
-    .textContent =
-      "مرحله " + currentLevel.toLocaleString("fa-IR");
-
-  document.getElementById("mapProgress")
-    .textContent =
-      currentLevel.toLocaleString("fa-IR")
-      + " / ۱۲۰۰";
-
-  /*
-    هر 100 XP یک سطح تجربه
-  */
-
-  const xpInLevel = xp % 100;
-
-  document.getElementById("xpText")
-    .textContent =
-      xpInLevel + " / 100 XP";
-
-  document.getElementById("xpFill")
-    .style.width =
-      xpInLevel + "%";
-}
-
-
-/* -------------------------
-   ادامه بازی
-------------------------- */
-
-function continueGame(){
-
-  location.href =
-    "game.html?level=" + currentLevel;
-
-}
-
-
-/* -------------------------
-   نقشه
-------------------------- */
-
-function createMap(){
-
-  const map =
-    document.getElementById("map");
-
-  map.innerHTML = "";
-
-  const start =
-    Math.max(
-      1,
-      currentLevel - 3
+    getNumber(
+        "kalemebaz_completedLevels",
+        0
     );
 
-  const end =
-    Math.min(
-      1200,
-      start + 14
+let coins =
+    getNumber(
+        "kalemebaz_coins",
+        100
     );
 
-  for(
-    let i=start;
-    i<=end;
-    i++
-  ){
+let xp =
+    getNumber(
+        "kalemebaz_xp",
+        0
+    );
 
-    const node =
-      document.createElement("button");
+/* ---------------------------------------------------------
+   ذخیره اولیه
+--------------------------------------------------------- */
 
-    node.className = "node";
+localStorage.setItem(
+    "kalemebaz_currentLevel",
+    currentLevel
+);
 
-    node.textContent =
-      i.toLocaleString("fa-IR");
+localStorage.setItem(
+    "kalemebaz_coins",
+    coins
+);
 
-    if(i < currentLevel){
-      node.classList.add("completed");
-    }
+localStorage.setItem(
+    "kalemebaz_xp",
+    xp
+);
 
-    if(i === currentLevel){
-      node.classList.add("current");
-    }
+localStorage.setItem(
+    "kalemebaz_completedLevels",
+    completed
+);
 
-    if(i > currentLevel){
-      node.classList.add("locked");
-    }
-
-    /*
-      فقط مراحل بازشده قابل ورود هستند.
-    */
-
-    if(i <= currentLevel){
-
-      node.onclick = function(){
-
-        location.href =
-          "game.html?level=" + i;
-
-      };
-
-    }else{
-
-      node.onclick = function(){
-
-        showToast(
-          "🔒 این مرحله هنوز باز نشده است"
-        );
-
-      };
-
-    }
-
-    map.appendChild(node);
-
-  }
-
-}
-
-
-/* -------------------------
+/* ---------------------------------------------------------
    ستاره‌ها
-------------------------- */
+--------------------------------------------------------- */
 
 function createStars(){
 
-  const box =
-    document.getElementById("stars");
+    const box =
+        document.getElementById("stars");
 
-  box.innerHTML = "";
+    box.innerHTML = "";
 
-  for(let i=0;i<90;i++){
+    for(let i=0;i<80;i++){
 
-    const star =
-      document.createElement("div");
+        const star =
+            document.createElement("div");
 
-    star.className = "star";
+        star.className = "star";
 
-    star.style.left =
-      Math.random()*100 + "%";
+        star.style.left =
+            Math.random()*100 + "%";
 
-    star.style.top =
-      Math.random()*100 + "%";
+        star.style.top =
+            Math.random()*100 + "%";
 
-    star.style.animationDelay =
-      Math.random()*3 + "s";
+        star.style.animationDelay =
+            Math.random()*2 + "s";
 
-    const size =
-      Math.random()*2 + 1;
+        box.appendChild(star);
 
-    star.style.width =
-      size + "px";
-
-    star.style.height =
-      size + "px";
-
-    box.appendChild(star);
-
-  }
+    }
 
 }
 
+createStars();
 
-/* -------------------------
+/* ---------------------------------------------------------
+   نمایش اطلاعات
+--------------------------------------------------------- */
+
+function updateUI(){
+
+    document.getElementById("coins").textContent =
+        coins;
+
+    document.getElementById("xp").textContent =
+        xp;
+
+    document.getElementById("completed").textContent =
+        completed;
+
+    document.getElementById("currentTitle").textContent =
+        "مرحله " + currentLevel;
+
+    document.getElementById("levelProgressText").textContent =
+        currentLevel + " / " + TOTAL_LEVELS;
+
+    document.getElementById("mapProgress").textContent =
+        "مرحله " +
+        currentLevel +
+        " از " +
+        TOTAL_LEVELS;
+
+    const percent =
+        ((currentLevel-1) /
+        (TOTAL_LEVELS-1))*100;
+
+    document.getElementById("xpFill").style.width =
+        Math.max(0,Math.min(100,percent)) + "%";
+
+    if(currentLevel >= 1001){
+
+        document.getElementById("currentText").textContent =
+            "🔥 وارد بخش افسانه‌ای سرزمین کلمات شده‌ای!";
+
+    }else if(currentLevel >= 801){
+
+        document.getElementById("currentText").textContent =
+            "⚔️ مراحل حرفه‌ای در انتظار تو هستند!";
+
+    }else if(currentLevel >= 501){
+
+        document.getElementById("currentText").textContent =
+            "🔮 جادوی سرزمین وارد مرحله‌های سخت‌تر شده است!";
+
+    }else{
+
+        document.getElementById("currentText").textContent =
+            "ماجراجویی خودت را در سرزمین کلمات شروع کن!";
+
+    }
+
+}
+
+updateUI();
+
+/* ---------------------------------------------------------
+   ساخت نقشه
+--------------------------------------------------------- */
+
+let mapShown = 20;
+
+function renderMap(){
+
+    const grid =
+        document.getElementById("levelGrid");
+
+    grid.innerHTML = "";
+
+    const start =
+        Math.max(
+            1,
+            currentLevel - 4
+        );
+
+    const end =
+        Math.min(
+            TOTAL_LEVELS,
+            Math.max(
+                mapShown,
+                currentLevel + 15
+            )
+        );
+
+    for(
+        let i=start;
+        i<=end;
+        i++
+    ){
+
+        const btn =
+            document.createElement("button");
+
+        btn.className =
+            "level";
+
+        btn.textContent =
+            i;
+
+        const done =
+            localStorage.getItem(
+                "kalemebaz_completed_"+i
+            ) === "1";
+
+        if(done){
+
+            btn.classList.add("done");
+
+        }
+
+        if(i === currentLevel){
+
+            btn.classList.add("current");
+
+        }
+
+        /*
+          فقط مرحله فعلی و مراحل قبلی باز هستند.
+        */
+
+        if(i > currentLevel){
+
+            btn.classList.add("locked");
+
+            btn.textContent =
+                "🔒";
+
+        }else{
+
+            btn.onclick = function(){
+
+                location.href =
+                    "game.html?level="+i;
+
+            };
+
+        }
+
+        grid.appendChild(btn);
+
+    }
+
+}
+
+renderMap();
+
+/* ---------------------------------------------------------
+   نمایش مراحل بیشتر
+--------------------------------------------------------- */
+
+function showMoreLevels(){
+
+    mapShown += 20;
+
+    if(mapShown > TOTAL_LEVELS)
+        mapShown = TOTAL_LEVELS;
+
+    renderMap();
+
+    showToast(
+        "🗺️ مراحل بیشتری نمایش داده شد"
+    );
+
+}
+
+/* ---------------------------------------------------------
+   ادامه بازی
+--------------------------------------------------------- */
+
+function continueGame(){
+
+    location.href =
+        "game.html?level="+currentLevel;
+
+}
+
+/* ---------------------------------------------------------
+   صفحات
+--------------------------------------------------------- */
+
+function openShop(){
+
+    location.href =
+        "shop.html";
+
+}
+
+function openSpin(){
+
+    location.href =
+        "spin.html";
+
+}
+
+function openAchievements(){
+
+    location.href =
+        "achievements.html";
+
+}
+
+function openProfile(){
+
+    location.href =
+        "profile.html";
+
+}
+
+/* ---------------------------------------------------------
    تنظیمات
-------------------------- */
+--------------------------------------------------------- */
 
-let settings = {
+const settingsKey =
+    "kalemebaz_settings";
 
-  brightness:100,
-
-  stars:true,
-
-  sound:true,
-
-  theme:"purple"
-
-};
-
-function loadSettings(){
-
-  try{
-
-    const saved =
-      JSON.parse(
+let settings =
+    JSON.parse(
         localStorage.getItem(
-          "kalemebaz_settings"
+            settingsKey
         ) || "{}"
-      );
-
-    settings = {
-      ...settings,
-      ...saved
-    };
-
-  }catch(e){}
-
-  document.getElementById("brightness")
-    .value =
-      settings.brightness;
-
-  document.getElementById("brightnessText")
-    .textContent =
-      settings.brightness + "%";
-
-  document.getElementById("starsSwitch")
-    .classList.toggle(
-      "active",
-      settings.stars !== false
     );
 
-  document.getElementById("soundSwitch")
-    .classList.toggle(
-      "active",
-      settings.sound !== false
-    );
+if(typeof settings.brightness !== "number")
+    settings.brightness = 100;
 
-  applySettings();
+if(typeof settings.stars !== "boolean")
+    settings.stars = true;
 
-}
+if(!settings.theme)
+    settings.theme = "purple";
 
+/* روشنایی */
 
-function saveSettings(){
+function applyBrightness(){
 
-  localStorage.setItem(
-    "kalemebaz_settings",
-    JSON.stringify(settings)
-  );
+    document.body.style.filter =
+        "brightness(" +
+        settings.brightness/100 +
+        ")";
 
-}
+    document.getElementById(
+        "brightness"
+    ).value =
+        settings.brightness;
 
-
-function applySettings(){
-
-  document.body.style.filter =
-    `brightness(${settings.brightness}%)`;
-
-  document.getElementById("stars")
-    .style.display =
-      settings.stars === false
-      ? "none"
-      : "block";
-
-  if(settings.theme === "blue"){
-
-    document.body.style.background =
-      "radial-gradient(circle at 50% 10%,rgba(40,110,255,.3),transparent 28%),linear-gradient(180deg,#06152e,#050817,#02040b)";
-
-  }else if(settings.theme === "forest"){
-
-    document.body.style.background =
-      "radial-gradient(circle at 50% 10%,rgba(30,150,90,.28),transparent 28%),linear-gradient(180deg,#061e18,#06100e,#020706)";
-
-  }else{
-
-    document.body.style.background =
-      "radial-gradient(circle at 50% 10%,rgba(137,73,255,.28),transparent 28%),linear-gradient(180deg,#12062e,#080518,#04020b)";
-
-  }
+    document.getElementById(
+        "brightnessValue"
+    ).textContent =
+        settings.brightness + "%";
 
 }
-
-
-function openSettings(){
-
-  document.getElementById("settingsModal")
-    .classList.add("show");
-
-}
-
-
-function closeSettings(){
-
-  document.getElementById("settingsModal")
-    .classList.remove("show");
-
-}
-
 
 function changeBrightness(value){
 
-  settings.brightness =
-    Number(value);
+    settings.brightness =
+        parseInt(value);
 
-  document.getElementById("brightnessText")
-    .textContent =
-      value + "%";
+    saveSettings();
 
-  applySettings();
-  saveSettings();
+    applyBrightness();
 
 }
 
+/* ستاره‌ها */
+
+function applyStars(){
+
+    document.getElementById("stars").style.display =
+        settings.stars
+            ? "block"
+            : "none";
+
+    document.getElementById(
+        "starsSwitch"
+    ).textContent =
+        settings.stars
+            ? "فعال"
+            : "غیرفعال";
+
+}
 
 function toggleStars(){
 
-  settings.stars =
-    settings.stars === false;
+    settings.stars =
+        !settings.stars;
 
-  document.getElementById("starsSwitch")
-    .classList.toggle(
-      "active",
-      settings.stars
-    );
+    saveSettings();
 
-  applySettings();
-  saveSettings();
+    applyStars();
 
 }
 
-
-function toggleSound(){
-
-  settings.sound =
-    settings.sound === false;
-
-  document.getElementById("soundSwitch")
-    .classList.toggle(
-      "active",
-      settings.sound
-    );
-
-  saveSettings();
-
-}
-
+/* تم */
 
 function setTheme(theme){
 
-  settings.theme =
-    theme;
+    settings.theme =
+        theme;
 
-  applySettings();
-  saveSettings();
+    if(theme === "blue"){
 
-  showToast(
-    "🎨 تم تغییر کرد"
-  );
+        document.body.style.background =
+            "radial-gradient(circle at 50% 10%,rgba(30,130,255,.25),transparent 28%),linear-gradient(160deg,#07182c,#050811 75%)";
 
-}
+    }
 
+    else if(theme === "forest"){
 
-/* -------------------------
-   پیام
-------------------------- */
+        document.body.style.background =
+            "radial-gradient(circle at 50% 10%,rgba(50,180,110,.22),transparent 28%),linear-gradient(160deg,#071c18,#050b0a 75%)";
 
-function showToast(text){
+    }
 
-  const toast =
-    document.getElementById("toast");
+    else{
 
-  toast.textContent = text;
+        document.body.style.background =
+            "radial-gradient(circle at 50% 10%,rgba(130,80,255,.25),transparent 28%),linear-gradient(160deg,#110a28,#070512 75%)";
 
-  toast.classList.add("show");
+    }
 
-  clearTimeout(
-    window.toastTimer
-  );
-
-  window.toastTimer =
-    setTimeout(()=>{
-      toast.classList.remove("show");
-    },2200);
+    saveSettings();
 
 }
 
+/* ذخیره */
 
-/* -------------------------
-   شروع
-------------------------- */
+function saveSettings(){
 
-createStars();
-loadSettings();
-updateStats();
-createMap();
+    localStorage.setItem(
+        settingsKey,
+        JSON.stringify(settings)
+    );
+
+}
+
+/* مودال تنظیمات */
+
+function openSettings(){
+
+    document.getElementById(
+        "settingsModal"
+    ).classList.add("show");
+
+    applyBrightness();
+
+    applyStars();
+
+}
+
+function closeSettings(){
+
+    document.getElementById(
+        "settingsModal"
+    ).classList.remove("show");
+
+}
+
+/* ---------------------------------------------------------
+   اعمال تنظیمات هنگام ورود
+--------------------------------------------------------- */
+
+applyBrightness();
+applyStars();
+setTheme(settings.theme);
+
+/* ---------------------------------------------------------
+   Toast
+--------------------------------------------------------- */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            ()=>{
+                toast.classList.remove("show");
+            },
+            2200
+        );
+
+}
+
+/* ---------------------------------------------------------
+   جلوگیری از زوم ناخواسته با دابل‌تپ
+--------------------------------------------------------- */
+
+let lastTouch = 0;
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        const now =
+            Date.now();
+
+        if(now-lastTouch <= 300){
+
+            e.preventDefault();
+
+        }
+
+        lastTouch = now;
+
+    },
+    {passive:false}
+);
 
 </script>
 
 </body>
-      </html>
+</html>
