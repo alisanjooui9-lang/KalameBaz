@@ -17,7 +17,8 @@ body{
     font-family:Tahoma,Arial,sans-serif;
     color:#fff;
     background:
-        radial-gradient(circle at 50% 0%,rgba(130,80,255,.25),transparent 30%),
+        radial-gradient(circle at 50% 0%,rgba(130,80,255,.28),transparent 32%),
+        radial-gradient(circle at 10% 80%,rgba(40,170,255,.10),transparent 30%),
         linear-gradient(160deg,#110a28,#070512 75%);
 }
 
@@ -25,6 +26,7 @@ button{
     font-family:inherit;
     color:#fff;
     border:0;
+    cursor:pointer;
 }
 
 .app{
@@ -46,7 +48,7 @@ button{
     height:44px;
     border-radius:14px;
     background:rgba(255,255,255,.08);
-    font-size:20px;
+    font-size:24px;
 }
 
 .title{
@@ -72,11 +74,12 @@ button{
         radial-gradient(circle at 50% 0%,rgba(155,100,255,.25),transparent 60%),
         rgba(255,255,255,.06);
     border:1px solid rgba(190,150,255,.2);
+    box-shadow:0 15px 45px rgba(0,0,0,.2);
 }
 
 .avatar{
-    width:90px;
-    height:90px;
+    width:92px;
+    height:92px;
     margin:auto;
     display:flex;
     align-items:center;
@@ -94,7 +97,7 @@ button{
 }
 
 .rank{
-    color:#b7add0;
+    color:#c8bce3;
     font-size:11px;
 }
 
@@ -114,7 +117,7 @@ button{
 }
 
 .bar{
-    height:9px;
+    height:10px;
     border-radius:99px;
     overflow:hidden;
     background:rgba(255,255,255,.09);
@@ -124,6 +127,13 @@ button{
     height:100%;
     width:0;
     background:linear-gradient(90deg,#9b63ff,#39d8ff);
+    transition:width .6s ease;
+}
+
+.progressInfo{
+    margin-top:7px;
+    color:#77718b;
+    font-size:8px;
 }
 
 .stats{
@@ -175,12 +185,18 @@ button{
 }
 
 .card{
-    min-height:76px;
+    min-height:78px;
     padding:13px;
     border-radius:17px;
     text-align:right;
     background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.08);
+    transition:.15s;
+}
+
+.card:active{
+    transform:scale(.97);
+    background:rgba(150,100,255,.14);
 }
 
 .card span{
@@ -207,12 +223,20 @@ button{
 }
 
 .achievement{
-    min-height:85px;
+    min-height:88px;
     padding:10px 5px;
     text-align:center;
     border-radius:15px;
     background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.07);
+    opacity:.42;
+    transition:.2s;
+}
+
+.achievement.unlocked{
+    opacity:1;
+    background:rgba(145,90,255,.12);
+    border-color:rgba(170,120,255,.25);
 }
 
 .achievement span{
@@ -225,12 +249,11 @@ button{
     font-size:9px;
 }
 
-.footer{
-    text-align:center;
-    margin-top:25px;
-    color:#5f5874;
-    font-size:9px;
-    line-height:2;
+.achievement small{
+    display:block;
+    margin-top:5px;
+    color:#817991;
+    font-size:7px;
 }
 
 .danger{
@@ -242,6 +265,14 @@ button{
     border:1px solid rgba(255,70,90,.15);
     font-size:10px;
 }
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    color:#5f5874;
+    font-size:9px;
+    line-height:2;
+}
 </style>
 </head>
 
@@ -250,7 +281,6 @@ button{
 <div class="app">
 
     <div class="top">
-
         <button class="back" onclick="goHome()">‹</button>
 
         <div class="title">
@@ -259,8 +289,8 @@ button{
         </div>
 
         <div style="width:44px"></div>
-
     </div>
+
 
     <section class="profileCard">
 
@@ -271,8 +301,9 @@ button{
         </h2>
 
         <div class="rank" id="rank">
-            بازیکن جدید
+            🪄 بازیکن جدید
         </div>
+
 
         <div class="levelBox">
 
@@ -285,13 +316,18 @@ button{
                 <div class="fill" id="progress"></div>
             </div>
 
+            <div class="progressInfo" id="progressInfo">
+                ۰ مرحله تکمیل شده
+            </div>
+
         </div>
+
 
         <div class="stats">
 
             <div class="stat">
                 <span>🪙</span>
-                <b id="coins">0</b>
+                <b id="coins">100</b>
                 <small>سکه</small>
             </div>
 
@@ -310,6 +346,7 @@ button{
         </div>
 
     </section>
+
 
     <section class="section">
 
@@ -345,45 +382,53 @@ button{
 
     </section>
 
+
     <section class="section">
 
         <h2>🌟 افتخارات</h2>
 
         <div class="achievements">
 
-            <div class="achievement">
+            <div class="achievement" id="a1">
                 <span>🌱</span>
                 <b>شروع ماجراجویی</b>
+                <small>۱ مرحله</small>
             </div>
 
-            <div class="achievement">
+            <div class="achievement" id="a10">
                 <span>🔥</span>
-                <b>۱۰ مرحله</b>
+                <b>ماجراجوی جدی</b>
+                <small>۱۰ مرحله</small>
             </div>
 
-            <div class="achievement">
+            <div class="achievement" id="a100">
                 <span>⚔️</span>
-                <b>۱۰۰ مرحله</b>
+                <b>استاد مسیر</b>
+                <small>۱۰۰ مرحله</small>
             </div>
 
-            <div class="achievement">
+            <div class="achievement" id="a500">
                 <span>👑</span>
-                <b>۵۰۰ مرحله</b>
+                <b>سلطان کلمات</b>
+                <small>۵۰۰ مرحله</small>
             </div>
 
-            <div class="achievement">
+            <div class="achievement" id="a1000">
                 <span>💎</span>
-                <b>۱۰۰۰ مرحله</b>
+                <b>افسانه‌ای</b>
+                <small>۱۰۰۰ مرحله</small>
             </div>
 
-            <div class="achievement">
+            <div class="achievement" id="a1200">
                 <span>🔮</span>
                 <b>افسانه ۱۲۰۰</b>
+                <small>همه مراحل</small>
             </div>
 
         </div>
 
     </section>
+
 
     <section class="section">
 
@@ -393,6 +438,7 @@ button{
 
     </section>
 
+
     <div class="footer">
         کلمه‌باز © Ghost Studio<br>
         سرزمین جادویی کلمات
@@ -400,100 +446,132 @@ button{
 
 </div>
 
+
 <script>
 
 const TOTAL_LEVELS = 1200;
 
-/* اطلاعات بازیکن */
 
-let playerName =
-    localStorage.getItem(
-        "kalemebaz_profileName"
-    ) || "بازیکن نمونه";
+/* -------------------------
+   اطلاعات بازیکن
+------------------------- */
 
-let avatar =
-    localStorage.getItem(
-        "kalemebaz_avatar"
-    ) || "🧙";
+const playerName =
+    localStorage.getItem("kalemebaz_profileName")
+    || "بازیکن نمونه";
+
+const avatar =
+    localStorage.getItem("kalemebaz_avatar")
+    || "🧙";
+
 
 let currentLevel =
     parseInt(
-        localStorage.getItem(
-            "kalemebaz_currentLevel"
-        ) || "1"
+        localStorage.getItem("kalemebaz_currentLevel") || "1",
+        10
     );
-
-let completed =
-    parseInt(
-        localStorage.getItem(
-            "kalemebaz_completedLevels"
-        ) || "0"
-    );
-
-let coins =
-    parseInt(
-        localStorage.getItem(
-            "kalemebaz_coins"
-        ) || "100"
-    );
-
-let xp =
-    parseInt(
-        localStorage.getItem(
-            "kalemebaz_xp"
-        ) || "0"
-    );
-
-/* جلوگیری از مقادیر نامعتبر */
 
 currentLevel =
     Math.max(
         1,
-        Math.min(
-            TOTAL_LEVELS,
-            currentLevel
-        )
+        Math.min(TOTAL_LEVELS,currentLevel)
     );
 
-completed =
-    Math.max(
-        0,
-        Math.min(
-            TOTAL_LEVELS,
-            completed
-        )
+
+const coins =
+    parseInt(
+        localStorage.getItem("kalemebaz_coins") || "100",
+        10
     );
 
-/* نمایش */
 
-document.getElementById(
-    "playerName"
-).textContent = playerName;
+const xp =
+    parseInt(
+        localStorage.getItem("kalemebaz_xp") || "0",
+        10
+    );
 
-document.getElementById(
-    "avatar"
-).textContent = avatar;
 
-document.getElementById(
-    "coins"
-).textContent = coins;
+/* -------------------------
+   محاسبه واقعی مراحل کامل
+------------------------- */
 
-document.getElementById(
-    "xp"
-).textContent = xp;
+function getRealCompletedLevels(){
 
-document.getElementById(
-    "completed"
-).textContent = completed;
+    let count = 0;
 
-document.getElementById(
-    "levelText"
-).textContent =
-    currentLevel +
-    " / " +
-    TOTAL_LEVELS;
+    for(let i = 1; i <= TOTAL_LEVELS; i++){
 
-/* رتبه */
+        if(
+            localStorage.getItem(
+                "kalemebaz_completed_" + i
+            ) === "1"
+        ){
+            count++;
+        }
+
+    }
+
+    return count;
+}
+
+
+let completed =
+    getRealCompletedLevels();
+
+
+/*
+اگر اطلاعات قدیمی بازی فقط
+در completedLevels ذخیره شده بود،
+از همان استفاده می‌کنیم.
+*/
+
+if(completed === 0){
+
+    const oldCompleted =
+        parseInt(
+            localStorage.getItem(
+                "kalemebaz_completedLevels"
+            ) || "0",
+            10
+        );
+
+    if(oldCompleted > 0){
+
+        completed =
+            Math.min(
+                TOTAL_LEVELS,
+                oldCompleted
+            );
+
+    }
+
+}
+
+
+/* -------------------------
+   نمایش اطلاعات
+------------------------- */
+
+document.getElementById("playerName")
+    .textContent = playerName;
+
+document.getElementById("avatar")
+    .textContent = avatar;
+
+document.getElementById("coins")
+    .textContent = Math.max(0,coins);
+
+document.getElementById("xp")
+    .textContent = Math.max(0,xp);
+
+document.getElementById("completed")
+    .textContent = completed;
+
+
+/* -------------------------
+   رتبه بازیکن
+------------------------- */
 
 function getRank(level){
 
@@ -515,8 +593,11 @@ function getRank(level){
     if(level >= 100)
         return "🌟 ماجراجوی حرفه‌ای";
 
+    if(level >= 50)
+        return "✨ ماجراجوی ماهر";
+
     if(level >= 25)
-        return "✨ ماجراجو";
+        return "🌙 ماجراجو";
 
     if(level >= 10)
         return "🌱 یادگیرنده";
@@ -524,36 +605,82 @@ function getRank(level){
     return "🪄 بازیکن جدید";
 }
 
-document.getElementById(
-    "rank"
-).textContent =
-    getRank(currentLevel);
 
-/* نوار پیشرفت */
+document.getElementById("rank")
+    .textContent = getRank(currentLevel);
 
-const percent =
-    ((currentLevel - 1) /
-    (TOTAL_LEVELS - 1)) * 100;
 
-document.getElementById(
-    "progress"
-).style.width =
-    Math.max(
-        0,
-        Math.min(
-            100,
-            percent
+/* -------------------------
+   متن مرحله
+------------------------- */
+
+document.getElementById("levelText")
+    .textContent =
+        currentLevel +
+        " / " +
+        TOTAL_LEVELS;
+
+
+/* -------------------------
+   نوار پیشرفت
+------------------------- */
+
+const progress =
+    Math.min(
+        100,
+        Math.max(
+            0,
+            (completed / TOTAL_LEVELS) * 100
         )
-    ) + "%";
+    );
 
-/* صفحات */
+
+document.getElementById("progress")
+    .style.width = progress + "%";
+
+
+document.getElementById("progressInfo")
+    .textContent =
+        completed.toLocaleString("fa-IR") +
+        " مرحله تکمیل شده";
+
+
+/* -------------------------
+   دستاوردها
+------------------------- */
+
+function unlockAchievement(id,condition){
+
+    const element =
+        document.getElementById(id);
+
+    if(element && condition){
+
+        element.classList.add("unlocked");
+
+    }
+
+}
+
+
+unlockAchievement("a1",completed >= 1);
+unlockAchievement("a10",completed >= 10);
+unlockAchievement("a100",completed >= 100);
+unlockAchievement("a500",completed >= 500);
+unlockAchievement("a1000",completed >= 1000);
+unlockAchievement("a1200",completed >= 1200);
+
+
+/* -------------------------
+   صفحات
+------------------------- */
 
 function goHome(){
 
-    location.href =
-        "index.html";
+    location.href = "index.html";
 
 }
+
 
 function continueGame(){
 
@@ -563,12 +690,13 @@ function continueGame(){
 
 }
 
+
 function openShop(){
 
-    location.href =
-        "shop.html";
+    location.href = "shop.html";
 
 }
+
 
 function openAchievements(){
 
@@ -577,17 +705,21 @@ function openAchievements(){
 
 }
 
-/* پاک کردن فقط اطلاعات پروفایل */
+
+/* -------------------------
+   پاک کردن فقط پروفایل
+------------------------- */
 
 function resetProfile(){
 
     const ok =
         confirm(
-            "نام و آواتار پروفایل پاک شود؟"
+            "فقط نام و آواتار پروفایل پاک شود؟\n\nپیشرفت مراحل، سکه‌ها و XP حذف نمی‌شوند."
         );
 
     if(!ok)
         return;
+
 
     localStorage.removeItem(
         "kalemebaz_profileName"
@@ -596,6 +728,7 @@ function resetProfile(){
     localStorage.removeItem(
         "kalemebaz_avatar"
     );
+
 
     location.reload();
 
