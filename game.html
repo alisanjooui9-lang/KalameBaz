@@ -2,582 +2,457 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>کلمه‌باز | مرحله</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>کلمه‌باز | بازی کلمات جادویی</title>
+
+<script src="levels.js"></script>
 
 <style>
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:Tahoma,Arial,sans-serif;
-  background:#090617;
-  color:#fff;
+    margin:0;
+    width:100%;
+    min-height:100%;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#090719;
+    color:#fff;
+    overflow-x:hidden;
 }
 
 body{
-  touch-action:none;
-}
-
-:root{
-  --main:#a855f7;
-  --main2:#7c3aed;
-  --cyan:#22d3ee;
-  --gold:#facc15;
-  --green:#22c55e;
-  --red:#ef4444;
-  --panel:rgba(20,13,43,.88);
-}
-
-#app{
-  position:relative;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 8%,rgba(124,58,237,.35),transparent 32%),
-    radial-gradient(circle at 10% 85%,rgba(34,211,238,.12),transparent 28%),
-    linear-gradient(180deg,#0b0620 0%,#12082b 48%,#080512 100%);
-}
-
-#stars{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-}
-
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  border-radius:50%;
-  background:white;
-  opacity:.7;
-  animation:twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle{
-  from{opacity:.15;transform:scale(.7)}
-  to{opacity:1;transform:scale(1.5)}
-}
-
-.moon{
-  position:absolute;
-  width:125px;
-  height:125px;
-  border-radius:50%;
-  top:-35px;
-  left:50%;
-  transform:translateX(-50%);
-  background:radial-gradient(circle at 35% 30%,#fff,#d9c8ff 48%,#8c6bd1 100%);
-  box-shadow:0 0 45px rgba(190,170,255,.55);
-  opacity:.8;
-}
-
-.topbar{
-  position:relative;
-  z-index:10;
-  height:72px;
-  padding:10px 12px;
-  padding-top:max(10px,env(safe-area-inset-top));
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-}
-
-.topBtn{
-  width:45px;
-  height:45px;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:15px;
-  background:rgba(15,9,35,.8);
-  color:#fff;
-  font-size:21px;
-  box-shadow:0 5px 18px rgba(0,0,0,.25);
-}
-
-.stats{
-  display:flex;
-  gap:6px;
-  flex:1;
-  justify-content:center;
-}
-
-.stat{
-  min-width:72px;
-  height:42px;
-  padding:0 9px;
-  border-radius:14px;
-  background:rgba(21,13,48,.82);
-  border:1px solid rgba(255,255,255,.1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.levelTitle{
-  position:relative;
-  z-index:3;
-  text-align:center;
-  margin-top:2px;
-  font-size:20px;
-  font-weight:900;
-  text-shadow:0 0 18px rgba(168,85,247,.8);
-}
-
-.levelSub{
-  position:relative;
-  z-index:3;
-  text-align:center;
-  margin-top:4px;
-  color:#b9acd7;
-  font-size:11px;
-}
-
-.progress{
-  position:relative;
-  z-index:3;
-  width:calc(100% - 45px);
-  max-width:500px;
-  height:8px;
-  margin:9px auto 8px;
-  border-radius:20px;
-  overflow:hidden;
-  background:rgba(255,255,255,.1);
-}
-
-.progressFill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--main2),var(--cyan));
-  box-shadow:0 0 12px var(--main);
-  transition:.35s;
-}
-
-#gameArea{
-  position:absolute;
-  left:0;
-  right:0;
-  top:160px;
-  bottom:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  overflow:hidden;
-}
-
-.words{
-  position:relative;
-  z-index:5;
-  width:calc(100% - 28px);
-  max-width:520px;
-  min-height:105px;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:7px;
-}
-
-.wordCard{
-  min-height:45px;
-  border-radius:14px;
-  background:rgba(25,16,53,.78);
-  border:1px solid rgba(255,255,255,.09);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  padding:5px;
-  box-shadow:inset 0 0 20px rgba(168,85,247,.04);
-}
-
-.wordCard.solved{
-  border-color:rgba(34,197,94,.45);
-  background:rgba(20,75,49,.3);
-}
-
-.wordLetters{
-  display:flex;
-  direction:rtl;
-  gap:3px;
-}
-
-.slot{
-  width:18px;
-  height:26px;
-  border-bottom:2px solid #8b78aa;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-size:15px;
-  font-weight:900;
-}
-
-.slot.revealed{
-  color:#facc15;
-  border-color:#facc15;
-}
-
-.cardCheck{
-  font-size:16px;
-  color:#4ade80;
-}
-
-.currentBox{
-  position:relative;
-  z-index:5;
-  margin-top:6px;
-  width:calc(100% - 50px);
-  max-width:420px;
-  min-height:40px;
-  border-radius:16px;
-  border:1px solid rgba(168,85,247,.35);
-  background:rgba(10,6,25,.75);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:5px 10px;
-  box-shadow:0 0 20px rgba(124,58,237,.1);
-}
-
-#currentWord{
-  min-height:27px;
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:2px;
-  color:#fff;
-}
-
-#connectionCanvas{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:2;
-  pointer-events:none;
-}
-
-.wheel{
-  position:relative;
-  z-index:4;
-  width:min(72vw,320px);
-  height:min(72vw,320px);
-  max-width:320px;
-  max-height:320px;
-  min-width:230px;
-  min-height:230px;
-  margin-top:8px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle,rgba(35,20,70,.9) 0 33%,rgba(19,11,43,.75) 34% 57%,rgba(124,58,237,.08) 58% 100%);
-  box-shadow:
-    0 0 0 1px rgba(168,85,247,.15),
-    0 0 40px rgba(124,58,237,.16),
-    inset 0 0 45px rgba(0,0,0,.35);
-}
-
-.wheelCenter{
-  position:absolute;
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  border:1px solid rgba(255,255,255,.1);
-  background:radial-gradient(circle,#24144d,#100821);
-  box-shadow:0 0 25px rgba(168,85,247,.22);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:10px;
-  color:#a99ac6;
-  pointer-events:none;
-}
-
-.letterBtn{
-  position:absolute;
-  width:54px;
-  height:54px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,.12);
-  background:linear-gradient(145deg,#3a2172,#1c103b);
-  color:#fff;
-  font-size:20px;
-  font-weight:900;
-  box-shadow:
-    0 7px 16px rgba(0,0,0,.35),
-    0 0 13px rgba(124,58,237,.16);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:transform .12s,background .12s,box-shadow .12s,opacity .12s;
-}
-
-.letterBtn:active{
-  transform:translate(-50%,-50%) scale(.94);
-}
-
-.letterBtn.selected{
-  background:linear-gradient(145deg,#8b5cf6,#4c1d95);
-  border-color:#c4b5fd;
-  box-shadow:
-    0 0 20px rgba(168,85,247,.7),
-    inset 0 0 15px rgba(255,255,255,.1);
-  transform:translate(-50%,-50%) scale(1.1);
-}
-
-.letterBtn.disabled{
-  opacity:.18;
-  filter:grayscale(1);
-  pointer-events:none;
-}
-
-.tools{
-  position:relative;
-  z-index:6;
-  width:calc(100% - 22px);
-  max-width:500px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-  margin-top:6px;
-}
-
-.tool{
-  min-height:48px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(22,13,46,.82);
-  color:#fff;
-  font-size:10px;
-  font-weight:bold;
-}
-
-.tool span{
-  display:block;
-  font-size:19px;
-  margin-bottom:2px;
-}
-
-.bottom{
-  position:relative;
-  z-index:7;
-  width:calc(100% - 22px);
-  max-width:500px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:6px;
-  padding-bottom:max(8px,env(safe-area-inset-bottom));
-}
-
-.mainBtn{
-  min-height:43px;
-  border:0;
-  border-radius:15px;
-  color:#fff;
-  font-weight:900;
-  background:linear-gradient(135deg,#7c3aed,#a855f7);
-  box-shadow:0 7px 20px rgba(124,58,237,.28);
-}
-
-.mainBtn.secondary{
-  background:rgba(31,19,59,.9);
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:none;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% 15%,rgba(128,80,255,.25),transparent 30%),
+        radial-gradient(circle at 10% 80%,rgba(0,180,255,.12),transparent 30%),
+        linear-gradient(160deg,#100a27,#080615 70%);
 }
 
 button{
-  font-family:inherit;
-  cursor:pointer;
+    font-family:inherit;
+    border:0;
+    cursor:pointer;
+    color:white;
 }
 
-button:disabled{
-  opacity:.45;
+#stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2;transform:scale(.7)}
+    to{opacity:1;transform:scale(1.4)}
+}
+
+.moon{
+    position:fixed;
+    top:35px;
+    left:25px;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#fff,#bdb6ff);
+    box-shadow:0 0 35px rgba(190,180,255,.55);
+    z-index:0;
+}
+
+.app{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:560px;
+    margin:auto;
+    padding:12px 12px 30px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.iconBtn{
+    width:44px;
+    height:44px;
+    border-radius:15px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.1);
+    font-size:20px;
+}
+
+.stats{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.stat{
+    min-width:78px;
+    padding:7px 10px;
+    border-radius:14px;
+    text-align:center;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.09);
+}
+
+.stat small{
+    display:block;
+    color:#aaa5c8;
+    font-size:10px;
+}
+
+.stat b{
+    font-size:14px;
+}
+
+.levelTitle{
+    text-align:center;
+    margin:10px 0 4px;
+    font-size:24px;
+    font-weight:900;
+}
+
+.levelDifficulty{
+    text-align:center;
+    color:#bcb5dd;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.progress{
+    height:8px;
+    background:rgba(255,255,255,.1);
+    border-radius:99px;
+    overflow:hidden;
+    margin-bottom:14px;
+}
+
+.progressFill{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#8d5cff,#32d6ff);
+    box-shadow:0 0 15px rgba(100,100,255,.5);
+    transition:.4s;
+}
+
+.wordPanel{
+    display:grid;
+    gap:7px;
+    margin-bottom:15px;
+}
+
+.word{
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    padding:8px;
+    border-radius:15px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:inset 0 0 20px rgba(255,255,255,.02);
+}
+
+.word.solved{
+    background:rgba(65,210,150,.13);
+    border-color:rgba(65,220,160,.45);
+}
+
+.wordLetter{
+    width:27px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom:2px solid #8c80ba;
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.word.solved .wordLetter{
+    border-bottom-color:#50e4a2;
+    color:#71f0b8;
+}
+
+.current{
+    min-height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:10px 0 16px;
+    border-radius:18px;
+    background:rgba(0,0,0,.25);
+    border:1px solid rgba(255,255,255,.1);
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:4px;
+}
+
+.current.empty{
+    color:#67627f;
+    font-size:14px;
+    letter-spacing:0;
+}
+
+#wheel{
+    position:relative;
+    width:min(88vw,390px);
+    height:min(88vw,390px);
+    margin:auto;
+    touch-action:none;
+    user-select:none;
+}
+
+.wheelGlow{
+    position:absolute;
+    inset:14%;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(120,80,255,.22),rgba(0,0,0,0));
+    filter:blur(15px);
+}
+
+.center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:radial-gradient(circle,#34206d,#17102d);
+    border:2px solid rgba(168,125,255,.5);
+    box-shadow:0 0 35px rgba(125,75,255,.3);
+    color:#ddd6ff;
+    font-size:12px;
+    pointer-events:none;
+}
+
+.letterBtn{
+    position:absolute;
+    width:56px;
+    height:56px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,#33205f,#17122e);
+    border:2px solid rgba(168,130,255,.4);
+    box-shadow:0 5px 20px rgba(0,0,0,.35),0 0 12px rgba(130,80,255,.12);
+    font-size:23px;
+    font-weight:900;
+    touch-action:none;
+    transition:.12s;
+}
+
+.letterBtn.active{
+    transform:translate(-50%,-50%) scale(1.12);
+    background:linear-gradient(145deg,#7c4cff,#3c237e);
+    border-color:#c8aaff;
+    box-shadow:0 0 28px rgba(145,90,255,.7);
+}
+
+.letterBtn.disabled{
+    opacity:.25;
+    filter:grayscale(1);
+}
+
+#connectionCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:20;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:12px;
+}
+
+.action{
+    min-height:48px;
+    border-radius:15px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+    font-weight:bold;
+}
+
+.action.hint{
+    background:linear-gradient(135deg,#6d42d8,#3b2781);
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+    margin-top:10px;
+}
+
+.tool{
+    min-height:62px;
+    border-radius:15px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.1);
+    font-size:18px;
+}
+
+.tool small{
+    display:block;
+    margin-top:3px;
+    color:#bdb7d8;
+    font-size:10px;
 }
 
 .toast{
-  position:fixed;
-  z-index:100;
-  left:50%;
-  bottom:25px;
-  transform:translate(-50%,30px);
-  opacity:0;
-  pointer-events:none;
-  padding:11px 18px;
-  border-radius:15px;
-  background:rgba(15,9,30,.96);
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 10px 35px rgba(0,0,0,.4);
-  font-size:13px;
-  font-weight:bold;
-  transition:.25s;
-  white-space:nowrap;
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(30px);
+    opacity:0;
+    z-index:100;
+    padding:12px 18px;
+    border-radius:14px;
+    background:#21163d;
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    transition:.3s;
+    pointer-events:none;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-.toast.good{
-  border-color:rgba(34,197,94,.55);
-}
-
-.toast.bad{
-  border-color:rgba(239,68,68,.55);
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
 .modal{
-  position:fixed;
-  z-index:200;
-  inset:0;
-  background:rgba(4,2,12,.76);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(4,2,12,.75);
+    backdrop-filter:blur(7px);
 }
 
 .modal.show{
-  display:flex;
+    display:flex;
 }
 
 .modalBox{
-  width:min(92vw,390px);
-  border-radius:25px;
-  padding:25px 18px;
-  text-align:center;
-  background:
-    radial-gradient(circle at top,rgba(168,85,247,.2),transparent 45%),
-    #17102d;
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 20px 70px rgba(0,0,0,.55);
+    width:min(92vw,400px);
+    padding:25px;
+    border-radius:25px;
+    text-align:center;
+    background:linear-gradient(160deg,#241443,#100a22);
+    border:1px solid rgba(190,150,255,.3);
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
 }
 
-.modalIcon{
-  font-size:48px;
-  margin-bottom:7px;
+.modalBox h2{
+    margin:0 0 10px;
 }
 
-.modalTitle{
-  font-size:23px;
-  font-weight:900;
-  margin-bottom:8px;
+.modalBox p{
+    color:#c7c0df;
+    line-height:1.9;
 }
 
-.modalText{
-  color:#c4b9d9;
-  font-size:13px;
-  line-height:1.9;
+.modalButtons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:18px;
 }
 
-.modalReward{
-  margin:15px 0;
-  padding:12px;
-  border-radius:16px;
-  background:rgba(255,255,255,.05);
-  color:#facc15;
-  font-weight:900;
+.modalButtons button{
+    min-height:48px;
+    border-radius:14px;
+    background:#33205f;
 }
 
-.modal button{
-  width:100%;
-  height:48px;
-  border:0;
-  border-radius:15px;
-  background:linear-gradient(135deg,#7c3aed,#a855f7);
-  color:#fff;
-  font-weight:900;
-  font-size:14px;
-}
-
-.shake{
-  animation:shake .35s;
-}
-
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  20%{transform:translateX(-8px)}
-  40%{transform:translateX(8px)}
-  60%{transform:translateX(-6px)}
-  80%{transform:translateX(6px)}
-}
-
-.correctFlash{
-  animation:correctFlash .5s;
-}
-
-@keyframes correctFlash{
-  50%{
-    box-shadow:0 0 45px rgba(34,197,94,.8);
-  }
-}
-
-.confetti{
-  position:fixed;
-  z-index:150;
-  width:7px;
-  height:13px;
-  pointer-events:none;
-  animation:fall 900ms linear forwards;
-}
-
-@keyframes fall{
-  0%{
-    transform:translate(0,0) rotate(0);
-    opacity:1;
-  }
-  100%{
-    transform:translate(var(--x),var(--y)) rotate(500deg);
-    opacity:0;
-  }
+.modalButtons .next{
+    background:linear-gradient(135deg,#8654ff,#4930a0);
 }
 
 #loading{
-  position:fixed;
-  z-index:500;
-  inset:0;
-  background:#090617;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:12px;
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:10px;
+    background:#090719;
 }
 
 .loader{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  border:4px solid rgba(255,255,255,.1);
-  border-top-color:#a855f7;
-  animation:spin .8s linear infinite;
+    width:45px;
+    height:45px;
+    border:4px solid rgba(255,255,255,.12);
+    border-top-color:#9a6cff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+    to{transform:rotate(360deg)}
 }
 
-.loadingText{
-  color:#b8a9d5;
-  font-size:12px;
+@media(max-width:370px){
+
+    .stat{
+        min-width:65px;
+        padding:6px;
+    }
+
+    .letterBtn{
+        width:48px;
+        height:48px;
+        font-size:20px;
+    }
+
+    .center{
+        width:88px;
+        height:88px;
+    }
+
+    #wheel{
+        width:92vw;
+        height:92vw;
+    }
 }
 </style>
 </head>
@@ -585,1531 +460,1624 @@ button:disabled{
 <body>
 
 <div id="loading">
-  <div class="loader"></div>
-  <div class="loadingText">در حال آماده‌سازی مرحله...</div>
+    <div style="font-size:32px">✨</div>
+    <b>کلمه‌باز</b>
+    <div style="color:#aaa5c8;font-size:12px">در حال آماده‌سازی مرحله...</div>
+    <div class="loader"></div>
 </div>
 
-<div id="app">
+<div id="stars"></div>
+<div class="moon"></div>
 
-  <div id="stars"></div>
-  <div class="moon"></div>
+<canvas id="connectionCanvas"></canvas>
 
-  <header class="topbar">
-    <button class="topBtn" onclick="goHome()">⌂</button>
+<div class="app">
 
-    <div class="stats">
-      <div class="stat">🪙 <b id="coins">0</b></div>
-      <div class="stat">⭐ <b id="xp">0</b></div>
-      <div class="stat">❤️ <b id="hearts">∞</b></div>
+    <div class="topbar">
+
+        <button class="iconBtn" onclick="goHome()">🏠</button>
+
+        <div class="stats">
+
+            <div class="stat">
+                <small>🪙 سکه</small>
+                <b id="coins">0</b>
+            </div>
+
+            <div class="stat">
+                <small>⭐ XP</small>
+                <b id="xp">0</b>
+            </div>
+
+        </div>
+
+        <button class="iconBtn" onclick="goShop()">🛒</button>
+
     </div>
 
-    <button class="topBtn" onclick="goShop()">🛒</button>
-  </header>
+    <div class="levelTitle" id="levelTitle">مرحله ۱</div>
 
-  <div class="levelTitle" id="levelTitle">مرحله ۱</div>
-  <div class="levelSub" id="levelSub">جنگل جادویی</div>
-
-  <div class="progress">
-    <div class="progressFill" id="progressFill"></div>
-  </div>
-
-  <main id="gameArea">
-
-    <div class="words" id="words"></div>
-
-    <div class="currentBox" id="currentBox">
-      <div id="currentWord">حروف را بکش...</div>
+    <div class="levelDifficulty" id="difficulty">
+        آماده‌ای؟
     </div>
 
-    <canvas id="connectionCanvas"></canvas>
+    <div class="progress">
+        <div class="progressFill" id="progressFill"></div>
+    </div>
 
-    <div class="wheel" id="wheel">
-      <div class="wheelCenter">کلمه<br>جادویی</div>
+    <div class="wordPanel" id="wordPanel"></div>
+
+    <div id="currentWord" class="current empty">
+        حروف را بکش و کلمه بساز
+    </div>
+
+    <div id="wheel">
+
+        <div class="wheelGlow"></div>
+
+        <div class="center">
+            ✨<br>
+            کلمه‌باز
+        </div>
+
     </div>
 
     <div class="tools">
-      <button class="tool" onclick="useLetterItem()">
-        <span>🔤</span>
-        یک حرف
-        <small id="letterCount">۰</small>
-      </button>
 
-      <button class="tool" onclick="useRemoveItem()">
-        <span>🧹</span>
-        حذف حروف
-        <small id="removeCount">۰</small>
-      </button>
+        <button class="tool" onclick="useLetterItem()">
+            🔤
+            <small>طلسم حرف</small>
+            <small id="hintCount">0</small>
+        </button>
 
-      <button class="tool" onclick="useSolveItem()">
-        <span>💡</span>
-        جواب
-        <small id="solveCount">۰</small>
-      </button>
+        <button class="tool" onclick="useRemoveItem()">
+            🧹
+            <small>پاک‌کن</small>
+            <small id="removeCount">0</small>
+        </button>
 
-      <button class="tool" onclick="usePotion()">
-        <span>🧪</span>
-        معجون
-        <small id="potionCount">۰</small>
-      </button>
+        <button class="tool" onclick="useSolveItem()">
+            💡
+            <small>جواب جادویی</small>
+            <small id="solveCount">0</small>
+        </button>
+
+        <button class="tool" onclick="usePotion()">
+            🧪
+            <small>معجون</small>
+            <small id="potionCount">0</small>
+        </button>
+
     </div>
 
-    <div class="bottom">
-      <button class="mainBtn secondary" onclick="clearSelection()">پاک کردن</button>
-      <button class="mainBtn" onclick="normalHint()">✨ راهنمایی ۲۰🪙</button>
+    <div class="actions">
+
+        <button class="action" onclick="clearSelection()">
+            ↩️ پاک کردن
+        </button>
+
+        <button class="action hint" onclick="normalHint()">
+            ✨ راهنمایی · ۲۰ 🪙
+        </button>
+
     </div>
 
-  </main>
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 
-<div class="modal" id="levelModal">
-  <div class="modalBox">
-    <div class="modalIcon">🏆</div>
-    <div class="modalTitle">مرحله کامل شد!</div>
-    <div class="modalText">
-      تمام کلمات این مرحله را پیدا کردی.
+<div id="levelModal" class="modal">
+
+    <div class="modalBox">
+
+        <div style="font-size:45px">🏆</div>
+
+        <h2>مرحله کامل شد!</h2>
+
+        <p id="rewardText">
+            آفرین!
+        </p>
+
+        <div class="modalButtons">
+
+            <button onclick="goHome()">
+                🏠 خانه
+            </button>
+
+            <button class="next" onclick="nextLevel()">
+                مرحله بعد ➜
+            </button>
+
+        </div>
+
     </div>
-    <div class="modalReward" id="modalReward">
-      🪙 +۲۰ سکه &nbsp; ⭐ +۲۵ XP
-    </div>
-    <button onclick="nextLevel()">مرحله بعدی ➜</button>
-  </div>
+
 </div>
-
-<script src="levels.js"></script>
 
 <script>
-"use strict";
 
-/* =========================
-   تنظیمات اصلی
-========================= */
+/* =========================================================
+   کلمه‌باز — GAME ENGINE
+========================================================= */
 
-const params = new URLSearchParams(location.search);
+const TOTAL_LEVELS = 1200;
 
-let level = Number(params.get("level")) || Number(localStorage.getItem("kalemebaz_currentLevel")) || 1;
+function normalizeWord(word){
+
+    return String(word || "")
+        .replace(/ي/g,"ی")
+        .replace(/ى/g,"ی")
+        .replace(/ك/g,"ک")
+        .replace(/ۀ/g,"ه")
+        .replace(/ة/g,"ه")
+        .replace(/ؤ/g,"و")
+        .replace(/إ/g,"ا")
+        .replace(/أ/g,"ا")
+        .replace(/ٱ/g,"ا")
+        .replace(/‌/g,"")
+        .replace(/\u200c/g,"")
+        .replace(/\u200d/g,"")
+        .replace(/\s+/g,"")
+        .trim();
+}
+
+/* ---------------------------------------------------------
+   گرفتن مراحل
+--------------------------------------------------------- */
+
+const LEVELS =
+    window.KALAMEBAZ_LEVELS ||
+    window.KalameBazLevels ||
+    window.levels ||
+    {};
+
+let level =
+    parseInt(
+        new URLSearchParams(location.search).get("level")
+    ) || 1;
 
 if(level < 1) level = 1;
+if(level > TOTAL_LEVELS) level = TOTAL_LEVELS;
 
-let levelWords = [];
-let solvedWords = [];
-let revealed = {};
-let selectedNodes = [];
-let selectedLetters = [];
-let isDragging = false;
-let pointerX = 0;
-let pointerY = 0;
-let potionActive = false;
-let wheelLetters = [];
-let bonusWordsUsed = [];
-let completedBefore = false;
-
-const stateKey = `kalemebaz_levelState_${level}`;
-
-const $ = id => document.getElementById(id);
-
-/* =========================
-   داده‌ها
-========================= */
-
-function getLevels(){
-  if(window.KalameBazLevels) return window.KalameBazLevels;
-
-  if(typeof levels !== "undefined") return levels;
-
-  return {};
-}
-
-function loadLevel(){
-
-  const allLevels = getLevels();
-
-  let data = allLevels[level];
-
-  if(!Array.isArray(data) || !data.length){
-
-    data = [
-      "کتاب",
-      "مداد",
-      "ماه",
-      "درخت"
-    ];
-  }
-
-  levelWords = [...new Set(
-    data
-      .map(x => String(x).trim())
-      .filter(Boolean)
-  )];
-
-  const saved = JSON.parse(localStorage.getItem(stateKey) || "{}");
-
-  solvedWords = Array.isArray(saved.solvedWords)
-    ? saved.solvedWords.filter(w => levelWords.includes(w))
+const words = Array.isArray(LEVELS[level])
+    ? LEVELS[level].map(normalizeWord)
     : [];
 
-  revealed = saved.revealed || {};
+/* ---------------------------------------------------------
+   اگر مرحله پیدا نشد
+--------------------------------------------------------- */
 
-  bonusWordsUsed = Array.isArray(saved.bonusWordsUsed)
-    ? saved.bonusWordsUsed
-    : [];
+if(!words.length){
 
-  completedBefore = localStorage.getItem(`kalemebaz_completed_${level}`) === "1";
+    document.getElementById("loading").innerHTML = `
+        <div style="font-size:45px">⚠️</div>
+        <b>مرحله پیدا نشد</b>
+        <div style="color:#aaa5c8;margin-top:8px">
+            فایل levels.js را بررسی کنید.
+        </div>
+        <button onclick="goHome()" style="
+            margin-top:15px;
+            padding:12px 25px;
+            border-radius:12px;
+            background:#5632a0;
+            color:white;
+        ">بازگشت</button>
+    `;
+
+}else{
+
+    initGame();
+
 }
 
-/* =========================
-   ذخیره
-========================= */
+/* ---------------------------------------------------------
+   ذخیره وضعیت
+--------------------------------------------------------- */
+
+const stateKey =
+    "kalemebaz_levelState_" + level;
+
+let state = JSON.parse(
+    localStorage.getItem(stateKey) || "null"
+);
+
+if(!state){
+
+    state = {
+        solvedWords:[],
+        revealed:{},
+        bonusWordsUsed:[],
+        wrongAttempts:0
+    };
+
+}
+
+if(!Array.isArray(state.solvedWords))
+    state.solvedWords = [];
+
+if(!Array.isArray(state.bonusWordsUsed))
+    state.bonusWordsUsed = [];
+
+if(!state.revealed)
+    state.revealed = {};
 
 function saveState(){
 
-  localStorage.setItem(stateKey,JSON.stringify({
-    solvedWords,
-    revealed,
-    bonusWordsUsed
-  }));
+    localStorage.setItem(
+        stateKey,
+        JSON.stringify(state)
+    );
 
-  localStorage.setItem(
-    "kalemebaz_currentLevel",
-    String(Math.max(
-      Number(localStorage.getItem("kalemebaz_currentLevel")) || 1,
-      level
-    ))
-  );
 }
 
-/* =========================
-   اعداد فارسی
-========================= */
+/* ---------------------------------------------------------
+   متغیرهای بازی
+--------------------------------------------------------- */
 
-function faNumber(n){
-  return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+let selectedIndices = [];
+let selectedLetters = [];
+let dragging = false;
+let pointerX = 0;
+let pointerY = 0;
+let bonusPotionActive = false;
+let disabledLetters = new Set();
+
+/* ---------------------------------------------------------
+   عناصر
+--------------------------------------------------------- */
+
+const wheel =
+    document.getElementById("wheel");
+
+const currentWord =
+    document.getElementById("currentWord");
+
+const canvas =
+    document.getElementById("connectionCanvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+/* ---------------------------------------------------------
+   ستاره‌ها
+--------------------------------------------------------- */
+
+function createStars(){
+
+    const box =
+        document.getElementById("stars");
+
+    for(let i=0;i<75;i++){
+
+        const star =
+            document.createElement("div");
+
+        star.className = "star";
+
+        star.style.left =
+            Math.random()*100 + "%";
+
+        star.style.top =
+            Math.random()*100 + "%";
+
+        star.style.animationDelay =
+            Math.random()*2 + "s";
+
+        box.appendChild(star);
+    }
 }
 
-/* =========================
+createStars();
+
+/* ---------------------------------------------------------
+   اندازه Canvas
+--------------------------------------------------------- */
+
+function resizeCanvas(){
+
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+}
+
+addEventListener("resize",resizeCanvas);
+
+resizeCanvas();
+
+/* ---------------------------------------------------------
    سکه و XP
-========================= */
+--------------------------------------------------------- */
 
 function getCoins(){
-  return Number(localStorage.getItem("kalemebaz_coins")) || 0;
-}
 
-function setCoins(value){
-  localStorage.setItem("kalemebaz_coins",String(Math.max(0,value)));
-  updateStats();
-}
+    return parseInt(
+        localStorage.getItem("kalemebaz_coins") || "100"
+    );
 
-function addCoins(value){
-  setCoins(getCoins()+value);
 }
 
 function getXP(){
-  return Number(localStorage.getItem("kalemebaz_xp")) || 0;
+
+    return parseInt(
+        localStorage.getItem("kalemebaz_xp") || "0"
+    );
+
 }
 
-function addXP(value){
-  localStorage.setItem("kalemebaz_xp",String(getXP()+value));
-  updateStats();
+function setCoins(value){
+
+    localStorage.setItem(
+        "kalemebaz_coins",
+        Math.max(0,value)
+    );
+
+}
+
+function setXP(value){
+
+    localStorage.setItem(
+        "kalemebaz_xp",
+        Math.max(0,value)
+    );
+
 }
 
 function updateStats(){
 
-  $("coins").textContent = faNumber(getCoins());
-  $("xp").textContent = faNumber(getXP());
+    document.getElementById("coins").textContent =
+        getCoins();
 
-  $("letterCount").textContent =
-    faNumber(Number(localStorage.getItem("kalemebaz_hintLetters")) || 0);
+    document.getElementById("xp").textContent =
+        getXP();
 
-  $("removeCount").textContent =
-    faNumber(Number(localStorage.getItem("kalemebaz_removeLetters")) || 0);
+    document.getElementById("hintCount").textContent =
+        localStorage.getItem("kalemebaz_hintLetters") || "0";
 
-  $("solveCount").textContent =
-    faNumber(Number(localStorage.getItem("kalemebaz_solveWords")) || 0);
+    document.getElementById("removeCount").textContent =
+        localStorage.getItem("kalemebaz_removeLetters") || "0";
 
-  $("potionCount").textContent =
-    faNumber(Number(localStorage.getItem("kalemebaz_magicPotions")) || 0);
+    document.getElementById("solveCount").textContent =
+        localStorage.getItem("kalemebaz_solveWords") || "0";
+
+    document.getElementById("potionCount").textContent =
+        localStorage.getItem("kalemebaz_magicPotions") || "0";
 }
 
-/* =========================
-   ستاره‌ها
-========================= */
+/* ---------------------------------------------------------
+   تعداد حروف مورد نیاز
+--------------------------------------------------------- */
 
-function createStars(){
+function maxLetterCounts(){
 
-  const box = $("stars");
+    const counts = {};
 
-  box.innerHTML = "";
+    words.forEach(word => {
 
-  for(let i=0;i<85;i++){
+        const local = {};
 
-    const star = document.createElement("div");
+        [...word].forEach(letter => {
 
-    star.className = "star";
+            local[letter] =
+                (local[letter] || 0) + 1;
 
-    star.style.left = Math.random()*100 + "%";
-    star.style.top = Math.random()*100 + "%";
-
-    const size = Math.random()*2+1;
-
-    star.style.width = size+"px";
-    star.style.height = size+"px";
-
-    star.style.animationDelay =
-      (Math.random()*2)+"s";
-
-    box.appendChild(star);
-  }
-}
-
-/* =========================
-   تم
-========================= */
-
-function applySettings(){
-
-  let settings;
-
-  try{
-    settings = JSON.parse(
-      localStorage.getItem("kalemebaz_settings") || "{}"
-    );
-  }catch(e){
-    settings = {};
-  }
-
-  const brightness =
-    Number(settings.brightness) || 100;
-
-  document.body.style.filter =
-    `brightness(${brightness}%)`;
-
-  if(settings.stars === false){
-    $("stars").style.display = "none";
-  }
-
-  if(settings.theme === "blue"){
-    document.documentElement.style.setProperty(
-      "--main","#2563eb"
-    );
-    document.documentElement.style.setProperty(
-      "--main2","#1d4ed8"
-    );
-  }
-
-  if(settings.theme === "forest"){
-    document.documentElement.style.setProperty(
-      "--main","#16a34a"
-    );
-    document.documentElement.style.setProperty(
-      "--main2","#15803d"
-    );
-  }
-}
-
-/* =========================
-   عنوان مرحله
-========================= */
-
-function updateLevelTitle(){
-
-  $("levelTitle").textContent =
-    "مرحله " + faNumber(level);
-
-  let region = "جنگل جادویی";
-
-  if(level > 100 && level <= 250)
-    region = "دره اسرار";
-
-  if(level > 250 && level <= 400)
-    region = "قلعه افسون‌شده";
-
-  if(level > 400 && level <= 700)
-    region = "سرزمین ستاره‌ها";
-
-  if(level > 700 && level <= 1000)
-    region = "قلمرو سایه‌ها";
-
-  if(level > 1000)
-    region = "قصر نهایی";
-
-  $("levelSub").textContent =
-    region + " • " + faNumber(levelWords.length) + " کلمه";
-}
-
-/* =========================
-   نمایش کلمات
-========================= */
-
-function renderWords(){
-
-  const box = $("words");
-
-  box.innerHTML = "";
-
-  levelWords.forEach(word => {
-
-    const card = document.createElement("div");
-
-    card.className =
-      "wordCard" +
-      (solvedWords.includes(word) ? " solved" : "");
-
-    const letters = document.createElement("div");
-
-    letters.className = "wordLetters";
-
-    const chars = [...word];
-
-    chars.forEach((char,index)=>{
-
-      const slot = document.createElement("div");
-
-      slot.className = "slot";
-
-      if(solvedWords.includes(word)){
-
-        slot.textContent = char;
-
-      }else if(revealed[word] &&
-               revealed[word][index]){
-
-        slot.textContent = char;
-        slot.classList.add("revealed");
-
-      }else{
-
-        slot.textContent = "";
-      }
-
-      letters.appendChild(slot);
-    });
-
-    card.appendChild(letters);
-
-    if(solvedWords.includes(word)){
-
-      const check = document.createElement("span");
-
-      check.className = "cardCheck";
-      check.textContent = "✓";
-
-      card.appendChild(check);
-    }
-
-    box.appendChild(card);
-  });
-
-  const percent =
-    (solvedWords.length / levelWords.length) * 100;
-
-  $("progressFill").style.width =
-    percent + "%";
-}
-
-/* =========================
-   ساخت حروف چرخ
-   مهم:
-   حروف تکراری هم ساخته می‌شوند.
-========================= */
-
-function buildWheelLetters(){
-
-  const countsNeeded = {};
-
-  levelWords
-    .filter(w => !solvedWords.includes(w))
-    .forEach(word => {
-
-      const count = {};
-
-      [...word].forEach(ch=>{
-        count[ch] = (count[ch] || 0) + 1;
-      });
-
-      Object.keys(count).forEach(ch=>{
-        countsNeeded[ch] =
-          Math.max(
-            countsNeeded[ch] || 0,
-            count[ch]
-          );
-      });
-    });
-
-  /*
-    ابتدا بیشترین تعداد موردنیاز هر حرف را
-    اضافه می‌کنیم تا کلماتی مثل:
-    توت، بابا، مدرسه و...
-    قابل ساخت باشند.
-  */
-
-  let letters = [];
-
-  Object.keys(countsNeeded).forEach(ch=>{
-
-    for(let i=0;i<countsNeeded[ch];i++){
-      letters.push(ch);
-    }
-  });
-
-  /*
-    برای ظاهر بهتر اگر تعداد خیلی زیاد شد،
-    از حروف پرتکرار استفاده می‌کنیم.
-    حد مناسب موبایل: 16 خانه
-  */
-
-  if(letters.length > 16){
-
-    const priority = {};
-
-    levelWords
-      .filter(w => !solvedWords.includes(w))
-      .forEach(word=>{
-        [...word].forEach(ch=>{
-          priority[ch] = (priority[ch] || 0) + 1;
         });
-      });
 
-    const sortedChars =
-      Object.keys(countsNeeded)
-      .sort((a,b)=>
-        (priority[b]||0)-(priority[a]||0)
-      );
+        Object.keys(local).forEach(letter => {
 
-    letters = [];
+            counts[letter] =
+                Math.max(
+                    counts[letter] || 0,
+                    local[letter]
+                );
 
-    for(const ch of sortedChars){
+        });
 
-      const needed = countsNeeded[ch];
-
-      for(let i=0;i<needed;i++){
-
-        if(letters.length < 16){
-          letters.push(ch);
-        }
-      }
-
-      if(letters.length >= 16) break;
-    }
-
-    /*
-      اگر هنوز یک کلمه قابل ساخت نبود،
-      مرحله با مجموعه حروف بیشتری ساخته می‌شود.
-    */
-  }
-
-  wheelLetters = letters;
-
-  return letters;
-}
-
-/* =========================
-   ساخت چرخ
-========================= */
-
-function createLetterWheel(){
-
-  const wheel = $("wheel");
-
-  wheel.querySelectorAll(".letterBtn").forEach(
-    e=>e.remove()
-  );
-
-  const letters = buildWheelLetters();
-
-  const count = letters.length;
-
-  const radius =
-    count <= 8
-      ? 36
-      : count <= 12
-        ? 40
-        : 43;
-
-  letters.forEach((char,index)=>{
-
-    const btn = document.createElement("button");
-
-    btn.className = "letterBtn";
-
-    btn.textContent = char;
-
-    btn.dataset.char = char;
-
-    btn.dataset.index = index;
-
-    const angle =
-      (-90 + (360/count)*index)
-      * Math.PI / 180;
-
-    btn.style.left =
-      (50 + Math.cos(angle)*radius) + "%";
-
-    btn.style.top =
-      (50 + Math.sin(angle)*radius) + "%";
-
-    /*
-      Pointer Events
-    */
-
-    btn.addEventListener("pointerdown",e=>{
-      e.preventDefault();
-      startDrag(btn,e);
     });
 
-    wheel.appendChild(btn);
-  });
+    return counts;
 }
 
-/* =========================
+/* ---------------------------------------------------------
+   ساخت چرخ حروف
+--------------------------------------------------------- */
+
+let letterData = [];
+
+function buildWheel(){
+
+    wheel.querySelectorAll(".letterBtn")
+        .forEach(el => el.remove());
+
+    const counts = maxLetterCounts();
+
+    letterData = [];
+
+    Object.keys(counts).forEach(letter => {
+
+        for(let i=0;i<counts[letter];i++){
+
+            letterData.push({
+                letter:letter,
+                index:letterData.length
+            });
+
+        }
+
+    });
+
+    /*
+      در مراحل با حروف زیاد، اندازه دکمه
+      به صورت خودکار کوچک‌تر می‌شود.
+    */
+
+    let buttonSize = 56;
+
+    if(letterData.length >= 17)
+        buttonSize = 51;
+
+    if(letterData.length >= 21)
+        buttonSize = 46;
+
+    if(letterData.length >= 25)
+        buttonSize = 42;
+
+    if(letterData.length >= 29)
+        buttonSize = 38;
+
+    const rect =
+        wheel.getBoundingClientRect();
+
+    const size =
+        Math.min(rect.width,rect.height);
+
+    let radius =
+        size * .35;
+
+    if(letterData.length >= 21)
+        radius = size * .38;
+
+    if(letterData.length >= 27)
+        radius = size * .40;
+
+    letterData.forEach((item,i)=>{
+
+        const btn =
+            document.createElement("button");
+
+        btn.className =
+            "letterBtn";
+
+        btn.textContent =
+            item.letter;
+
+        btn.dataset.index =
+            i;
+
+        btn.style.width =
+            buttonSize + "px";
+
+        btn.style.height =
+            buttonSize + "px";
+
+        const angle =
+            (-Math.PI/2) +
+            (i / letterData.length) *
+            Math.PI*2;
+
+        const x =
+            size/2 +
+            Math.cos(angle)*radius;
+
+        const y =
+            size/2 +
+            Math.sin(angle)*radius;
+
+        btn.style.left =
+            x + "px";
+
+        btn.style.top =
+            y + "px";
+
+        btn.addEventListener(
+            "pointerdown",
+            e => {
+
+                e.preventDefault();
+
+                startDrag(i,e);
+
+            }
+        );
+
+        wheel.appendChild(btn);
+
+    });
+
+}
+
+/* ---------------------------------------------------------
    شروع کشیدن
-========================= */
+--------------------------------------------------------- */
 
-function startDrag(btn,e){
+function startDrag(index,e){
 
-  if(btn.classList.contains("disabled"))
-    return;
+    if(disabledLetters.has(index))
+        return;
 
-  isDragging = true;
+    dragging = true;
 
-  selectedNodes = [];
-  selectedLetters = [];
+    selectedIndices = [index];
 
-  selectLetter(btn);
+    selectedLetters = [
+        letterData[index].letter
+    ];
 
-  updatePointer(e);
+    pointerX = e.clientX;
+    pointerY = e.clientY;
 
-  document.body.setPointerCapture?.(e.pointerId);
+    refreshSelection();
+
 }
 
-/* =========================
-   انتخاب حرف
-========================= */
-
-function selectLetter(btn){
-
-  if(!btn || btn.classList.contains("disabled"))
-    return;
-
-  if(selectedNodes.includes(btn))
-    return;
-
-  selectedNodes.push(btn);
-  selectedLetters.push(btn.dataset.char);
-
-  btn.classList.add("selected");
-
-  $("currentWord").textContent =
-    selectedLetters.join("");
-
-  drawConnection();
-}
-
-/* =========================
-   تشخیص حرف زیر انگشت
-========================= */
+/* ---------------------------------------------------------
+   تشخیص دکمه زیر انگشت
+--------------------------------------------------------- */
 
 function detectLetterAt(x,y){
 
-  const element =
-    document.elementFromPoint(x,y);
+    const el =
+        document.elementFromPoint(x,y);
 
-  if(!element) return;
+    if(!el)
+        return -1;
 
-  const btn =
-    element.closest?.(".letterBtn");
+    const btn =
+        el.closest(".letterBtn");
 
-  if(btn){
-    selectLetter(btn);
-  }
+    if(!btn)
+        return -1;
+
+    const index =
+        parseInt(btn.dataset.index);
+
+    return Number.isInteger(index)
+        ? index
+        : -1;
 }
 
-/* =========================
+/* ---------------------------------------------------------
    حرکت انگشت
-========================= */
+--------------------------------------------------------- */
 
-document.addEventListener("pointermove",e=>{
+document.addEventListener(
+    "pointermove",
+    e => {
 
-  if(!isDragging) return;
+        if(!dragging)
+            return;
 
-  e.preventDefault();
+        e.preventDefault();
 
-  updatePointer(e);
+        pointerX = e.clientX;
+        pointerY = e.clientY;
 
-  detectLetterAt(
-    e.clientX,
-    e.clientY
-  );
+        const index =
+            detectLetterAt(
+                e.clientX,
+                e.clientY
+            );
 
-  drawConnection();
+        if(
+            index >= 0 &&
+            !disabledLetters.has(index) &&
+            !selectedIndices.includes(index)
+        ){
 
-},{passive:false});
+            selectedIndices.push(index);
 
-/* =========================
+            selectedLetters.push(
+                letterData[index].letter
+            );
+
+            refreshSelection();
+
+        }
+
+        drawConnection();
+
+    },
+    {passive:false}
+);
+
+/* ---------------------------------------------------------
    پایان کشیدن
-========================= */
+--------------------------------------------------------- */
 
-document.addEventListener("pointerup",e=>{
+document.addEventListener(
+    "pointerup",
+    () => {
 
-  if(!isDragging) return;
+        if(!dragging)
+            return;
 
-  isDragging = false;
+        dragging = false;
 
-  updatePointer(e);
+        const formed =
+            selectedLetters.join("");
 
-  submitSelection();
-});
+        if(formed.length >= 2){
 
-document.addEventListener("pointercancel",()=>{
-  if(isDragging){
-    isDragging = false;
-    clearSelection();
-  }
-});
+            submitWord(formed);
 
-/* =========================
-   مختصات اشاره‌گر
-========================= */
+        }
 
-function updatePointer(e){
+        selectedIndices = [];
+        selectedLetters = [];
 
-  const rect =
-    $("gameArea").getBoundingClientRect();
+        refreshSelection();
+        clearCanvas();
 
-  pointerX =
-    e.clientX - rect.left;
+    }
+);
 
-  pointerY =
-    e.clientY - rect.top;
-}
+/* ---------------------------------------------------------
+   نمایش انتخاب
+--------------------------------------------------------- */
 
-/* =========================
-   خط اتصال
-========================= */
+function refreshSelection(){
 
-function drawConnection(){
+    const buttons =
+        wheel.querySelectorAll(".letterBtn");
 
-  const canvas = $("connectionCanvas");
+    buttons.forEach((btn,i)=>{
 
-  const rect =
-    $("gameArea").getBoundingClientRect();
+        btn.classList.toggle(
+            "active",
+            selectedIndices.includes(i)
+        );
 
-  const dpr =
-    Math.min(window.devicePixelRatio || 1,2);
-
-  canvas.width =
-    rect.width*dpr;
-
-  canvas.height =
-    rect.height*dpr;
-
-  canvas.style.width =
-    rect.width+"px";
-
-  canvas.style.height =
-    rect.height+"px";
-
-  const ctx =
-    canvas.getContext("2d");
-
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-
-  ctx.clearRect(
-    0,0,
-    rect.width,
-    rect.height
-  );
-
-  if(selectedNodes.length === 0)
-    return;
-
-  const points =
-    selectedNodes.map(btn=>{
-
-      const r =
-        btn.getBoundingClientRect();
-
-      return {
-        x:r.left+r.width/2-rect.left,
-        y:r.top+r.height/2-rect.top
-      };
     });
 
-  ctx.beginPath();
+    if(selectedLetters.length){
 
-  ctx.lineWidth = 5;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.shadowBlur = 18;
-  ctx.shadowColor = "#a855f7";
-  ctx.strokeStyle = "#c084fc";
+        currentWord.classList.remove("empty");
 
-  ctx.moveTo(
-    points[0].x,
-    points[0].y
-  );
-
-  for(let i=1;i<points.length;i++){
-
-    ctx.lineTo(
-      points[i].x,
-      points[i].y
-    );
-  }
-
-  if(isDragging){
-
-    ctx.lineTo(
-      pointerX,
-      pointerY
-    );
-  }
-
-  ctx.stroke();
-
-  /*
-    نقطه‌های اتصال
-  */
-
-  points.forEach(p=>{
-
-    ctx.beginPath();
-
-    ctx.fillStyle = "#ffffff";
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = "#a855f7";
-
-    ctx.arc(
-      p.x,
-      p.y,
-      4,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-  });
-}
-
-/* =========================
-   پاک کردن انتخاب
-========================= */
-
-function clearSelection(){
-
-  selectedNodes.forEach(
-    btn=>btn.classList.remove("selected")
-  );
-
-  selectedNodes = [];
-  selectedLetters = [];
-
-  $("currentWord").textContent =
-    "حروف را بکش...";
-
-  const canvas = $("connectionCanvas");
-
-  const ctx = canvas.getContext("2d");
-
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-}
-
-/* =========================
-   بررسی کلمه
-========================= */
-
-function submitSelection(){
-
-  const word =
-    selectedLetters.join("");
-
-  if(!word){
-    clearSelection();
-    return;
-  }
-
-  if(levelWords.includes(word)){
-
-    if(solvedWords.includes(word)){
-
-      showToast(
-        "این کلمه قبلاً پیدا شده!",
-        "bad"
-      );
-
-      clearSelection();
-      return;
-    }
-
-    solveWord(word);
-
-  }else{
-
-    checkBonusWord(word);
-  }
-
-  clearSelection();
-}
-
-/* =========================
-   حل کلمه
-========================= */
-
-function solveWord(word){
-
-  solvedWords.push(word);
-
-  saveState();
-
-  let reward =
-    Math.max(
-      4,
-      Math.min(
-        14,
-        word.length * 2
-      )
-    );
-
-  let xp =
-    Math.max(
-      5,
-      word.length * 2
-    );
-
-  if(potionActive){
-
-    reward *= 2;
-    xp *= 2;
-
-    potionActive = false;
-
-    showToast(
-      `🧪 معجون فعال بود! +${faNumber(reward)} سکه`,
-      "good"
-    );
-
-  }else{
-
-    showToast(
-      `✨ کلمه درست! +${faNumber(reward)} سکه`,
-      "good"
-    );
-  }
-
-  addCoins(reward);
-  addXP(xp);
-
-  renderWords();
-
-  flashCorrect();
-  createConfetti(10);
-
-  setTimeout(()=>{
-
-    if(solvedWords.length >= levelWords.length){
-
-      completeLevel();
+        currentWord.textContent =
+            selectedLetters.join("");
 
     }else{
 
-      createLetterWheel();
+        currentWord.classList.add("empty");
+
+        currentWord.textContent =
+            "حروف را بکش و کلمه بساز";
+
     }
 
-  },450);
 }
 
-/* =========================
-   کلمات اضافه
-========================= */
+/* ---------------------------------------------------------
+   خط اتصال
+--------------------------------------------------------- */
 
-function getAllKnownWords(){
+function drawConnection(){
 
-  const all = getLevels();
+    clearCanvas();
 
-  const set = new Set();
+    if(selectedIndices.length === 0)
+        return;
 
-  Object.values(all).forEach(arr=>{
+    const points = [];
 
-    if(Array.isArray(arr)){
+    selectedIndices.forEach(index=>{
 
-      arr.forEach(word=>{
-        if(word) set.add(String(word));
-      });
+        const btn =
+            wheel.querySelector(
+                `.letterBtn[data-index="${index}"]`
+            );
+
+        if(!btn)
+            return;
+
+        const r =
+            btn.getBoundingClientRect();
+
+        points.push({
+            x:r.left+r.width/2,
+            y:r.top+r.height/2
+        });
+
+    });
+
+    if(!points.length)
+        return;
+
+    ctx.beginPath();
+
+    ctx.lineWidth = 7;
+
+    ctx.lineCap = "round";
+
+    ctx.lineJoin = "round";
+
+    ctx.shadowBlur = 18;
+
+    ctx.shadowColor =
+        "rgba(155,100,255,.9)";
+
+    ctx.strokeStyle =
+        "rgba(170,125,255,.85)";
+
+    ctx.moveTo(
+        points[0].x,
+        points[0].y
+    );
+
+    for(let i=1;i<points.length;i++){
+
+        ctx.lineTo(
+            points[i].x,
+            points[i].y
+        );
+
     }
-  });
 
-  return set;
+    ctx.lineTo(pointerX,pointerY);
+
+    ctx.stroke();
+
 }
 
-function checkBonusWord(word){
+function clearCanvas(){
 
-  if(word.length < 2){
-    wrongEffect();
-    return;
-  }
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
-  const known =
-    getAllKnownWords();
+}
 
-  if(
-    known.has(word) &&
-    !bonusWordsUsed.includes(word)
-  ){
+/* ---------------------------------------------------------
+   پاک کردن انتخاب
+--------------------------------------------------------- */
 
-    bonusWordsUsed.push(word);
+function clearSelection(){
+
+    selectedIndices = [];
+
+    selectedLetters = [];
+
+    refreshSelection();
+
+    clearCanvas();
+
+}
+
+/* ---------------------------------------------------------
+   ارسال کلمه
+--------------------------------------------------------- */
+
+function submitWord(rawWord){
+
+    const word =
+        normalizeWord(rawWord);
+
+    if(!word)
+        return;
+
+    const foundIndex =
+        words.findIndex(
+            w => normalizeWord(w) === word
+        );
+
+    if(foundIndex >= 0){
+
+        if(
+            state.solvedWords.includes(foundIndex)
+        ){
+
+            showToast("این کلمه قبلاً پیدا شده است!");
+
+            return;
+        }
+
+        solveWord(
+            foundIndex,
+            word
+        );
+
+        return;
+    }
+
+    handleWrongWord(word);
+
+}
+
+/* ---------------------------------------------------------
+   جواب درست
+--------------------------------------------------------- */
+
+function solveWord(index,word){
+
+    state.solvedWords.push(index);
 
     saveState();
 
-    addCoins(2);
-    addXP(3);
+    let reward =
+        Math.max(
+            4,
+            Math.min(
+                14,
+                word.length * 2
+            )
+        );
 
-    showToast(
-      "🌟 کلمه اضافه! +۲ سکه",
-      "good"
+    let xpReward =
+        Math.max(
+            5,
+            word.length * 2
+        );
+
+    if(bonusPotionActive){
+
+        reward *= 2;
+
+        xpReward *= 2;
+
+        bonusPotionActive = false;
+
+        showToast(
+            `🧪 معجون فعال بود! +${reward} سکه`
+        );
+
+    }else{
+
+        showToast(
+            `✨ درست بود! +${reward} سکه`
+        );
+
+    }
+
+    setCoins(
+        getCoins()+reward
     );
 
-    createConfetti(5);
+    setXP(
+        getXP()+xpReward
+    );
 
-    return;
-  }
+    updateStats();
 
-  wrongEffect();
+    renderWords();
+
+    updateProgress();
+
+    if(
+        state.solvedWords.length >=
+        words.length
+    ){
+
+        completeLevel();
+
+    }
+
 }
 
-/* =========================
-   افکت اشتباه
-========================= */
+/* ---------------------------------------------------------
+   کلمه اشتباه
+--------------------------------------------------------- */
 
-function wrongEffect(){
+function handleWrongWord(word){
 
-  $("currentBox").classList.remove("shake");
+    state.wrongAttempts =
+        (state.wrongAttempts || 0) + 1;
 
-  void $("currentBox").offsetWidth;
+    saveState();
 
-  $("currentBox").classList.add("shake");
+    /*
+      بازی فعلاً محدودیت سخت برای تعداد تلاش ندارد.
+      هر اشتباه فقط پیام می‌دهد.
+    */
 
-  showToast(
-    "❌ این کلمه در این مرحله نیست",
-    "bad"
-  );
+    showToast(
+        "❌ این کلمه در این مرحله نیست"
+    );
+
 }
 
-/* =========================
-   افکت درست
-========================= */
+/* ---------------------------------------------------------
+   نمایش کلمات
+--------------------------------------------------------- */
 
-function flashCorrect(){
+function renderWords(){
 
-  $("currentBox").classList.remove(
-    "correctFlash"
-  );
+    const panel =
+        document.getElementById("wordPanel");
 
-  void $("currentBox").offsetWidth;
+    panel.innerHTML = "";
 
-  $("currentBox").classList.add(
-    "correctFlash"
-  );
+    words.forEach((word,index)=>{
+
+        const box =
+            document.createElement("div");
+
+        box.className =
+            "word";
+
+        const solved =
+            state.solvedWords.includes(index);
+
+        if(solved)
+            box.classList.add("solved");
+
+        const revealed =
+            state.revealed[index] || [];
+
+        [...word].forEach((letter,i)=>{
+
+            const span =
+                document.createElement("span");
+
+            span.className =
+                "wordLetter";
+
+            if(
+                solved ||
+                revealed.includes(i)
+            ){
+
+                span.textContent =
+                    letter;
+
+            }else{
+
+                span.textContent =
+                    "•";
+
+            }
+
+            box.appendChild(span);
+
+        });
+
+        panel.appendChild(box);
+
+    });
+
 }
 
-/* =========================
-   Toast
-========================= */
+/* ---------------------------------------------------------
+   پیشرفت
+--------------------------------------------------------- */
 
-let toastTimer;
+function updateProgress(){
 
-function showToast(text,type=""){
+    const solved =
+        state.solvedWords.length;
 
-  const toast = $("toast");
+    const percent =
+        (solved / words.length)*100;
 
-  toast.textContent = text;
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent + "%";
 
-  toast.className =
-    "toast show " + type;
-
-  clearTimeout(toastTimer);
-
-  toastTimer =
-    setTimeout(()=>{
-      toast.className = "toast";
-    },1800);
 }
 
-/* =========================
-   راهنمایی معمولی
-========================= */
+/* ---------------------------------------------------------
+   راهنمای معمولی
+--------------------------------------------------------- */
 
 function normalHint(){
 
-  const cost = 20;
+    if(
+        state.solvedWords.length >=
+        words.length
+    ){
 
-  if(getCoins() < cost){
+        showToast("همه کلمات پیدا شده‌اند!");
 
-    showToast(
-      "🪙 سکه کافی نداری!",
-      "bad"
+        return;
+    }
+
+    if(getCoins() < 20){
+
+        showToast("🪙 سکه کافی نداری!");
+
+        return;
+    }
+
+    let target = -1;
+
+    for(let i=0;i<words.length;i++){
+
+        if(
+            !state.solvedWords.includes(i)
+        ){
+
+            target = i;
+            break;
+
+        }
+
+    }
+
+    if(target < 0)
+        return;
+
+    const word =
+        words[target];
+
+    const revealed =
+        state.revealed[target] || [];
+
+    let position = 0;
+
+    for(
+        let i=0;
+        i<word.length;
+        i++
+    ){
+
+        if(!revealed.includes(i)){
+
+            position = i;
+
+            break;
+
+        }
+
+    }
+
+    if(!state.revealed[target])
+        state.revealed[target] = [];
+
+    state.revealed[target].push(position);
+
+    setCoins(
+        getCoins()-20
     );
 
-    return;
-  }
+    saveState();
 
-  const target =
-    levelWords.find(
-      w=>!solvedWords.includes(w)
-    );
+    renderWords();
 
-  if(!target) return;
+    updateStats();
 
-  const current =
-    revealed[target] || {};
+    showToast("✨ یک حرف آشکار شد!");
 
-  let indexes =
-    [...target]
-    .map((_,i)=>i)
-    .filter(i=>!current[i]);
-
-  if(!indexes.length){
-
-    showToast(
-      "همه حروف این کلمه نمایان شده‌اند.",
-      "bad"
-    );
-
-    return;
-  }
-
-  const index =
-    indexes[Math.floor(
-      Math.random()*indexes.length
-    )];
-
-  if(!revealed[target])
-    revealed[target] = {};
-
-  revealed[target][index] = true;
-
-  setCoins(getCoins()-cost);
-
-  saveState();
-  renderWords();
-
-  showToast(
-    "✨ یک حرف آشکار شد!",
-    "good"
-  );
 }
 
-/* =========================
-   آیتم یک حرف
-========================= */
+/* ---------------------------------------------------------
+   طلسم یک حرف
+--------------------------------------------------------- */
 
 function useLetterItem(){
 
-  const key =
-    "kalemebaz_hintLetters";
+    const key =
+        "kalemebaz_hintLetters";
 
-  const count =
-    Number(localStorage.getItem(key)) || 0;
+    let count =
+        parseInt(
+            localStorage.getItem(key) || "0"
+        );
 
-  if(count <= 0){
+    if(count <= 0){
 
-    showToast(
-      "🔤 این آیتم را نداری!",
-      "bad"
+        showToast("🔤 طلسم حرف نداری!");
+
+        return;
+    }
+
+    let target = -1;
+
+    for(let i=0;i<words.length;i++){
+
+        if(!state.solvedWords.includes(i)){
+
+            target = i;
+            break;
+
+        }
+
+    }
+
+    if(target < 0)
+        return;
+
+    const word =
+        words[target];
+
+    const revealed =
+        state.revealed[target] || [];
+
+    let position = -1;
+
+    for(let i=0;i<word.length;i++){
+
+        if(!revealed.includes(i)){
+
+            position = i;
+            break;
+
+        }
+
+    }
+
+    if(position < 0)
+        return;
+
+    if(!state.revealed[target])
+        state.revealed[target] = [];
+
+    state.revealed[target].push(position);
+
+    localStorage.setItem(
+        key,
+        count-1
     );
 
-    return;
-  }
+    saveState();
 
-  const target =
-    levelWords.find(
-      w=>!solvedWords.includes(w)
-    );
+    renderWords();
 
-  if(!target) return;
+    updateStats();
 
-  const current =
-    revealed[target] || {};
+    showToast("🔤 یک حرف با طلسم آشکار شد!");
 
-  const indexes =
-    [...target]
-    .map((_,i)=>i)
-    .filter(i=>!current[i]);
-
-  if(!indexes.length){
-
-    showToast(
-      "این کلمه قبلاً کامل راهنمایی شده.",
-      "bad"
-    );
-
-    return;
-  }
-
-  const index =
-    indexes[Math.floor(
-      Math.random()*indexes.length
-    )];
-
-  if(!revealed[target])
-    revealed[target] = {};
-
-  revealed[target][index] = true;
-
-  localStorage.setItem(
-    key,
-    String(count-1)
-  );
-
-  saveState();
-  renderWords();
-  updateStats();
-
-  showToast(
-    "🔤 یک حرف آشکار شد!",
-    "good"
-  );
 }
 
-/* =========================
-   حذف حروف
-========================= */
+/* ---------------------------------------------------------
+   پاک‌کن جادویی
+--------------------------------------------------------- */
 
 function useRemoveItem(){
 
-  const key =
-    "kalemebaz_removeLetters";
+    const key =
+        "kalemebaz_removeLetters";
 
-  const count =
-    Number(localStorage.getItem(key)) || 0;
+    let count =
+        parseInt(
+            localStorage.getItem(key) || "0"
+        );
 
-  if(count <= 0){
+    if(count <= 0){
 
-    showToast(
-      "🧹 این آیتم را نداری!",
-      "bad"
-    );
+        showToast("🧹 پاک‌کن جادویی نداری!");
 
-    return;
-  }
+        return;
+    }
 
-  const useful =
-    new Set();
+    disabledLetters.clear();
 
-  levelWords
-    .filter(w=>!solvedWords.includes(w))
-    .forEach(word=>{
-      [...word].forEach(ch=>{
-        useful.add(ch);
-      });
+    const useful =
+        new Set();
+
+    words.forEach((word,index)=>{
+
+        if(
+            !state.solvedWords.includes(index)
+        ){
+
+            [...word].forEach(letter=>{
+                useful.add(letter);
+            });
+
+        }
+
     });
 
-  let removed = 0;
+    const buttons =
+        [...wheel.querySelectorAll(".letterBtn")];
 
-  document
-    .querySelectorAll(".letterBtn")
-    .forEach(btn=>{
+    let removed = 0;
 
-      if(
-        !useful.has(btn.dataset.char) &&
-        removed < 3
-      ){
+    buttons.forEach((btn,i)=>{
 
-        btn.classList.add("disabled");
+        const letter =
+            letterData[i].letter;
 
-        removed++;
-      }
+        if(
+            !useful.has(letter) &&
+            removed < 3
+        ){
+
+            disabledLetters.add(i);
+
+            btn.classList.add("disabled");
+
+            removed++;
+
+        }
+
     });
 
-  if(removed === 0){
-
-    showToast(
-      "همه حروف فعلی کاربرد دارند.",
-      "bad"
+    localStorage.setItem(
+        key,
+        count-1
     );
 
-    return;
-  }
+    updateStats();
 
-  localStorage.setItem(
-    key,
-    String(count-1)
-  );
+    showToast(
+        `🧹 ${removed} حرف بی‌استفاده پاک شد`
+    );
 
-  updateStats();
-
-  showToast(
-    `🧹 ${faNumber(removed)} حرف حذف شد`,
-    "good"
-  );
 }
 
-/* =========================
+/* ---------------------------------------------------------
    جواب جادویی
-========================= */
+--------------------------------------------------------- */
 
 function useSolveItem(){
 
-  const key =
-    "kalemebaz_solveWords";
+    const key =
+        "kalemebaz_solveWords";
 
-  const count =
-    Number(localStorage.getItem(key)) || 0;
+    let count =
+        parseInt(
+            localStorage.getItem(key) || "0"
+        );
 
-  if(count <= 0){
+    if(count <= 0){
+
+        showToast("💡 جواب جادویی نداری!");
+
+        return;
+    }
+
+    let target = -1;
+
+    for(let i=0;i<words.length;i++){
+
+        if(
+            !state.solvedWords.includes(i)
+        ){
+
+            target = i;
+            break;
+
+        }
+
+    }
+
+    if(target < 0)
+        return;
+
+    state.solvedWords.push(target);
+
+    localStorage.setItem(
+        key,
+        count-1
+    );
+
+    const word =
+        words[target];
+
+    setCoins(
+        getCoins() +
+        Math.max(
+            4,
+            Math.min(
+                14,
+                word.length*2
+            )
+        )
+    );
+
+    setXP(
+        getXP() +
+        Math.max(
+            5,
+            word.length*2
+        )
+    );
+
+    saveState();
+
+    renderWords();
+
+    updateProgress();
+
+    updateStats();
 
     showToast(
-      "💡 این آیتم را نداری!",
-      "bad"
+        `💡 کلمه «${word}» پیدا شد!`
     );
 
-    return;
-  }
+    if(
+        state.solvedWords.length >=
+        words.length
+    ){
 
-  const target =
-    levelWords.find(
-      w=>!solvedWords.includes(w)
-    );
+        setTimeout(
+            completeLevel,
+            500
+        );
 
-  if(!target) return;
+    }
 
-  localStorage.setItem(
-    key,
-    String(count-1)
-  );
-
-  updateStats();
-
-  solveWord(target);
 }
 
-/* =========================
-   معجون
-========================= */
+/* ---------------------------------------------------------
+   معجون جادویی
+--------------------------------------------------------- */
 
 function usePotion(){
 
-  const key =
-    "kalemebaz_magicPotions";
+    const key =
+        "kalemebaz_magicPotions";
 
-  const count =
-    Number(localStorage.getItem(key)) || 0;
+    let count =
+        parseInt(
+            localStorage.getItem(key) || "0"
+        );
 
-  if(count <= 0){
+    if(count <= 0){
 
-    showToast(
-      "🧪 معجون نداری!",
-      "bad"
+        showToast("🧪 معجون نداری!");
+
+        return;
+    }
+
+    localStorage.setItem(
+        key,
+        count-1
     );
 
-    return;
-  }
+    bonusPotionActive = true;
 
-  if(potionActive){
+    updateStats();
 
     showToast(
-      "🧪 معجون از قبل فعال است!",
-      "bad"
+        "🧪 معجون فعال شد! پاداش کلمه بعدی دو برابر است."
     );
 
-    return;
-  }
-
-  localStorage.setItem(
-    key,
-    String(count-1)
-  );
-
-  potionActive = true;
-
-  updateStats();
-
-  showToast(
-    "🧪 معجون فعال شد! پاداش کلمه بعدی دو برابر است.",
-    "good"
-  );
 }
 
-/* =========================
-   تکمیل مرحله
-========================= */
+/* ---------------------------------------------------------
+   پایان مرحله
+--------------------------------------------------------- */
 
 function completeLevel(){
 
-  if(completedBefore)
-    return;
+    if(
+        localStorage.getItem(
+            "kalemebaz_completed_"+level
+        ) === "1"
+    ){
 
-  completedBefore = true;
+        showCompletionModal();
 
-  localStorage.setItem(
-    `kalemebaz_completed_${level}`,
-    "1"
-  );
-
-  let completed =
-    Number(
-      localStorage.getItem(
-        "kalemebaz_completedLevels"
-      )
-    ) || 0;
-
-  localStorage.setItem(
-    "kalemebaz_completedLevels",
-    String(completed+1)
-  );
-
-  addCoins(20);
-  addXP(25);
-
-  const current =
-    Number(
-      localStorage.getItem(
-        "kalemebaz_currentLevel"
-      )
-    ) || 1;
-
-  if(level >= current){
+        return;
+    }
 
     localStorage.setItem(
-      "kalemebaz_currentLevel",
-      String(level+1)
+        "kalemebaz_completed_"+level,
+        "1"
     );
-  }
 
-  $("modalReward").textContent =
-    "🪙 +۲۰ سکه   ⭐ +۲۵ XP";
+    let completed =
+        parseInt(
+            localStorage.getItem(
+                "kalemebaz_completedLevels"
+            ) || "0"
+        );
 
-  $("levelModal").classList.add("show");
+    completed++;
 
-  createConfetti(35);
+    localStorage.setItem(
+        "kalemebaz_completedLevels",
+        completed
+    );
+
+    /*
+      باز کردن مرحله بعد
+    */
+
+    let current =
+        parseInt(
+            localStorage.getItem(
+                "kalemebaz_currentLevel"
+            ) || "1"
+        );
+
+    if(level >= current){
+
+        localStorage.setItem(
+            "kalemebaz_currentLevel",
+            Math.min(
+                TOTAL_LEVELS,
+                level+1
+            )
+        );
+
+    }
+
+    setCoins(
+        getCoins()+20
+    );
+
+    setXP(
+        getXP()+25
+    );
+
+    updateStats();
+
+    showCompletionModal();
+
 }
 
-/* =========================
+/* ---------------------------------------------------------
+   مودال پایان
+--------------------------------------------------------- */
+
+function showCompletionModal(){
+
+    document.getElementById(
+        "rewardText"
+    ).innerHTML = `
+        🎉 همه کلمات مرحله را پیدا کردی!<br><br>
+        🪙 پاداش پایان مرحله: <b>۲۰ سکه</b><br>
+        ⭐ پاداش تجربه: <b>۲۵ XP</b>
+    `;
+
+    document.getElementById(
+        "levelModal"
+    ).classList.add("show");
+
+}
+
+/* ---------------------------------------------------------
    مرحله بعد
-========================= */
+--------------------------------------------------------- */
 
 function nextLevel(){
 
-  const next = level+1;
+    if(level >= TOTAL_LEVELS){
 
-  $("levelModal").classList.remove("show");
+        showToast(
+            "👑 تبریک! تمام ۱۲۰۰ مرحله را کامل کردی!"
+        );
 
-  location.href =
-    "game.html?level=" + next;
+        return;
+    }
+
+    location.href =
+        "game.html?level="+(level+1);
+
 }
 
-/* =========================
-   ناوبری
-========================= */
+/* ---------------------------------------------------------
+   پیام
+--------------------------------------------------------- */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            ()=>toast.classList.remove("show"),
+            2200
+        );
+
+}
+
+/* ---------------------------------------------------------
+   خانه
+--------------------------------------------------------- */
 
 function goHome(){
-  location.href = "index.html";
+
+    location.href =
+        "index.html";
+
 }
+
+/* ---------------------------------------------------------
+   فروشگاه
+--------------------------------------------------------- */
 
 function goShop(){
-  location.href = "shop.html";
+
+    location.href =
+        "shop.html";
+
 }
 
-/* =========================
-   کنفتی
-========================= */
+/* ---------------------------------------------------------
+   شروع بازی
+--------------------------------------------------------- */
 
-function createConfetti(amount){
+function initGame(){
 
-  for(let i=0;i<amount;i++){
+    document.getElementById(
+        "levelTitle"
+    ).textContent =
+        "مرحله " + level;
 
-    const piece =
-      document.createElement("div");
+    let difficulty =
+        "آسان";
 
-    piece.className = "confetti";
+    if(level > 100)
+        difficulty = "متوسط";
 
-    piece.style.left =
-      (window.innerWidth/2) + "px";
+    if(level > 300)
+        difficulty = "سخت";
 
-    piece.style.top =
-      (window.innerHeight*.38) + "px";
+    if(level > 500)
+        difficulty = "خیلی سخت";
 
-    piece.style.setProperty(
-      "--x",
-      ((Math.random()-.5)*280)+"px"
-    );
+    if(level > 800)
+        difficulty = "حرفه‌ای";
 
-    piece.style.setProperty(
-      "--y",
-      (Math.random()*500+100)+"px"
-    );
+    if(level > 1000)
+        difficulty = "افسانه‌ای";
 
-    piece.style.background =
-      [
-        "#a855f7",
-        "#22d3ee",
-        "#facc15",
-        "#4ade80",
-        "#fb7185"
-      ][
-        Math.floor(Math.random()*5)
-      ];
+    document.getElementById(
+        "difficulty"
+    ).textContent =
+        "درجه سختی: " + difficulty;
 
-    document.body.appendChild(piece);
+    updateStats();
+
+    renderWords();
+
+    updateProgress();
+
+    /*
+      یک تأخیر کوتاه برای نمایش صفحه لودینگ
+    */
 
     setTimeout(()=>{
-      piece.remove();
-    },1000);
-  }
+
+        buildWheel();
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+    },350);
+
 }
 
-/* =========================
-   Resize
-========================= */
+/* ---------------------------------------------------------
+   بازسازی چرخ در تغییر اندازه صفحه
+--------------------------------------------------------- */
 
-window.addEventListener(
-  "resize",
-  ()=>{
-    drawConnection();
-  }
+let resizeTimer;
+
+addEventListener(
+    "resize",
+    ()=>{
+
+        clearTimeout(resizeTimer);
+
+        resizeTimer =
+            setTimeout(
+                buildWheel,
+                150
+            );
+
+    }
 );
-
-/* =========================
-   جلوگیری از منوی لمس
-========================= */
-
-document.addEventListener(
-  "contextmenu",
-  e=>e.preventDefault()
-);
-
-/* =========================
-   شروع بازی
-========================= */
-
-function startGame(){
-
-  createStars();
-
-  applySettings();
-
-  loadLevel();
-
-  updateLevelTitle();
-
-  updateStats();
-
-  renderWords();
-
-  createLetterWheel();
-
-  setTimeout(()=>{
-    $("loading").style.display = "none";
-  },450);
-}
-
-startGame();
 
 </script>
 
 </body>
-      </html>
+          </html>
